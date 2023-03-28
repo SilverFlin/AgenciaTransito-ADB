@@ -12,11 +12,11 @@
 
 ### Diagrama Entidad Relación
 
-![DiagramaER](../02_Design//ModelosBD/DiagramaER.png)
+[DiagramaER](../02_Design//ModelosBD/DiagramaER.png)
 
 ### Modelo Relacional
 
-[Modelo Relacional](../02_Design/ModelosBD/ModeloRelacional.md)
+[Modelo Relacional](../02_Design/ModelosBD/ModeloRelacional-Agencia.pdf)
 
 ### Diagrama de clases: Dominio
 
