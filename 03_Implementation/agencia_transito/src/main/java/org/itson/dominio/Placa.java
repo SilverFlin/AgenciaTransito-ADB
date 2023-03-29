@@ -33,7 +33,7 @@ public class Placa extends Tramite {
     @Enumerated(EnumType.STRING)
     private TipoPlaca tipo;
 
-    @OneToOne(mappedBy = "vehiculo")
+    @OneToOne(mappedBy = "placa")
     private Vehiculo vehiculo;
 
     public Placa() {

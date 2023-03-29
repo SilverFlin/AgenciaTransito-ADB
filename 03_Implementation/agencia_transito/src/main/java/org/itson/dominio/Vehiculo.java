@@ -26,7 +26,7 @@ public class Vehiculo implements Serializable {
     private Long id;
 
     @ManyToOne
-    @Column(name = "idPersona", nullable = false)
+    @JoinColumn(name = "idPersona", nullable = false)
     private Persona duenho;
 
     @OneToOne

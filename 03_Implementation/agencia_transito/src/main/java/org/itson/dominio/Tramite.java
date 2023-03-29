@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -29,7 +30,7 @@ public class Tramite implements Serializable {
     private Double costo;
     
     @ManyToOne
-    @Column(name = "idPersona", nullable = false)
+    @JoinColumn(name = "idPersona", nullable = false)
     private Persona tramitante;
 
     public Tramite() {

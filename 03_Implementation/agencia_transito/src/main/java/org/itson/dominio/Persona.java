@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,10 +41,10 @@ public class Persona implements Serializable {
     @Temporal(TemporalType.DATE)
     private Calendar fechaNacimiento;
 
-    @OneToMany(mappedBy = "persona")
+    @OneToMany(mappedBy = "duenho")
     private List<Vehiculo> vehiculos;
 
-    @OneToMany(mappedBy = "tramite")
+    @OneToMany(mappedBy = "tramitante")
     private List<Tramite> tramites;
 
     public Persona() {
