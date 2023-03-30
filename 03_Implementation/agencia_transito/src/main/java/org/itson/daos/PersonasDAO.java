@@ -4,6 +4,7 @@
  */
 package org.itson.daos;
 
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,7 +17,17 @@ import org.itson.dominio.Persona;
  * @author Toled
  */
 public class PersonasDAO {
+    
+    public void insertar(Persona persona){
+        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
+        EntityManager entityManager = managerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        
+        entityManager.persist(persona);
 
+        entityManager.getTransaction().commit();
+    }
+    
     public static List<Persona> buscar() {
         EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
         EntityManager entityManager = managerFactory.createEntityManager();
