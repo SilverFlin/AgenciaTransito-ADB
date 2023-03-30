@@ -17,8 +17,7 @@ import javax.persistence.ManyToOne;
  * @author Toled
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_tramite")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Tramite implements Serializable {
 
     @Id
