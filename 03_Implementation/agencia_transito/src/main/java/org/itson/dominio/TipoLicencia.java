@@ -10,5 +10,5 @@ package org.itson.dominio;
  */
 public enum TipoLicencia {
     DISCAPACITADO,
-    NO_DISCAPACITADO
+    NORMAL
 }
