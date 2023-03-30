@@ -13,3 +13,4 @@ dist/
 nbdist/
 .nb-gradle/
 persistence.xml
+nb-configuration.xml
