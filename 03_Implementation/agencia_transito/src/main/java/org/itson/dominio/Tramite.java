@@ -11,6 +11,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -27,23 +28,29 @@ public class Tramite implements Serializable {
 
     @Column(name = "costo", nullable = false)
     private Double costo;
-    
+
     @ManyToOne
     @JoinColumn(name = "idPersona", nullable = false)
     private Persona tramitante;
 
+    @OneToOne
+    @JoinColumn(name = "idPago", referencedColumnName = "id")
+    private Pago pago;
+
     public Tramite() {
     }
 
-    public Tramite(Double costo, Persona tramitante) {
+    public Tramite(Double costo, Persona tramitante, Pago pago) {
         this.costo = costo;
         this.tramitante = tramitante;
+        this.pago = pago;
     }
 
-    public Tramite(Long id, Double costo, Persona tramitante) {
+    public Tramite(Long id, Double costo, Persona tramitante, Pago pago) {
         this.id = id;
         this.costo = costo;
         this.tramitante = tramitante;
+        this.pago = pago;
     }
 
     public Long getId() {
@@ -68,6 +75,14 @@ public class Tramite implements Serializable {
 
     public void setTramitante(Persona tramitante) {
         this.tramitante = tramitante;
+    }
+
+    public Pago getPago() {
+        return pago;
+    }
+
+    public void setPago(Pago pago) {
+        this.pago = pago;
     }
 
     @Override

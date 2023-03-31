@@ -35,16 +35,16 @@ public class Licencia extends Tramite {
     public Licencia() {
     }
 
-    public Licencia(Calendar fechaInicio, Calendar fechaCaducidad, Integer anhosVigencia, TipoLicencia tipo, Double costo, Persona tramitante) {
-        super(costo, tramitante);
+    public Licencia(Calendar fechaInicio, Calendar fechaCaducidad, Integer anhosVigencia, TipoLicencia tipo, Double costo, Persona tramitante, Pago pago) {
+        super(costo, tramitante, pago);
         this.fechaInicio = fechaInicio;
         this.fechaCaducidad = fechaCaducidad;
         this.anhosVigencia = anhosVigencia;
         this.tipo = tipo;
     }
 
-    public Licencia(Long id, Calendar fechaInicio, Calendar fechaCaducidad, Integer anhosVigencia, TipoLicencia tipo, Double costo, Persona tramitante) {
-        super(id, costo, tramitante);
+    public Licencia(Calendar fechaInicio, Calendar fechaCaducidad, Integer anhosVigencia, TipoLicencia tipo, Long id, Double costo, Persona tramitante, Pago pago) {
+        super(id, costo, tramitante, pago);
         this.fechaInicio = fechaInicio;
         this.fechaCaducidad = fechaCaducidad;
         this.anhosVigencia = anhosVigencia;
