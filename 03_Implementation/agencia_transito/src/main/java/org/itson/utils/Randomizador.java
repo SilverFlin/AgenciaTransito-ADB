@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.utils;
 
 import java.util.Random;
@@ -10,9 +6,15 @@ import java.util.Random;
  *
  * @author Toled
  */
-public class Randomizador {
+public final class Randomizador {
 
-    static final int BASE10 = 10;
+    /**
+     * Base que usa el randomizador.
+     */
+    private static final int BASE10 = 10;
+    /**
+     * Clase necesaria para generar el número aleatorio.
+     */
     private static final Random RAND = new Random();
 
     private Randomizador() {

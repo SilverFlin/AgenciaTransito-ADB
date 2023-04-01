@@ -1,16 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.utils;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Toled
  */
-public class LogsUtils {
+public final class LogsUtils {
+
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER
+            = Logger.getLogger(LogsUtils.class.getName());
 
     private LogsUtils() {
         throw new IllegalStateException("Utility class");
@@ -23,7 +27,8 @@ public class LogsUtils {
      */
     public static <T> void imprimirLista(final List<T> lista) {
         for (Object obj : lista) {
-            System.out.println(obj);
+            String msg = obj.toString();
+            LOGGER.log(Level.INFO, msg);
         }
     }
 }
