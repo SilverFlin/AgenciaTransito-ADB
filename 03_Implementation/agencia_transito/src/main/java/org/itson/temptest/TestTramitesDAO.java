@@ -6,8 +6,8 @@ package org.itson.temptest;
 
 import java.util.List;
 import java.util.Optional;
-import org.itson.daos.DAO;
-import org.itson.daos.TramitesDAO;
+import org.itson.interfaces.DAO;
+import org.itson.daos.TramitesDAOImpl;
 import org.itson.dominio.Tramite;
 import static org.itson.main.Main.imprimirLista;
 
@@ -26,12 +26,12 @@ public class TestTramitesDAO {
 
 
     private static List<Tramite> consultaTramites() {
-        DAO tramitesDAO = new TramitesDAO();
+        DAO tramitesDAO = new TramitesDAOImpl();
         return tramitesDAO.getAll();
     }
 
     private static Optional consultaPrimerTramite() {
-        DAO tramitesDAO = new TramitesDAO();
+        DAO tramitesDAO = new TramitesDAOImpl();
         return tramitesDAO.get(1);
     }
 }

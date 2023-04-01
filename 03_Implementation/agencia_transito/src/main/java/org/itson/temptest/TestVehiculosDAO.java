@@ -6,12 +6,13 @@ package org.itson.temptest;
 
 import java.util.List;
 import java.util.Optional;
-import org.itson.daos.DAO;
-import org.itson.daos.VehiculosDAO;
+import org.itson.interfaces.DAO;
+import org.itson.daos.VehiculosDAOImpl;
 import org.itson.dominio.Automovil;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Vehiculo;
 import org.itson.excepciones.PersistenciaException;
+import org.itson.interfaces.VehiculosDAO;
 import static org.itson.main.Main.getRandomNumber;
 import static org.itson.main.Main.imprimirLista;
 
@@ -37,7 +38,7 @@ public class TestVehiculosDAO {
     private static Vehiculo agregaVehiculoFalso() {
 
         Vehiculo vehiculo = crearVehiculoFalso();
-        DAO vehiculosDAO = new VehiculosDAO();
+        VehiculosDAO vehiculosDAO = new VehiculosDAOImpl();
         try {
             return (Vehiculo) vehiculosDAO.save(vehiculo);
         } catch (PersistenciaException ex) {
@@ -58,13 +59,13 @@ public class TestVehiculosDAO {
         return automovil;
     }
 
-    private static List<Persona> consultaVehiculos() {
-        DAO vehiculosDAO = new VehiculosDAO();
+    private static List<Vehiculo> consultaVehiculos() {
+        VehiculosDAO vehiculosDAO = new VehiculosDAOImpl();
         return vehiculosDAO.getAll();
     }
 
     private static Optional consultaPrimerVehiculo() {
-        DAO vehiculosDAO = new VehiculosDAO();
+        VehiculosDAO vehiculosDAO = new VehiculosDAOImpl();
         return vehiculosDAO.get(1);
     }
 

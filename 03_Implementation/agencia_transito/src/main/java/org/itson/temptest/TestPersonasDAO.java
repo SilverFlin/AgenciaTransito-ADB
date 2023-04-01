@@ -7,8 +7,8 @@ package org.itson.temptest;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
-import org.itson.daos.DAO;
-import org.itson.daos.PersonasDAO;
+import org.itson.interfaces.DAO;
+import org.itson.daos.PersonasDAOImpl;
 import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
 import static org.itson.main.Main.getRandomNumber;
@@ -31,7 +31,7 @@ public class TestPersonasDAO {
 
     public static Persona agregaPersonaFalsa() {
         Persona persona = crearPersonaFalsa();
-        DAO personasDAO = new PersonasDAO();
+        DAO personasDAO = new PersonasDAOImpl();
         try {
             return (Persona) personasDAO.save(persona);
         } catch (PersistenciaException ex) {
@@ -54,7 +54,7 @@ public class TestPersonasDAO {
     }
 
     private static Optional consultaPrimerPersona() {
-        DAO personasDAO = new PersonasDAO();
+        DAO personasDAO = new PersonasDAOImpl();
         return personasDAO.get(1);
     }
 
@@ -63,7 +63,7 @@ public class TestPersonasDAO {
     }
 
     private static List<Persona> consultaPersonas() {
-        DAO personasDAO = new PersonasDAO();
+        DAO personasDAO = new PersonasDAOImpl();
         return personasDAO.getAll();
     }
 }

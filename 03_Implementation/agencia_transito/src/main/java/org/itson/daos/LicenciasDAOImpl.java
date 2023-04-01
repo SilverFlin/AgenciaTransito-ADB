@@ -13,17 +13,18 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.itson.dominio.Licencia;
 import org.itson.excepciones.PersistenciaException;
+import org.itson.interfaces.LicenciasDAO;
 
 /**
  *
  * @author Toled
  */
-public class LicenciasDAO implements DAO<Licencia> {
+public class LicenciasDAOImpl implements LicenciasDAO {
 
     @PersistenceContext(unitName = "agencia_transito")
     private EntityManager entityManager;
 
-    public LicenciasDAO() {
+    public LicenciasDAOImpl() {
         EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
         this.entityManager = managerFactory.createEntityManager();
     }

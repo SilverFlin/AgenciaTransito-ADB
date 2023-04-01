@@ -13,17 +13,18 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
+import org.itson.interfaces.PersonasDAO;
 
 /**
  *
  * @author Toled
  */
-public class PersonasDAO implements DAO<Persona> {
+public class PersonasDAOImpl implements PersonasDAO {
 
     @PersistenceContext(unitName = "agencia_transito")
     private EntityManager entityManager;
 
-    public PersonasDAO() {
+    public PersonasDAOImpl() {
         EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
         this.entityManager = managerFactory.createEntityManager();
     }
@@ -31,6 +32,23 @@ public class PersonasDAO implements DAO<Persona> {
     @Override
     public Optional<Persona> get(long id) {
         return Optional.ofNullable(entityManager.find(Persona.class, id));
+    }
+
+    @Override
+    public Persona getByRFC(String RFC) {
+        TypedQuery<Persona> query = entityManager.createNamedQuery("personaPorRFC", Persona.class);
+        query.setParameter("RFC", RFC);
+        return (Persona) query.getResultList();
+    }
+
+    @Override
+    public List<Persona> getByNombre(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Persona> getByAnho(int anho) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -65,4 +83,5 @@ public class PersonasDAO implements DAO<Persona> {
     public Persona delete(Persona t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
 }

@@ -11,57 +11,56 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.itson.dominio.Placa;
+import org.itson.dominio.Tramite;
 import org.itson.excepciones.PersistenciaException;
+import org.itson.interfaces.TramitesDAO;
+import org.itson.utils.FiltrosTramites;
 
 /**
  *
  * @author Toled
  */
-public class PlacasDAO implements DAO<Placa> {
+public class TramitesDAOImpl implements TramitesDAO {
 
     @PersistenceContext(unitName = "agencia_transito")
     private EntityManager entityManager;
 
-    public PlacasDAO() {
+    public TramitesDAOImpl() {
         EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
         this.entityManager = managerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Placa> get(long id) {
-        return Optional.ofNullable(entityManager.find(Placa.class, id));
+    public Optional<Tramite> get(long id) {
+        return Optional.ofNullable(entityManager.find(Tramite.class, id));
     }
 
     @Override
-    public List<Placa> getAll() {
-        String codigoJPQL = "SELECT p FROM Placa p ";
-        TypedQuery<Placa> query = entityManager.createQuery(codigoJPQL, Placa.class);
+    public List<Tramite> getAll() {
+        String codigoJPQL = "SELECT t FROM Tramite t ";
+        TypedQuery<Tramite> query = entityManager.createQuery(codigoJPQL, Tramite.class);
 
         return query.getResultList();
     }
 
     @Override
-    public Placa save(Placa placa) throws PersistenciaException {
-        try {
-            entityManager.getTransaction().begin();
-
-            entityManager.persist(placa);
-
-            entityManager.getTransaction().commit();
-            return placa;
-        } catch (Exception e) {
-            throw new PersistenciaException("Error al guardar placa");
-        }
-    }
-
-    @Override
-    public Placa update(Placa t, String[] params) {
+    public List<Tramite> getAll(FiltrosTramites filtros) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Placa delete(Placa t) {
+    public Tramite save(Tramite tramite) throws PersistenciaException {
+        throw new PersistenciaException("No se pueden guardar registros de Tramite");
+    }
+
+    @Override
+    public Tramite update(Tramite t, String[] params) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public Tramite delete(Tramite t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

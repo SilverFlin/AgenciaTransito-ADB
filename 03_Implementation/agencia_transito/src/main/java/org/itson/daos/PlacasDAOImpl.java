@@ -11,49 +11,58 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.itson.dominio.Tramite;
+import org.itson.dominio.Placa;
 import org.itson.excepciones.PersistenciaException;
+import org.itson.interfaces.PlacasDAO;
 
 /**
  *
  * @author Toled
  */
-public class TramitesDAO implements DAO<Tramite> {
+public class PlacasDAOImpl implements PlacasDAO {
 
     @PersistenceContext(unitName = "agencia_transito")
     private EntityManager entityManager;
 
-    public TramitesDAO() {
+    public PlacasDAOImpl() {
         EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
         this.entityManager = managerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Tramite> get(long id) {
-        return Optional.ofNullable(entityManager.find(Tramite.class, id));
+    public Optional<Placa> get(long id) {
+        return Optional.ofNullable(entityManager.find(Placa.class, id));
     }
 
     @Override
-    public List<Tramite> getAll() {
-        String codigoJPQL = "SELECT t FROM Tramite t ";
-        TypedQuery<Tramite> query = entityManager.createQuery(codigoJPQL, Tramite.class);
+    public List<Placa> getAll() {
+        String codigoJPQL = "SELECT p FROM Placa p ";
+        TypedQuery<Placa> query = entityManager.createQuery(codigoJPQL, Placa.class);
 
         return query.getResultList();
     }
 
     @Override
-    public Tramite save(Tramite tramite) throws PersistenciaException {
-        throw new PersistenciaException("No se pueden guardar registros de Tramite");
+    public Placa save(Placa placa) throws PersistenciaException {
+        try {
+            entityManager.getTransaction().begin();
+
+            entityManager.persist(placa);
+
+            entityManager.getTransaction().commit();
+            return placa;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al guardar placa");
+        }
     }
 
     @Override
-    public Tramite update(Tramite t, String[] params) {
+    public Placa update(Placa t, String[] params) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Tramite delete(Tramite t) {
+    public Placa delete(Placa t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 }
