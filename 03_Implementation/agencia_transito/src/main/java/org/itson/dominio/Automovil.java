@@ -11,17 +11,40 @@ import javax.persistence.Entity;
 @DiscriminatorValue("automovil")
 public class Automovil extends Vehiculo {
 
+    /**
+     * Constructor vacío.
+     */
     public Automovil() {
     }
 
-    public Automovil(Persona duenho, Placa placa, String numeroSerie, String linea, String marca, String modelo, String color) {
+    /**
+     * Constructor que no incluye ID.
+     *
+     * @param duenho
+     * @param placa
+     * @param numeroSerie
+     * @param linea
+     * @param marca
+     * @param modelo
+     * @param color
+     */
+    public Automovil(
+            final Persona duenho,
+            final Placa placa,
+            final String numeroSerie,
+            final String linea,
+            final String marca,
+            final String modelo,
+            final String color
+    ) {
         super(duenho, placa, numeroSerie, linea, marca, modelo, color);
     }
 
-    public Automovil(Long id, Persona duenho, Placa placa, String numeroSerie, String linea, String marca, String modelo, String color) {
-        super(id, duenho, placa, numeroSerie, linea, marca, modelo, color);
-    }
-
+    /**
+     * Agarra todos los parámetros de la padre, que no especifica la clase.
+     *
+     * @return los atributos de la clase.
+     */
     @Override
     public String toString() {
         return "Automovil{" + super.toString() + '}';

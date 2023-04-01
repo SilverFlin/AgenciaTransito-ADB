@@ -18,69 +18,125 @@ import javax.persistence.TemporalType;
 @Entity
 public class Pago implements Serializable {
 
+    /**
+     * Llave principal, tipo de generación: Identidad.
+     */
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Columna fechaPago, requerido.
+     */
     @Column(name = "fechaPago", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaPago;
 
+    /**
+     * Columna monto, requerido.
+     */
     @Column(name = "monto", nullable = false)
     private Double monto;
 
+    /**
+     * Trámite relacionado, OneToOne.
+     */
     @OneToOne(mappedBy = "pago")
     private Tramite tramite;
 
+    /**
+     * Constructor vacío.
+     */
     public Pago() {
     }
 
-    public Pago(Calendar fechaPago, Double monto, Tramite tramite) {
+    /**
+     * Constructor que no incluye ID.
+     *
+     * @param fechaPago
+     * @param monto
+     * @param tramite
+     */
+    public Pago(
+            final Calendar fechaPago,
+            final Double monto,
+            final Tramite tramite
+    ) {
         this.fechaPago = fechaPago;
         this.monto = monto;
         this.tramite = tramite;
     }
 
-    public Pago(Long id, Calendar fechaPago, Double monto, Tramite tramite) {
-        this.id = id;
-        this.fechaPago = fechaPago;
-        this.monto = monto;
-        this.tramite = tramite;
-    }
-
+    /**
+     *
+     * @return Llave primaria de la entidad.
+     */
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    /**
+     *
+     * @param id
+     */
+    public void setId(final Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return Fecha de pago.
+     */
     public Calendar getFechaPago() {
         return fechaPago;
     }
 
-    public void setFechaPago(Calendar fechaPago) {
+    /**
+     *
+     * @param fechaPago
+     */
+    public void setFechaPago(final Calendar fechaPago) {
         this.fechaPago = fechaPago;
     }
 
+    /**
+     *
+     * @return Monto del pago.
+     */
     public Double getMonto() {
         return monto;
     }
 
-    public void setMonto(Double monto) {
+    /**
+     *
+     * @param monto
+     */
+    public void setMonto(final Double monto) {
         this.monto = monto;
     }
 
+    /**
+     *
+     * @return Trámite relacionado.
+     */
     public Tramite getTramite() {
         return tramite;
     }
 
-    public void setTramite(Tramite tramite) {
+    /**
+     *
+     * @param tramite
+     */
+    public void setTramite(final Tramite tramite) {
         this.tramite = tramite;
     }
 
+    /**
+     * hashcode por defecto.
+     *
+     * @return hashcode.
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -88,22 +144,33 @@ public class Pago implements Serializable {
         return hash;
     }
 
+    /**
+     * equals por defecto.
+     *
+     * @param object
+     * @return Si las entidades son iguales.
+     */
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+    public boolean equals(final Object object) {
         if (!(object instanceof Pago)) {
             return false;
         }
         Pago other = (Pago) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null)
+                || (this.id != null && !this.id.equals(other.id)));
     }
 
+    /**
+     * Incluye los atributos de la clase.
+     *
+     * @return Los atributos de la clase.
+     */
     @Override
     public String toString() {
-        return "Pago{" + "id=" + id + ", fechaPago=" + fechaPago + ", monto=" + monto + '}';
+        return "Pago{" + "id=" + id
+                + ", fechaPago=" + fechaPago
+                + ", monto=" + monto
+                + '}';
     }
 
 }

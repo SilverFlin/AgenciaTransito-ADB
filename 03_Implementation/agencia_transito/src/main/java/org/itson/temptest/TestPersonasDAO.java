@@ -70,7 +70,7 @@ public final class TestPersonasDAO {
                 new GregorianCalendar(anhoPrueba, mesPrueba, diaPrueba)
         );
         final int longitudRfc = 13;
-        persona.setRFC(getRandomNumber(longitudRfc));
+        persona.setRfc(getRandomNumber(longitudRfc));
         persona.setTelefono("123123123");
 
         return persona;

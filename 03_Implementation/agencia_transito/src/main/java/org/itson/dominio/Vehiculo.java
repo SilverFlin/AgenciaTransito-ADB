@@ -20,38 +20,89 @@ import javax.persistence.OneToOne;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Vehiculo implements Serializable {
 
+    /**
+     * Longitud máxima por defecto para los atributos que serán varchar.
+     */
+    private static final int LONGITUD_DEFAULT = 100;
+
+    /**
+     * Llave principal, tipo de generación: Identidad.
+     */
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Llave foránea, ManyToOne, requerido.
+     */
     @ManyToOne
     @JoinColumn(name = "idPersona", nullable = false)
     private Persona duenho;
 
+    /**
+     * Llave foránea,OneToOne, no es requerido.
+     */
     @OneToOne
-    @JoinColumn(name = "idPlaca", referencedColumnName = "id",nullable = true)
+    @JoinColumn(name = "idPlaca", referencedColumnName = "id", nullable = true)
     private Placa placa;
 
-    @Column(name = "numeroSerie", nullable = false, length = 100)
+    /**
+     * Columna numeroSerie, con límite default, requerido.
+     */
+    @Column(name = "numeroSerie", nullable = false, length = LONGITUD_DEFAULT)
     private String numeroSerie;
 
-    @Column(name = "linea", nullable = false, length = 100)
+    /**
+     * Columna linea, con límite default, requerido.
+     */
+    @Column(name = "linea", nullable = false, length = LONGITUD_DEFAULT)
     private String linea;
 
-    @Column(name = "marca", nullable = false, length = 100)
+    /**
+     * Columna linea, marca con límite de 100 caracteres, requerido.
+     */
+    @Column(name = "marca", nullable = false, length = LONGITUD_DEFAULT)
     private String marca;
 
-    @Column(name = "modelo", nullable = false, length = 100)
+    /**
+     * Columna linea, modelo con límite de 100 caracteres, requerido.
+     */
+    @Column(name = "modelo", nullable = false, length = LONGITUD_DEFAULT)
     private String modelo;
 
-    @Column(name = "color", nullable = false, length = 100)
+    /**
+     * Columna linea, color con límite de 100 caracteres, requerido.
+     */
+    @Column(name = "color", nullable = false, length = LONGITUD_DEFAULT)
     private String color;
 
+    /**
+     * Constructor vacío.
+     */
     public Vehiculo() {
     }
 
-    public Vehiculo(Persona duenho, Placa placa, String numeroSerie, String linea, String marca, String modelo, String color) {
+    /**
+     * Constructor que no incluye ID.
+     *
+     * @param duenho
+     * @param placa
+     * @param numeroSerie
+     * @param linea
+     * @param marca
+     * @param modelo
+     * @param color
+     */
+    public Vehiculo(
+            final Persona duenho,
+            final Placa placa,
+            final String numeroSerie,
+            final String linea,
+            final String marca,
+            final String modelo,
+            final String color
+    ) {
         this.duenho = duenho;
         this.placa = placa;
         this.numeroSerie = numeroSerie;
@@ -61,81 +112,139 @@ public class Vehiculo implements Serializable {
         this.color = color;
     }
 
-    public Vehiculo(Long id, Persona duenho, Placa placa, String numeroSerie, String linea, String marca, String modelo, String color) {
-        this.id = id;
-        this.duenho = duenho;
-        this.placa = placa;
-        this.numeroSerie = numeroSerie;
-        this.linea = linea;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.color = color;
-    }
-
+    /**
+     *
+     * @return Llave primaria de la entidad.
+     */
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    /**
+     *
+     * @param id
+     */
+    public void setId(final Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return Clase Persona que representa al dueño del vehículo.
+     */
     public Persona getDuenho() {
         return duenho;
     }
 
-    public void setDuenho(Persona duenho) {
+    /**
+     *
+     * @param duenho
+     */
+    public void setDuenho(final Persona duenho) {
         this.duenho = duenho;
     }
 
+    /**
+     *
+     * @return Clase Placa asociada al vehículo.
+     */
     public Placa getPlaca() {
         return placa;
     }
 
-    public void setPlaca(Placa placa) {
+    /**
+     *
+     * @param placa
+     */
+    public void setPlaca(final Placa placa) {
         this.placa = placa;
     }
 
+    /**
+     *
+     * @return Número serie.
+     */
     public String getNumeroSerie() {
         return numeroSerie;
     }
 
-    public void setNumeroSerie(String numeroSerie) {
+    /**
+     *
+     * @param numeroSerie
+     */
+    public void setNumeroSerie(final String numeroSerie) {
         this.numeroSerie = numeroSerie;
     }
 
+    /**
+     *
+     * @return Linea del vehículo, e.g. Aveo.
+     */
     public String getLinea() {
         return linea;
     }
 
-    public void setLinea(String linea) {
+    /**
+     *
+     * @param linea
+     */
+    public void setLinea(final String linea) {
         this.linea = linea;
     }
 
+    /**
+     *
+     * @return Marca del vehículo, e.g. Chevrolet.
+     */
     public String getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    /**
+     *
+     * @param marca
+     */
+    public void setMarca(final String marca) {
         this.marca = marca;
     }
 
+    /**
+     *
+     * @return Modelo del vehiculo, e.g. 2019
+     */
     public String getModelo() {
         return modelo;
     }
 
-    public void setModelo(String modelo) {
+    /**
+     *
+     * @param modelo
+     */
+    public void setModelo(final String modelo) {
         this.modelo = modelo;
     }
 
+    /**
+     *
+     * @return Color del vehículo, e.g. Rojo.
+     */
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    /**
+     *
+     * @param color
+     */
+    public void setColor(final String color) {
         this.color = color;
     }
 
+    /**
+     * hashcode por defecto.
+     *
+     * @return hashcode.
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -143,22 +252,38 @@ public class Vehiculo implements Serializable {
         return hash;
     }
 
+    /**
+     * equals por defecto.
+     *
+     * @param object
+     * @return Si las entidades son iguales.
+     */
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+    public boolean equals(final Object object) {
         if (!(object instanceof Vehiculo)) {
             return false;
         }
+
         Vehiculo other = (Vehiculo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null)
+                || (this.id != null && !this.id.equals(other.id)));
+
     }
 
+    /**
+     * Incluye los atributos menos la especificacion de la clase, ya que hereda.
+     *
+     * @return Los atributos de la clase.
+     */
     @Override
     public String toString() {
-        return "id=" + id + ", duenho=" + duenho.getRFC() +  ", numeroSerie=" + numeroSerie + ", linea=" + linea + ", marca=" + marca + ", modelo=" + modelo + ", color=" + color;
+        return "id=" + id
+                + ", duenho=" + duenho.getRfc()
+                + ", numeroSerie=" + numeroSerie
+                + ", linea=" + linea
+                + ", marca=" + marca
+                + ", modelo=" + modelo
+                + ", color=" + color;
     }
 
 }
