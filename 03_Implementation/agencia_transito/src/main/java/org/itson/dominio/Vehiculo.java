@@ -30,7 +30,7 @@ public class Vehiculo implements Serializable {
     private Persona duenho;
 
     @OneToOne
-    @JoinColumn(name = "idPlaca", referencedColumnName = "id")
+    @JoinColumn(name = "idPlaca", referencedColumnName = "id",nullable = true)
     private Placa placa;
 
     @Column(name = "numeroSerie", nullable = false, length = 100)
@@ -158,7 +158,7 @@ public class Vehiculo implements Serializable {
 
     @Override
     public String toString() {
-        return "id=" + id + ", duenho=" + duenho.getRFC() + ", placa=" + placa.getMatricula() + ", numeroSerie=" + numeroSerie + ", linea=" + linea + ", marca=" + marca + ", modelo=" + modelo + ", color=" + color;
+        return "id=" + id + ", duenho=" + duenho.getRFC() +  ", numeroSerie=" + numeroSerie + ", linea=" + linea + ", marca=" + marca + ", modelo=" + modelo + ", color=" + color;
     }
 
 }
