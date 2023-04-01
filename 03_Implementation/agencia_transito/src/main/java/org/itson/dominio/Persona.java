@@ -42,7 +42,7 @@ public class Persona implements Serializable {
     @Temporal(TemporalType.DATE)
     private Calendar fechaNacimiento;
     
-    @Column(name = "telefono", nullable = true, length = 20)
+    @Column(name = "telefono", nullable = true, length = 10)
     private String telefono;
     
     @OneToMany(mappedBy = "duenho")
