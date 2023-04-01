@@ -4,8 +4,6 @@
  */
 package org.itson.daos;
 
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
@@ -56,7 +54,6 @@ public class PersonasDAO implements DAO<Persona> {
         } catch (Exception e) {
             throw new PersistenciaException("Error al guardar persona");
         }
-
     }
 
     @Override
