@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -29,18 +30,23 @@ public class Pago implements Serializable {
     @Column(name = "monto", nullable = false)
     private Double monto;
 
+    @OneToOne(mappedBy = "pago")
+    private Tramite tramite;
+
     public Pago() {
     }
 
-    public Pago(Calendar fechaPago, Double monto) {
+    public Pago(Calendar fechaPago, Double monto, Tramite tramite) {
         this.fechaPago = fechaPago;
         this.monto = monto;
+        this.tramite = tramite;
     }
 
-    public Pago(Long id, Calendar fechaPago, Double monto) {
+    public Pago(Long id, Calendar fechaPago, Double monto, Tramite tramite) {
         this.id = id;
         this.fechaPago = fechaPago;
         this.monto = monto;
+        this.tramite = tramite;
     }
 
     public Long getId() {
@@ -65,6 +71,14 @@ public class Pago implements Serializable {
 
     public void setMonto(Double monto) {
         this.monto = monto;
+    }
+
+    public Tramite getTramite() {
+        return tramite;
+    }
+
+    public void setTramite(Tramite tramite) {
+        this.tramite = tramite;
     }
 
     @Override

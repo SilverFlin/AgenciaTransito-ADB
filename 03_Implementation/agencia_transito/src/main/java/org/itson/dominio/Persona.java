@@ -3,6 +3,7 @@ package org.itson.dominio;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -138,6 +139,16 @@ public class Persona implements Serializable {
         this.tramites = tramites;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -163,7 +174,8 @@ public class Persona implements Serializable {
         return "Persona{" + "id=" + id + ", RFC=" + RFC + ", nombres="
                 + nombres + ", apellidoPaterno=" + apellidoPaterno
                 + ", apellidoMaterno=" + apellidoMaterno
-                + ", fechaNacimiento=" + fechaNacimiento
+                + ", fechaNacimiento=" + fechaNacimiento.getTime()
+                + ", telefono=" + telefono
                 + '}';
     }
 

@@ -39,20 +39,22 @@ public class Placa extends Tramite {
     public Placa() {
     }
 
-    public Placa(String matricula, Calendar fechaEmision, Calendar fechaRecepcion, TipoPlaca tipo, Double costo, Persona tramitante) {
-        super(costo, tramitante);
+    public Placa(String matricula, Calendar fechaEmision, Calendar fechaRecepcion, TipoPlaca tipo, Vehiculo vehiculo, Double costo, Persona tramitante, Pago pago) {
+        super(costo, tramitante, pago);
         this.matricula = matricula;
         this.fechaEmision = fechaEmision;
         this.fechaRecepcion = fechaRecepcion;
         this.tipo = tipo;
+        this.vehiculo = vehiculo;
     }
 
-    public Placa(Long id, String matricula, Calendar fechaEmision, Calendar fechaRecepcion, TipoPlaca tipo, Double costo, Persona tramitante) {
-        super(id, costo, tramitante);
+    public Placa(String matricula, Calendar fechaEmision, Calendar fechaRecepcion, TipoPlaca tipo, Vehiculo vehiculo, Long id, Double costo, Persona tramitante, Pago pago) {
+        super(id, costo, tramitante, pago);
         this.matricula = matricula;
         this.fechaEmision = fechaEmision;
         this.fechaRecepcion = fechaRecepcion;
         this.tipo = tipo;
+        this.vehiculo = vehiculo;
     }
 
     public String getMatricula() {

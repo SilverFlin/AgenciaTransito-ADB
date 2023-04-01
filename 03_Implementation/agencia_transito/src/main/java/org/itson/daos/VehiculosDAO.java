@@ -4,8 +4,6 @@
  */
 package org.itson.daos;
 
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
@@ -13,59 +11,59 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.itson.dominio.Persona;
+import org.itson.dominio.Automovil;
+import org.itson.dominio.Vehiculo;
 import org.itson.excepciones.PersistenciaException;
 
 /**
  *
  * @author Toled
  */
-public class PersonasDAO implements DAO<Persona> {
+public class VehiculosDAO implements DAO<Vehiculo> {
 
     @PersistenceContext(unitName = "agencia_transito")
     private EntityManager entityManager;
 
-    public PersonasDAO() {
+    public VehiculosDAO() {
         EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
         this.entityManager = managerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Persona> get(long id) {
-        return Optional.ofNullable(entityManager.find(Persona.class, id));
+    public Optional<Vehiculo> get(long id) {
+        return Optional.ofNullable(entityManager.find(Vehiculo.class, id));
     }
 
     @Override
-    public List<Persona> getAll() {
-
-        String codigoJPQL = "SELECT p FROM Persona p ";
-        TypedQuery<Persona> query = entityManager.createQuery(codigoJPQL, Persona.class);
+    public List<Vehiculo> getAll() {
+        String codigoJPQL = "SELECT v FROM Vehiculo v ";
+        TypedQuery<Vehiculo> query = entityManager.createQuery(codigoJPQL, Vehiculo.class);
 
         return query.getResultList();
     }
 
     @Override
-    public Persona save(Persona persona) throws PersistenciaException {
+    public Vehiculo save(Vehiculo vehiculo) throws PersistenciaException {
         try {
             entityManager.getTransaction().begin();
 
-            entityManager.persist(persona);
+            entityManager.persist(vehiculo);
 
             entityManager.getTransaction().commit();
-            return persona;
+            return vehiculo;
         } catch (Exception e) {
-            throw new PersistenciaException("Error al guardar persona");
+            throw new PersistenciaException("Error al guardar vehiculo: " + e.getMessage());
         }
-
     }
 
     @Override
-    public Persona update(Persona t, String[] params) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Vehiculo update(Vehiculo t, String[] params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Persona delete(Persona t) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Vehiculo delete(Vehiculo t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 }
