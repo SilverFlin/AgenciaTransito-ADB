@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         TestTramitesDAO.probarTramitesDAO();
-    
+    }
 
     // Pseudo-pruebas 
     // TODO pasar a unit test
