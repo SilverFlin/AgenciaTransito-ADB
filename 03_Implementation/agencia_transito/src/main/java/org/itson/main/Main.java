@@ -1,12 +1,21 @@
 package org.itson.main;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Toled
  */
 final class Main {
 
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
     private Main() {
+        throw new IllegalStateException("Utility class");
     }
 
     /**
@@ -15,7 +24,7 @@ final class Main {
      * @param args
      */
     public static void main(final String[] args) {
-        // TODO
+        LOGGER.log(Level.INFO, "Iniciando App");
     }
 
 }

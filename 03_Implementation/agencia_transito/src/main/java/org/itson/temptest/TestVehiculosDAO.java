@@ -1,38 +1,49 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.temptest;
 
 import java.util.List;
 import java.util.Optional;
-import org.itson.interfaces.DAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.itson.daos.VehiculosDAOImpl;
 import org.itson.dominio.Automovil;
-import org.itson.dominio.Persona;
 import org.itson.dominio.Vehiculo;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.VehiculosDAO;
-import static org.itson.main.Main.getRandomNumber;
-import static org.itson.main.Main.imprimirLista;
+import static org.itson.utils.LogsUtils.imprimirLista;
+import static org.itson.utils.Randomizador.getRandomNumber;
 
 /**
  *
  * @author Toled
  */
-public class TestVehiculosDAO {
+public final class TestVehiculosDAO {
 
+    // TODO Mover a Prueba Unitaria
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER
+            = Logger.getLogger(TestVehiculosDAO.class.getName());
+
+    private TestVehiculosDAO() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * Prueba el agregar y consultar de TramitesDAO.
+     */
     public static void probarVehiculosDAO() {
-        System.out.println("Agregar Vehiculo falso:");
+        LOGGER.log(Level.INFO, "Agregar Vehiculo falso:");
         agregaVehiculoFalso();
-        System.out.println("\nConsultar Vehiculos");
+        LOGGER.log(Level.INFO, "\nConsultar Vehiculos");
         imprimirLista(consultaVehiculos());
-        System.out.println("\nConsultar vehiculo id=1:");
-        System.out.println(consultaPrimerVehiculo());
+        LOGGER.log(Level.INFO, "\nConsultar vehiculo id=1:");
+        LOGGER.log(Level.INFO, consultaPrimerVehiculo().toString());
     }
 
     private static String getRandomNoSerie() {
-        return getRandomNumber(17);
+        final int longitudNoSerie = 17;
+        return getRandomNumber(longitudNoSerie);
     }
 
     private static Vehiculo agregaVehiculoFalso() {
@@ -42,7 +53,7 @@ public class TestVehiculosDAO {
         try {
             return (Vehiculo) vehiculosDAO.save(vehiculo);
         } catch (PersistenciaException ex) {
-            System.out.println(ex.getMessage());
+            LOGGER.log(Level.INFO, ex.getMessage());
             return null;
         }
 
@@ -64,7 +75,7 @@ public class TestVehiculosDAO {
         return vehiculosDAO.getAll();
     }
 
-    private static Optional consultaPrimerVehiculo() {
+    private static Optional<Vehiculo> consultaPrimerVehiculo() {
         VehiculosDAO vehiculosDAO = new VehiculosDAOImpl();
         return vehiculosDAO.get(1);
     }

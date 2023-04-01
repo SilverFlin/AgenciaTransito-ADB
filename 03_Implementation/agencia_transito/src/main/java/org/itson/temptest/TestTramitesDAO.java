@@ -1,36 +1,47 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.temptest;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.itson.interfaces.DAO;
 import org.itson.daos.TramitesDAOImpl;
 import org.itson.dominio.Tramite;
-import static org.itson.main.Main.imprimirLista;
+import static org.itson.utils.LogsUtils.imprimirLista;
 
 /**
  *
  * @author Toled
  */
-public class TestTramitesDAO {
+public final class TestTramitesDAO {
 
-    public static void probarTramitesDAO() {
-        System.out.println("\nConsultar Tramites");
-        imprimirLista(consultaTramites());
-        System.out.println("\nConsultar tramite id=1:");
-        System.out.println(consultaPrimerTramite());
+    // TODO Mover a Prueba Unitaria
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER
+            = Logger.getLogger(TestTramitesDAO.class.getName());
+
+    private TestTramitesDAO() {
+        throw new IllegalStateException("Utility class");
     }
 
+    /**
+     * Prueba el agregar y consultar de TramitesDAO.
+     */
+    public static void probarTramitesDAO() {
+        LOGGER.log(Level.INFO, "\nConsultar Tramites");
+        imprimirLista(consultaTramites());
+        LOGGER.log(Level.INFO, "\nConsultar tramite id=1:");
+        LOGGER.log(Level.INFO, consultaPrimerTramite().toString());
+    }
 
     private static List<Tramite> consultaTramites() {
         DAO tramitesDAO = new TramitesDAOImpl();
         return tramitesDAO.getAll();
     }
 
-    private static Optional consultaPrimerTramite() {
+    private static Optional<Tramite> consultaPrimerTramite() {
         DAO tramitesDAO = new TramitesDAOImpl();
         return tramitesDAO.get(1);
     }

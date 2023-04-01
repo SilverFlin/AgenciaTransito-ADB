@@ -1,41 +1,58 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.temptest;
 
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.itson.interfaces.DAO;
 import org.itson.daos.PersonasDAOImpl;
 import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
-import static org.itson.main.Main.getRandomNumber;
-import static org.itson.main.Main.imprimirLista;
+import static org.itson.utils.LogsUtils.imprimirLista;
+import static org.itson.utils.Randomizador.getRandomNumber;
 
 /**
  *
  * @author Toled
  */
-public class TestPersonasDAO {
+public final class TestPersonasDAO {
 
-    public static void probarPersonasDAO() {
-        System.out.println("Agregar Persona falsa:");
-        agregaPersonaFalsa();
-        System.out.println("\nConsultar Personas");
-        imprimirLista(consultaPersonas());
-        System.out.println("\nConsultar persona id=1:");
-        System.out.println(consultaPrimerPersona());
+    // TODO Mover a Prueba Unitaria
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER
+            = Logger.getLogger(TestPersonasDAO.class.getName());
+
+    private TestPersonasDAO() {
+        throw new IllegalStateException("Utility class");
     }
 
+    /**
+     * Prueba el agregar y consultar de PersonasDAO.
+     */
+    public static void probarPersonasDAO() {
+        LOGGER.log(Level.INFO, "Agregar Persona falsa:");
+        agregaPersonaFalsa();
+        LOGGER.log(Level.INFO, "\nConsultar Personas");
+        imprimirLista(consultaPersonas());
+        LOGGER.log(Level.INFO, "\nConsultar persona id=1:");
+        LOGGER.log(Level.INFO, consultaPrimerPersona().toString());
+    }
+
+    /**
+     * Persiste una persona falsa con fines de pruebas y la regresa.
+     *
+     * @return La persona creada.
+     */
     public static Persona agregaPersonaFalsa() {
         Persona persona = crearPersonaFalsa();
         DAO personasDAO = new PersonasDAOImpl();
         try {
             return (Persona) personasDAO.save(persona);
         } catch (PersistenciaException ex) {
-            System.out.println(ex.getMessage());
+            LOGGER.log(Level.INFO, ex.getMessage());
             return null;
         }
     }
@@ -46,20 +63,22 @@ public class TestPersonasDAO {
         persona.setApellidoPaterno("Lestibournes");
         persona.setApellidoMaterno("The TinEye");
 
-        persona.setFechaNacimiento(new GregorianCalendar(1007, 12, 6));
-        persona.setRFC(getRandomNumber(13));
+        final int anhoPrueba = 1007;
+        final int mesPrueba = 11;
+        final int diaPrueba = 6;
+        persona.setFechaNacimiento(
+                new GregorianCalendar(anhoPrueba, mesPrueba, diaPrueba)
+        );
+        final int longitudRfc = 13;
+        persona.setRFC(getRandomNumber(longitudRfc));
         persona.setTelefono("123123123");
 
         return persona;
     }
 
-    private static Optional consultaPrimerPersona() {
+    private static Optional<Persona> consultaPrimerPersona() {
         DAO personasDAO = new PersonasDAOImpl();
         return personasDAO.get(1);
-    }
-
-    private static String getRandomRFC() {
-        return getRandomNumber(13);
     }
 
     private static List<Persona> consultaPersonas() {
