@@ -11,58 +11,57 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.itson.dominio.Persona;
+import org.itson.dominio.Pago;
 import org.itson.excepciones.PersistenciaException;
 
 /**
  *
  * @author Toled
  */
-public class PersonasDAO implements DAO<Persona> {
+public class PagosDAO implements DAO<Pago> {
 
     @PersistenceContext(unitName = "agencia_transito")
     private EntityManager entityManager;
 
-    public PersonasDAO() {
+    public PagosDAO() {
         EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
         this.entityManager = managerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Persona> get(long id) {
-        return Optional.ofNullable(entityManager.find(Persona.class, id));
+    public Optional<Pago> get(long id) {
+        return Optional.ofNullable(entityManager.find(Pago.class, id));
     }
 
     @Override
-    public List<Persona> getAll() {
-
-        String codigoJPQL = "SELECT p FROM Persona p ";
-        TypedQuery<Persona> query = entityManager.createQuery(codigoJPQL, Persona.class);
+    public List<Pago> getAll() {
+        String codigoJPQL = "SELECT p FROM Pago p ";
+        TypedQuery<Pago> query = entityManager.createQuery(codigoJPQL, Pago.class);
 
         return query.getResultList();
     }
 
     @Override
-    public Persona save(Persona persona) throws PersistenciaException {
+    public Pago save(Pago pago) throws PersistenciaException {
         try {
             entityManager.getTransaction().begin();
 
-            entityManager.persist(persona);
+            entityManager.persist(pago);
 
             entityManager.getTransaction().commit();
-            return persona;
+            return pago;
         } catch (Exception e) {
-            throw new PersistenciaException("Error al guardar persona");
+            throw new PersistenciaException("Error al guardar pago");
         }
     }
 
     @Override
-    public Persona update(Persona t, String[] params) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Pago update(Pago t, String[] params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Persona delete(Persona t) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Pago delete(Pago t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -11,58 +11,57 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.itson.dominio.Persona;
+import org.itson.dominio.Placa;
 import org.itson.excepciones.PersistenciaException;
 
 /**
  *
  * @author Toled
  */
-public class PersonasDAO implements DAO<Persona> {
+public class PlacasDAO implements DAO<Placa> {
 
     @PersistenceContext(unitName = "agencia_transito")
     private EntityManager entityManager;
 
-    public PersonasDAO() {
+    public PlacasDAO() {
         EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
         this.entityManager = managerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Persona> get(long id) {
-        return Optional.ofNullable(entityManager.find(Persona.class, id));
+    public Optional<Placa> get(long id) {
+        return Optional.ofNullable(entityManager.find(Placa.class, id));
     }
 
     @Override
-    public List<Persona> getAll() {
-
-        String codigoJPQL = "SELECT p FROM Persona p ";
-        TypedQuery<Persona> query = entityManager.createQuery(codigoJPQL, Persona.class);
+    public List<Placa> getAll() {
+        String codigoJPQL = "SELECT p FROM Placa p ";
+        TypedQuery<Placa> query = entityManager.createQuery(codigoJPQL, Placa.class);
 
         return query.getResultList();
     }
 
     @Override
-    public Persona save(Persona persona) throws PersistenciaException {
+    public Placa save(Placa placa) throws PersistenciaException {
         try {
             entityManager.getTransaction().begin();
 
-            entityManager.persist(persona);
+            entityManager.persist(placa);
 
             entityManager.getTransaction().commit();
-            return persona;
+            return placa;
         } catch (Exception e) {
-            throw new PersistenciaException("Error al guardar persona");
+            throw new PersistenciaException("Error al guardar placa");
         }
     }
 
     @Override
-    public Persona update(Persona t, String[] params) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Placa update(Placa t, String[] params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Persona delete(Persona t) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Placa delete(Placa t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
