@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.utils;
 
 import javax.swing.JFrame;
@@ -10,9 +6,24 @@ import javax.swing.JFrame;
  *
  * @author Toled
  */
-public class FormUtils {
+public final class FormUtils {
 
-    public static <T extends JFrame> void cargarForm(T cargar, JFrame actual) {
+    private FormUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * Carga un form y oculta el actual.
+     *
+     * @param <T>
+     * @param cargar
+     * @param actual
+     * @throws InstantiationError
+     */
+    public static <T extends JFrame> void cargarForm(
+            final T cargar,
+            final JFrame actual
+    ) throws InstantiationError {
         if (cargar != null) {
             actual.setVisible(false);
             cargar.setVisible(true);
@@ -21,8 +32,16 @@ public class FormUtils {
         throw new InstantiationError("Form no instanciado");
     }
 
-    public static void regresar(JFrame frmAnterior, JFrame actual) {
-        frmAnterior.setVisible(true);
-        actual.setVisible(false);
+    /**
+     * Regresa un a un form anterior, ocultando el actual.
+     *
+     * @param frmAnterior
+     * @param actual
+     */
+    public static void regresar(
+            final JFrame frmAnterior,
+            final JFrame actual
+    ) {
+        cargarForm(actual, frmAnterior);
     }
 }

@@ -1,16 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.utils;
 
 /**
  *
  * @author Toled
  */
-public class Validaciones {
+public final class Validaciones {
 
-    public static boolean isNumeric(String str) {
-        return str.matches("\\d+(\\d+)?");  
+    private Validaciones() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * Valida si un texto contiene solo números.
+     *
+     * @param str
+     * @return Verdadero si el texto es numérico.
+     */
+    public static boolean isNumeric(final String str) {
+        return str.matches("\\d+(\\d+)?");
     }
 }

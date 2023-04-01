@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.utils;
 
 /**
@@ -10,31 +6,80 @@ package org.itson.utils;
  */
 public class FormateadorTelefono {
 
+    /**
+     * Telefono ya con el formato aplicado.
+     */
     private String telefono;
 
-    public FormateadorTelefono(String telefono) {
-        this.validarFormato(telefono);
-        this.telefono = telefono;
+    /**
+     * Longitud necesaria para formatear. La longitud es según números
+     * telefonicos de México.
+     */
+    private static final int LONGITUD_TELEFONO = 10;
+
+    /**
+     * Tamaño de la primer separación del teléfono con formato.
+     * (55) 1234 1234
+     */
+    private static final int TAMANHO_GRUPO_INICIAL = 2;
+     /**
+     * Tamaño del resto de separaciones del teléfono con formato.
+     * 55 (1234) (1234)
+     */
+    private static final int TAMANHO_GRUPO = 4;
+
+    /**
+     *
+     * @param rawTelefono
+     */
+    public FormateadorTelefono(
+            final String rawTelefono
+    ) throws IllegalArgumentException {
+        this.validarFormato(rawTelefono);
+        this.aplicarFormato(rawTelefono);
     }
 
+    /**
+     * Regresa el teléfono ya con el formato aplicado.
+     *
+     * @return el teléfono formateado.
+     */
     public String getTelefono() {
-        return this.telefono.substring(0, 2) 
-                + " " + this.telefono.substring(2,6)
-                + " " + this.telefono.substring(6,10);
+        return this.telefono;
     }
 
-    private void validarFormato(String telefono) {
-        if (telefono.length() != 10) {
-            throw new IllegalArgumentException("Teléfono debe tener 10 caracteres");
-        }
-        if(!Validaciones.isNumeric(telefono)){
-            throw new IllegalArgumentException("Teléfono debe tener solo dígitos");
-        }
+    private void aplicarFormato(final String rawTelefono) {
+        int posicionActual = 0;
+        String espacio = " ";
+        String telefonoFormateado = "";
+
+        telefonoFormateado += rawTelefono.substring(
+                posicionActual, posicionActual + TAMANHO_GRUPO_INICIAL);
+
+        posicionActual += TAMANHO_GRUPO_INICIAL;
+        telefonoFormateado += espacio;
+
+        telefonoFormateado += rawTelefono.substring(
+                posicionActual, TAMANHO_GRUPO);
+
+        posicionActual += TAMANHO_GRUPO;
+        telefonoFormateado += espacio;
+
+        telefonoFormateado += rawTelefono.substring(
+                posicionActual, TAMANHO_GRUPO);
+
+        this.telefono = telefonoFormateado;
     }
 
-    @Override
-    public String toString() {
-        return getTelefono();
+    private void validarFormato(final String rawTelefono) {
+        if (rawTelefono.length() != LONGITUD_TELEFONO) {
+            String errorMsg = "Teléfono debe tener 10 caracteres";
+            throw new IllegalArgumentException(errorMsg);
+        }
+        if (!Validaciones.isNumeric(rawTelefono)) {
+            String errorMsg = "Teléfono debe tener solo dígitos";
+            throw new IllegalArgumentException(errorMsg);
+        }
     }
 
 }
