@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.daos;
 
 import java.util.List;
@@ -14,36 +10,45 @@ import javax.persistence.TypedQuery;
 import org.itson.dominio.Placa;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.PlacasDAO;
+import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
  *
  * @author Toled
  */
-public class PlacasDAOImpl implements PlacasDAO {
+public final class PlacasDAOImpl implements PlacasDAO {
 
-    @PersistenceContext(unitName = "agencia_transito")
-    private EntityManager entityManager;
+    /**
+     * EntiyManager, que gestiona las operaciones realizadas.
+     */
+    @PersistenceContext(unitName = PERSISTENCE_UNIT)
+    private final EntityManager entityManager;
 
+    /**
+     * Constructor, que inicializa el Entity Manager.
+     */
     public PlacasDAOImpl() {
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
+        EntityManagerFactory managerFactory
+                = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         this.entityManager = managerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Placa> get(long id) {
+    public Optional<Placa> get(final long id) {
         return Optional.ofNullable(entityManager.find(Placa.class, id));
     }
 
     @Override
     public List<Placa> getAll() {
         String codigoJPQL = "SELECT p FROM Placa p ";
-        TypedQuery<Placa> query = entityManager.createQuery(codigoJPQL, Placa.class);
+        TypedQuery<Placa> query
+                = entityManager.createQuery(codigoJPQL, Placa.class);
 
         return query.getResultList();
     }
 
     @Override
-    public Placa save(Placa placa) throws PersistenciaException {
+    public Placa save(final Placa placa) throws PersistenciaException {
         try {
             entityManager.getTransaction().begin();
 
@@ -57,12 +62,12 @@ public class PlacasDAOImpl implements PlacasDAO {
     }
 
     @Override
-    public Placa update(Placa t, String[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Placa update(final Placa t, final String[] params) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Placa delete(Placa t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Placa delete(final Placa t) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.daos;
 
 import java.util.List;
@@ -14,36 +10,45 @@ import javax.persistence.TypedQuery;
 import org.itson.dominio.Licencia;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.LicenciasDAO;
+import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
  *
  * @author Toled
  */
-public class LicenciasDAOImpl implements LicenciasDAO {
+public final class LicenciasDAOImpl implements LicenciasDAO {
 
-    @PersistenceContext(unitName = "agencia_transito")
-    private EntityManager entityManager;
+    /**
+     * EntiyManager, que gestiona las operaciones realizadas.
+     */
+    @PersistenceContext(unitName = PERSISTENCE_UNIT)
+    private final EntityManager entityManager;
 
+    /**
+     * Constructor, que inicializa el Entity Manager.
+     */
     public LicenciasDAOImpl() {
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
+        EntityManagerFactory managerFactory
+                = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         this.entityManager = managerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Licencia> get(long id) {
+    public Optional<Licencia> get(final long id) {
         return Optional.ofNullable(entityManager.find(Licencia.class, id));
     }
 
     @Override
     public List<Licencia> getAll() {
         String codigoJPQL = "SELECT l FROM Licencia l ";
-        TypedQuery<Licencia> query = entityManager.createQuery(codigoJPQL, Licencia.class);
+        TypedQuery<Licencia> query
+                = entityManager.createQuery(codigoJPQL, Licencia.class);
 
         return query.getResultList();
     }
 
     @Override
-    public Licencia save(Licencia licencia) throws PersistenciaException {
+    public Licencia save(final Licencia licencia) throws PersistenciaException {
         try {
             entityManager.getTransaction().begin();
 
@@ -58,12 +63,12 @@ public class LicenciasDAOImpl implements LicenciasDAO {
     }
 
     @Override
-    public Licencia update(Licencia t, String[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Licencia update(final Licencia t, final String[] params) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Licencia delete(Licencia t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Licencia delete(final Licencia t) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

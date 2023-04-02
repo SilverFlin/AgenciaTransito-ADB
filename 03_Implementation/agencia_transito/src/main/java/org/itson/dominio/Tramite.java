@@ -2,7 +2,6 @@ package org.itson.dominio;
 
 import java.io.Serializable;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,70 +20,120 @@ import javax.persistence.OneToOne;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Tramite implements Serializable {
 
+    /**
+     * Llave principal, tipo de generación: Identidad.
+     */
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Columna costo, requerido.
+     */
     @Column(name = "costo", nullable = false)
     private Double costo;
 
+    /**
+     * Llave foránea, ManyToOne, requerido.
+     */
     @ManyToOne
     @JoinColumn(name = "idPersona", nullable = false)
     private Persona tramitante;
 
+    /**
+     * Llave foránea, OneToOne, requerido.
+     */
     @OneToOne
     @JoinColumn(name = "idPago", referencedColumnName = "id")
     private Pago pago;
 
+    /**
+     * Constructor vacío.
+     */
     public Tramite() {
     }
 
-    public Tramite(Double costo, Persona tramitante, Pago pago) {
+    /**
+     * Constructor que no incluye ID.
+     *
+     * @param costo
+     * @param tramitante
+     */
+    public Tramite(final Double costo, final Persona tramitante) {
         this.costo = costo;
         this.tramitante = tramitante;
-        this.pago = pago;
     }
 
-    public Tramite(Long id, Double costo, Persona tramitante, Pago pago) {
-        this.id = id;
-        this.costo = costo;
-        this.tramitante = tramitante;
-        this.pago = pago;
-    }
-
+    /**
+     *
+     * @return Llave primaria de la entidad.
+     */
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    /**
+     *
+     * @param id
+     */
+    public void setId(final Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return Costo del tramite.
+     */
     public Double getCosto() {
         return costo;
     }
 
-    public void setCosto(Double costo) {
+    /**
+     *
+     * @param costo
+     */
+    public void setCosto(final Double costo) {
         this.costo = costo;
     }
 
+    /**
+     *
+     * @return Clase Persona, que representa al tramitante.
+     */
     public Persona getTramitante() {
         return tramitante;
     }
 
-    public void setTramitante(Persona tramitante) {
+    /**
+     *
+     * @param tramitante
+     */
+    public void setTramitante(final Persona tramitante) {
         this.tramitante = tramitante;
     }
 
+    /**
+     *
+     * @return Pago relacionado al tramite, si lo hay.
+     */
     public Pago getPago() {
         return pago;
     }
 
-    public void setPago(Pago pago) {
+    /**
+     *
+     * @param pago
+     */
+    public void setPago(final Pago pago) {
         this.pago = pago;
     }
 
+    /**
+     * hashcode por defecto.
+     *
+     * @return hashcode.
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -92,22 +141,32 @@ public class Tramite implements Serializable {
         return hash;
     }
 
+    /**
+     * equals por defecto.
+     *
+     * @param object
+     * @return Si las entidades son iguales.
+     */
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+    public boolean equals(final Object object) {
         if (!(object instanceof Tramite)) {
             return false;
         }
         Tramite other = (Tramite) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null)
+                || (this.id != null && !this.id.equals(other.id)));
     }
 
+    /**
+     * Incluye los atributos menos la especificacion de la clase, ya que hereda.
+     *
+     * @return los atributos de la clase.
+     */
     @Override
     public String toString() {
-        return " id=" + id + ", costo=" + costo + ", tramitante=" + tramitante.getRFC() + " ";
+        return " id=" + id
+                + ", costo=" + costo
+                + ", tramitante=" + tramitante.getRfc() + " ";
     }
 
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.daos;
 
 import java.util.List;
@@ -14,53 +10,63 @@ import javax.persistence.TypedQuery;
 import org.itson.dominio.Tramite;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.TramitesDAO;
+import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 import org.itson.utils.FiltrosTramites;
 
 /**
  *
  * @author Toled
  */
-public class TramitesDAOImpl implements TramitesDAO {
+public final class TramitesDAOImpl implements TramitesDAO {
 
-    @PersistenceContext(unitName = "agencia_transito")
-    private EntityManager entityManager;
+    /**
+     * EntiyManager, que gestiona las operaciones realizadas.
+     */
+    @PersistenceContext(unitName = PERSISTENCE_UNIT)
+    private final EntityManager entityManager;
 
+    /**
+     * Constructor, que inicializa el Entity Manager.
+     */
     public TramitesDAOImpl() {
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
+        EntityManagerFactory managerFactory
+                = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         this.entityManager = managerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Tramite> get(long id) {
+    public Optional<Tramite> get(final long id) {
         return Optional.ofNullable(entityManager.find(Tramite.class, id));
     }
 
     @Override
     public List<Tramite> getAll() {
         String codigoJPQL = "SELECT t FROM Tramite t ";
-        TypedQuery<Tramite> query = entityManager.createQuery(codigoJPQL, Tramite.class);
+        TypedQuery<Tramite> query
+                = entityManager.createQuery(codigoJPQL, Tramite.class);
 
         return query.getResultList();
     }
 
     @Override
-    public List<Tramite> getAll(FiltrosTramites filtros) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Tramite> getAll(final FiltrosTramites filtros) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Tramite save(Tramite tramite) throws PersistenciaException {
-        throw new PersistenciaException("No se pueden guardar registros de Tramite");
+    public Tramite save(final Tramite tramite) throws PersistenciaException {
+        String msgError = "No se pueden guardar registros de Tramite";
+        throw new PersistenciaException(msgError);
     }
 
     @Override
-    public Tramite update(Tramite t, String[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Tramite update(final Tramite t, final String[] params) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Tramite delete(Tramite t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Tramite delete(final Tramite t) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

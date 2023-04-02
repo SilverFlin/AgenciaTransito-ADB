@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package org.itson.interfaces;
 
 import java.util.List;
@@ -14,5 +10,12 @@ import org.itson.utils.FiltrosTramites;
  */
 public interface TramitesDAO extends DAO<Tramite> {
 
+    /**
+     * Consigue las personas de la base de datos que coincidan los filtros
+     * aplicados.
+     *
+     * @param filtros
+     * @return Lista de tramites que coincidieron.
+     */
     List<Tramite> getAll(FiltrosTramites filtros);
 }

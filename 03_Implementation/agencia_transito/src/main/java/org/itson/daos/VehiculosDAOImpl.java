@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.daos;
 
 import java.util.List;
@@ -14,41 +10,50 @@ import javax.persistence.TypedQuery;
 import org.itson.dominio.Vehiculo;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.VehiculosDAO;
+import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
  *
  * @author Toled
  */
-public class VehiculosDAOImpl implements VehiculosDAO {
+public final class VehiculosDAOImpl implements VehiculosDAO {
 
-    @PersistenceContext(unitName = "agencia_transito")
-    private EntityManager entityManager;
+    /**
+     * EntiyManager, que gestiona las operaciones realizadas.
+     */
+    @PersistenceContext(unitName = PERSISTENCE_UNIT)
+    private final EntityManager entityManager;
 
+    /**
+     * Constructor, que inicializa el Entity Manager.
+     */
     public VehiculosDAOImpl() {
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("agencia_transito");
+        EntityManagerFactory managerFactory
+                = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         this.entityManager = managerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Vehiculo> get(long id) {
+    public Optional<Vehiculo> get(final long id) {
         return Optional.ofNullable(entityManager.find(Vehiculo.class, id));
     }
 
     @Override
-    public Vehiculo getByMatricula(String Matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Vehiculo getByMatricula(final String matricula) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public List<Vehiculo> getAll() {
         String codigoJPQL = "SELECT v FROM Vehiculo v ";
-        TypedQuery<Vehiculo> query = entityManager.createQuery(codigoJPQL, Vehiculo.class);
+        TypedQuery<Vehiculo> query
+                = entityManager.createQuery(codigoJPQL, Vehiculo.class);
 
         return query.getResultList();
     }
 
     @Override
-    public Vehiculo save(Vehiculo vehiculo) throws PersistenciaException {
+    public Vehiculo save(final Vehiculo vehiculo) throws PersistenciaException {
         try {
             entityManager.getTransaction().begin();
 
@@ -57,18 +62,19 @@ public class VehiculosDAOImpl implements VehiculosDAO {
             entityManager.getTransaction().commit();
             return vehiculo;
         } catch (Exception e) {
-            throw new PersistenciaException("Error al guardar vehiculo: " + e.getMessage());
+            String msgError = "Error al guardar vehiculo: " + e.getMessage();
+            throw new PersistenciaException(msgError);
         }
     }
 
     @Override
-    public Vehiculo update(Vehiculo t, String[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Vehiculo update(final Vehiculo t, final String[] params) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Vehiculo delete(Vehiculo t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Vehiculo delete(final Vehiculo t) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
