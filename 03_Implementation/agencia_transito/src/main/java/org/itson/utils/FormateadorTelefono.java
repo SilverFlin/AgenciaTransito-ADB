@@ -18,13 +18,12 @@ public class FormateadorTelefono {
     private static final int LONGITUD_TELEFONO = 10;
 
     /**
-     * Tamaño de la primer separación del teléfono con formato.
-     * (55) 1234 1234
+     * Tamaño de la primer separación del teléfono con formato. (55) 1234 1234
      */
     private static final int TAMANHO_GRUPO_INICIAL = 2;
-     /**
-     * Tamaño del resto de separaciones del teléfono con formato.
-     * 55 (1234) (1234)
+    /**
+     * Tamaño del resto de separaciones del teléfono con formato. 55 (1234)
+     * (1234)
      */
     private static final int TAMANHO_GRUPO = 4;
 
@@ -51,22 +50,22 @@ public class FormateadorTelefono {
     private void aplicarFormato(final String rawTelefono) {
         int posicionActual = 0;
         String espacio = " ";
-        String telefonoFormateado = "";
+        String telefonoFormateado = "(";
 
         telefonoFormateado += rawTelefono.substring(
                 posicionActual, posicionActual + TAMANHO_GRUPO_INICIAL);
 
         posicionActual += TAMANHO_GRUPO_INICIAL;
-        telefonoFormateado += espacio;
+        telefonoFormateado += ')' + espacio;
 
         telefonoFormateado += rawTelefono.substring(
-                posicionActual, TAMANHO_GRUPO);
+                posicionActual, posicionActual + TAMANHO_GRUPO);
 
         posicionActual += TAMANHO_GRUPO;
         telefonoFormateado += espacio;
 
         telefonoFormateado += rawTelefono.substring(
-                posicionActual, TAMANHO_GRUPO);
+                posicionActual, posicionActual + TAMANHO_GRUPO);
 
         this.telefono = telefonoFormateado;
     }
