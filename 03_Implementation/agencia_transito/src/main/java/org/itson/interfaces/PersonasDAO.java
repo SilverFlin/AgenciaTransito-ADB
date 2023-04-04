@@ -1,6 +1,7 @@
 package org.itson.interfaces;
 
 import java.util.List;
+import java.util.Optional;
 import org.itson.dominio.Persona;
 
 /**
@@ -15,7 +16,7 @@ public interface PersonasDAO extends DAO<Persona> {
      * @param rfc
      * @return La persona si se encontró.
      */
-    Persona getByRFC(String rfc);
+    Optional<Persona> getByRFC(String rfc);
 
     /**
      * Consigue las personas de la base de datos que coincidan con el nombre.

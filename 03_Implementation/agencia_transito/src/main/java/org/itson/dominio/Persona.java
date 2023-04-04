@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,6 +19,23 @@ import javax.persistence.TemporalType;
  * @author Toled
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(
+            name = "personaPorRFC",
+            query = "select p from Persona p "
+            + "where p.rfc like :rfc"
+    ),
+    @NamedQuery(
+            name = "personasPorNombre",
+            query = "select p from Persona p "
+            + "where p.nombres like :nombre"
+    ),
+    @NamedQuery(
+            name = "personasPorAnho",
+            query = "select p from Persona p "
+            + "where EXTRACT(YEAR p.fechaNacimiento) = :anho"
+    )
+})
 public class Persona implements Serializable {
 
     /**
