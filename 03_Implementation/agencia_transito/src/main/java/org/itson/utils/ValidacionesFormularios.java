@@ -25,11 +25,18 @@ public final class ValidacionesFormularios {
             final int limiteSuperior
     ) throws UnsupportedOperationException {
         if (limiteInferior >= limiteSuperior) {
-            String errorMsg = "Limite inferior debe ser menor";
+            String errorMsg = "Limite inferior debe ser menor al superior.";
             throw new UnsupportedOperationException(errorMsg);
         }
+
+        if (limiteInferior < 1) {
+            String errorMsg = "Limite inferior debe ser al menos uno.";
+            throw new UnsupportedOperationException(errorMsg);
+        }
+
         // Expresión regular que valida un string de 1 a 100 caracteres
-        String regexValoresNumericos = "^.{1,100}$";
+        String regexValoresNumericos
+                = "^.{" + limiteInferior + "," + limiteSuperior + "}$";
         // Validar el texto con la expresión regular
         return texto.matches(regexValoresNumericos);
     }
@@ -46,7 +53,7 @@ public final class ValidacionesFormularios {
             final String texto,
             final int limiteSuperior
     ) throws UnsupportedOperationException {
-        return isLongitudTextoValida(texto, 0, limiteSuperior);
+        return isLongitudTextoValida(texto, 1, limiteSuperior);
     }
 
 }

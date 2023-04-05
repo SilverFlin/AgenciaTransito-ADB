@@ -39,23 +39,39 @@ public final class PersonasDAOImpl implements PersonasDAO {
     }
 
     @Override
-    public Persona getByRFC(final String rfc) {
+    public Optional<Persona> getByRFC(final String rfc) {
         TypedQuery<Persona> query
                 = entityManager.createNamedQuery(
                         "personaPorRFC",
                         Persona.class);
-        query.setParameter("RFC", rfc);
-        return (Persona) query.getResultList();
+        query.setParameter("rfc", rfc);
+
+        Persona persona = (Persona) query.getResultList().get(0);
+
+        return Optional.ofNullable(persona);
     }
 
     @Override
     public List<Persona> getByNombre(final String nombre) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TypedQuery<Persona> query
+                = entityManager.createNamedQuery(
+                        "personasPorNombre",
+                        Persona.class);
+        query.setParameter("nombre", "%" + nombre + "%");
+
+        return query.getResultList();
+
     }
 
     @Override
     public List<Persona> getByAnho(final int anho) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TypedQuery<Persona> query
+                = entityManager.createNamedQuery(
+                        "personasPorAnho",
+                        Persona.class);
+        query.setParameter("anho", anho);
+
+        return query.getResultList();
     }
 
     @Override
