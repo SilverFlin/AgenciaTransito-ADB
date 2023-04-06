@@ -1,6 +1,7 @@
 package org.itson.dominio;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 /**
@@ -18,6 +21,15 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@NamedQueries({
+    @NamedQuery(
+            name = "vehiculoPorMatricula",
+            query = "SELECT v FROM Vehiculo v WHERE "
+                    + "v.placa.matricula = :matricula"
+    )
+})
+
+//
 public class Vehiculo implements Serializable {
 
     /**
@@ -36,14 +48,14 @@ public class Vehiculo implements Serializable {
     /**
      * Llave foránea, ManyToOne, requerido.
      */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "idPersona", nullable = false)
     private Persona duenho;
 
     /**
      * Llave foránea,OneToOne, no es requerido.
      */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "idPlaca", referencedColumnName = "id", nullable = true)
     private Placa placa;
 

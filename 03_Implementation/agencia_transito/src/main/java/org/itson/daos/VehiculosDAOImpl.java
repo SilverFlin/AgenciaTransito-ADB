@@ -39,8 +39,16 @@ public final class VehiculosDAOImpl implements VehiculosDAO {
     }
 
     @Override
-    public Vehiculo getByMatricula(final String matricula) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Optional<Vehiculo> getByMatricula(final String matricula) {
+         TypedQuery<Vehiculo> query
+                = entityManager.createNamedQuery(
+                        "vehiculoPorMatricula",
+                        Vehiculo.class);
+        query.setParameter("matricula", matricula);
+
+        Vehiculo vehiculo = (Vehiculo) query.getSingleResult();
+
+        return Optional.ofNullable(vehiculo);
     }
 
     @Override

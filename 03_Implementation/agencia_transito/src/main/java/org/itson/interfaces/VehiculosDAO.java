@@ -1,5 +1,6 @@
 package org.itson.interfaces;
 
+import java.util.Optional;
 import org.itson.dominio.Vehiculo;
 
 /**
@@ -14,5 +15,5 @@ public interface VehiculosDAO extends DAO<Vehiculo> {
      * @param matricula
      * @return El vehículo si se encontró.
      */
-    Vehiculo getByMatricula(String matricula);
+    Optional<Vehiculo> getByMatricula(String matricula);
 }
