@@ -46,7 +46,7 @@ public final class PersonasDAOImpl implements PersonasDAO {
                         Persona.class);
         query.setParameter("rfc", rfc);
 
-        Persona persona = (Persona) query.getResultList().get(0);
+        Persona persona = (Persona) query.getSingleResult();
 
         return Optional.ofNullable(persona);
     }

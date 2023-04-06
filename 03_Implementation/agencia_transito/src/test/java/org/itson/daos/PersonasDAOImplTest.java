@@ -1,9 +1,12 @@
 package org.itson.daos;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 import org.itson.dominio.Persona;
+import org.itson.excepciones.PersistenciaException;
+import org.itson.utils.FormateadorTelefono;
 import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -100,5 +103,32 @@ public class PersonasDAOImplTest {
         assertTrue(contieneAlgo);
     }
 
-    // TODO(Luis): test save
+    /**
+     * Test of save method, of class PersonasDAOImpl.
+     *
+     * @throws org.itson.excepciones.PersistenciaException
+     */
+    @Test
+    public void testSave() throws PersistenciaException {
+        System.out.println("save");
+        PersonasDAOImpl instance = new PersonasDAOImpl();
+
+        Persona persona = new Persona();
+        persona.setNombres("Luis");
+        persona.setApellidoPaterno("Toledo");
+        persona.setRfc("123456789abcd");
+        FormateadorTelefono telefono = new FormateadorTelefono("1234567890");
+        persona.setTelefono(telefono.getTelefono());
+        final int anho = 1950;
+        final int mes = 3;
+        final int dia = 10;
+        Calendar fechaNacimiento = new GregorianCalendar(anho, mes, dia);
+        persona.setFechaNacimiento(fechaNacimiento);
+
+        Persona result;
+        result = instance.save(persona);
+        boolean isIdGenerada = result.getId() != null;
+        assertTrue(isIdGenerada);
+
+    }
 }
