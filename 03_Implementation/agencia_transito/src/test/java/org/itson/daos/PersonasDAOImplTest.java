@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.utils.FormateadorTelefono;
+import org.itson.utils.Randomizador;
 import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -116,7 +117,8 @@ public class PersonasDAOImplTest {
         Persona persona = new Persona();
         persona.setNombres("Luis");
         persona.setApellidoPaterno("Toledo");
-        persona.setRfc("123456789abcd");
+        final int cantidadRfcFalso = 13;
+        persona.setRfc(Randomizador.getRandomLetras(cantidadRfcFalso));
         FormateadorTelefono telefono = new FormateadorTelefono("1234567890");
         persona.setTelefono(telefono.getTelefono());
         final int anho = 1950;
