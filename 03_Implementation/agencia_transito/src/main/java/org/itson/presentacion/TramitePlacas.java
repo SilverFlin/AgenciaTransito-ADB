@@ -26,13 +26,13 @@ public class TramitePlacas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblBienvenido = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
-        btnRegistrarAutomovil = new javax.swing.JButton();
-        lblNombres4 = new javax.swing.JLabel();
-        lblNombres8 = new javax.swing.JLabel();
+        btnTramitar = new javax.swing.JButton();
+        lblEstado = new javax.swing.JLabel();
+        lblVehiculo = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbxVehiculo = new javax.swing.JComboBox<>();
+        cbxEstado = new javax.swing.JComboBox<>();
 
         jButton2.setText("jButton2");
 
@@ -70,35 +70,37 @@ public class TramitePlacas extends javax.swing.JFrame {
 
         Background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 60));
 
-        btnRegistrarAutomovil.setBackground(new java.awt.Color(121, 90, 59));
-        btnRegistrarAutomovil.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
-        btnRegistrarAutomovil.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrarAutomovil.setText("Tramitar");
-        btnRegistrarAutomovil.setBorder(null);
-        btnRegistrarAutomovil.setBorderPainted(false);
-        btnRegistrarAutomovil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnRegistrarAutomovil.addActionListener(new java.awt.event.ActionListener() {
+        btnTramitar.setBackground(new java.awt.Color(121, 90, 59));
+        btnTramitar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
+        btnTramitar.setForeground(new java.awt.Color(255, 255, 255));
+        btnTramitar.setText("Tramitar");
+        btnTramitar.setBorder(null);
+        btnTramitar.setBorderPainted(false);
+        btnTramitar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnTramitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarAutomovilActionPerformed(evt);
+                btnTramitarActionPerformed(evt);
             }
         });
-        Background.add(btnRegistrarAutomovil, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 100, 30));
+        Background.add(btnTramitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 100, 30));
 
-        lblNombres4.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 21)); // NOI18N
-        lblNombres4.setText("Estado");
-        Background.add(lblNombres4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 110, 20));
+        lblEstado.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 21)); // NOI18N
+        lblEstado.setForeground(new java.awt.Color(255, 255, 255));
+        lblEstado.setText("Estado");
+        Background.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 110, 20));
 
-        lblNombres8.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 21)); // NOI18N
-        lblNombres8.setText("Vehículo");
-        Background.add(lblNombres8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 90, 20));
+        lblVehiculo.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 21)); // NOI18N
+        lblVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        lblVehiculo.setText("Vehículo");
+        Background.add(lblVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 90, 20));
         Background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 120, 10));
         Background.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 120, 10));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        Background.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 120, -1));
+        cbxVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Automovil" }));
+        Background.add(cbxVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 120, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        Background.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, 120, -1));
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nuevo", "Usado" }));
+        Background.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, 120, -1));
 
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 400));
 
@@ -110,24 +112,24 @@ public class TramitePlacas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnRegistrarAutomovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovilActionPerformed
+    private void btnTramitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegistrarAutomovilActionPerformed
+    }//GEN-LAST:event_btnTramitarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
-    private javax.swing.JButton btnRegistrarAutomovil;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnTramitar;
+    private javax.swing.JComboBox<String> cbxEstado;
+    private javax.swing.JComboBox<String> cbxVehiculo;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JLabel lblBienvenido;
-    private javax.swing.JLabel lblNombres4;
-    private javax.swing.JLabel lblNombres8;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblVehiculo;
     // End of variables declaration//GEN-END:variables
 
 
