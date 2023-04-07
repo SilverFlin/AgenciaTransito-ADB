@@ -2,6 +2,7 @@ package org.itson.presentacion;
 
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import org.itson.utils.*;
 import org.itson.utils.FormUtils;
 
 /**
@@ -18,6 +19,8 @@ public class ConsultaBuscarPersona extends JFrame {
         botones.add(rbtnRFC);
         botones.add(rbtnNombre);
         botones.add(rbtnFechaNacimiento);
+        tblPersonas.getColumnModel().getColumn(5).setCellEditor(new BotonEditor(this));
+        tblPersonas.getColumnModel().getColumn(5).setCellRenderer(new BotonRender());
         cargarTablaX();
 //        this.frmAnterior = frmAnterior;
     }
@@ -52,19 +55,19 @@ public class ConsultaBuscarPersona extends JFrame {
         lblOperaciones = new javax.swing.JLabel();
         btnAtras1 = new javax.swing.JButton();
         panelTablaCuentas = new javax.swing.JScrollPane();
-        tblPublicaciones = new javax.swing.JTable();
+        tblPersonas = new javax.swing.JTable();
         btnAdelante = new javax.swing.JButton();
         btnRetroceder = new javax.swing.JButton();
-        lblEdad1 = new javax.swing.JLabel();
-        campoTextoEdad1 = new javax.swing.JTextField();
+        lblRFC = new javax.swing.JLabel();
+        txtRFC = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
-        lblEdad2 = new javax.swing.JLabel();
-        campoTextoEdad2 = new javax.swing.JTextField();
+        lblNombre = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
-        lblApellidoPaterno1 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        lblFechaNacimiento = new javax.swing.JLabel();
+        dtFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jSeparator6 = new javax.swing.JSeparator();
-        btnAtras = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         rbtnFechaNacimiento = new javax.swing.JRadioButton();
         rbtnRFC = new javax.swing.JRadioButton();
         rbtnNombre = new javax.swing.JRadioButton();
@@ -102,28 +105,28 @@ public class ConsultaBuscarPersona extends JFrame {
 
         Background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 60));
 
-        tblPublicaciones.setModel(new javax.swing.table.DefaultTableModel(
+        tblPersonas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "RFC", "Nombres", "Apellido P.", "Apellido M.", "Fecha Nacimiento"
+                "RFC", "Nombres", "Apellido P.", "Apellido M.", "Fecha Nacimiento", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -134,9 +137,14 @@ public class ConsultaBuscarPersona extends JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblPublicaciones.setColumnSelectionAllowed(true);
-        panelTablaCuentas.setViewportView(tblPublicaciones);
-        tblPublicaciones.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tblPersonas.setColumnSelectionAllowed(true);
+        panelTablaCuentas.setViewportView(tblPersonas);
+        tblPersonas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tblPersonas.getColumnModel().getColumnCount() > 0) {
+            tblPersonas.getColumnModel().getColumn(5).setMinWidth(50);
+            tblPersonas.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tblPersonas.getColumnModel().getColumn(5).setMaxWidth(50);
+        }
 
         Background.add(panelTablaCuentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 560, 190));
 
@@ -166,44 +174,47 @@ public class ConsultaBuscarPersona extends JFrame {
         });
         Background.add(btnRetroceder, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, 30, 30));
 
-        lblEdad1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        lblEdad1.setText("RFC");
-        Background.add(lblEdad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+        lblRFC.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
+        lblRFC.setForeground(new java.awt.Color(255, 255, 255));
+        lblRFC.setText("RFC");
+        Background.add(lblRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-        campoTextoEdad1.setForeground(new java.awt.Color(51, 51, 51));
-        campoTextoEdad1.setToolTipText("");
-        campoTextoEdad1.setBorder(null);
-        Background.add(campoTextoEdad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 150, 20));
+        txtRFC.setForeground(new java.awt.Color(51, 51, 51));
+        txtRFC.setToolTipText("");
+        txtRFC.setBorder(null);
+        Background.add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 150, 20));
         Background.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 150, 10));
 
-        lblEdad2.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        lblEdad2.setText("Nombre");
-        Background.add(lblEdad2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, -1, -1));
+        lblNombre.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombre.setText("Nombre");
+        Background.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, -1, -1));
 
-        campoTextoEdad2.setForeground(new java.awt.Color(51, 51, 51));
-        campoTextoEdad2.setToolTipText("");
-        campoTextoEdad2.setBorder(null);
-        Background.add(campoTextoEdad2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 150, 20));
+        txtNombre.setForeground(new java.awt.Color(51, 51, 51));
+        txtNombre.setToolTipText("");
+        txtNombre.setBorder(null);
+        Background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 150, 20));
         Background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 150, 10));
 
-        lblApellidoPaterno1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        lblApellidoPaterno1.setText("Fecha de Nacimiento");
-        Background.add(lblApellidoPaterno1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 180, 20));
-        Background.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 130, 20));
+        lblFechaNacimiento.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
+        lblFechaNacimiento.setForeground(new java.awt.Color(255, 255, 255));
+        lblFechaNacimiento.setText("Fecha de Nacimiento");
+        Background.add(lblFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 180, 20));
+        Background.add(dtFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 130, 20));
         Background.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 130, 10));
 
-        btnAtras.setBackground(new java.awt.Color(102, 10, 10));
-        btnAtras.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 12)); // NOI18N
-        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
-        btnAtras.setText("Buscar");
-        btnAtras.setBorder(null);
-        btnAtras.setBorderPainted(false);
-        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setBackground(new java.awt.Color(102, 10, 10));
+        btnBuscar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 12)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("Buscar");
+        btnBuscar.setBorder(null);
+        btnBuscar.setBorderPainted(false);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtrasActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
-        Background.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 70, 30));
+        Background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 70, 30));
 
         rbtnFechaNacimiento.setBackground(new java.awt.Color(173, 139, 106));
         Background.add(rbtnFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, -1, -1));
@@ -224,9 +235,9 @@ public class ConsultaBuscarPersona extends JFrame {
      *
      * @param evt Evento que lo acciono
      */
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 //        this.regresar();
-    }//GEN-LAST:event_btnAtrasActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
     /**
      * Avanza en la pagina de operaciones
      *
@@ -256,25 +267,25 @@ public class ConsultaBuscarPersona extends JFrame {
     private javax.swing.JPanel Background;
     private javax.swing.ButtonGroup botones;
     private javax.swing.JButton btnAdelante;
-    private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnAtras1;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnRetroceder;
-    private javax.swing.JTextField campoTextoEdad1;
-    private javax.swing.JTextField campoTextoEdad2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser dtFechaNacimiento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JLabel lblApellidoPaterno1;
-    private javax.swing.JLabel lblEdad1;
-    private javax.swing.JLabel lblEdad2;
+    private javax.swing.JLabel lblFechaNacimiento;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblOperaciones;
+    private javax.swing.JLabel lblRFC;
     private javax.swing.JScrollPane panelTablaCuentas;
     private javax.swing.JRadioButton rbtnFechaNacimiento;
     private javax.swing.JRadioButton rbtnNombre;
     private javax.swing.JRadioButton rbtnRFC;
-    private javax.swing.JTable tblPublicaciones;
+    private javax.swing.JTable tblPersonas;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
 
 //    private void regresar() {
