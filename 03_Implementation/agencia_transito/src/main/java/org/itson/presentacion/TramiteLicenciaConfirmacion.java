@@ -26,11 +26,11 @@ public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblBienvenido = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
-        btnRegistrarAutomovil = new javax.swing.JButton();
-        btnRegistrarAutomovil1 = new javax.swing.JButton();
-        lblNombres = new javax.swing.JLabel();
-        lblNombres3 = new javax.swing.JLabel();
-        lblNombres4 = new javax.swing.JLabel();
+        btnAceptar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        lblNombreCompleto = new javax.swing.JLabel();
+        lblDuracion = new javax.swing.JLabel();
+        lblCantidadCosto = new javax.swing.JLabel();
         lblNombres5 = new javax.swing.JLabel();
         lblNombres6 = new javax.swing.JLabel();
         lblNombres7 = new javax.swing.JLabel();
@@ -74,59 +74,66 @@ public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
 
         Background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 60));
 
-        btnRegistrarAutomovil.setBackground(new java.awt.Color(121, 90, 59));
-        btnRegistrarAutomovil.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
-        btnRegistrarAutomovil.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrarAutomovil.setText("Aceptar");
-        btnRegistrarAutomovil.setBorder(null);
-        btnRegistrarAutomovil.setBorderPainted(false);
-        btnRegistrarAutomovil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnRegistrarAutomovil.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptar.setBackground(new java.awt.Color(121, 90, 59));
+        btnAceptar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
+        btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAceptar.setText("Aceptar");
+        btnAceptar.setBorder(null);
+        btnAceptar.setBorderPainted(false);
+        btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarAutomovilActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
-        Background.add(btnRegistrarAutomovil, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, 100, 30));
+        Background.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, 100, 30));
 
-        btnRegistrarAutomovil1.setBackground(new java.awt.Color(121, 90, 59));
-        btnRegistrarAutomovil1.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
-        btnRegistrarAutomovil1.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrarAutomovil1.setText("Cancelar");
-        btnRegistrarAutomovil1.setBorder(null);
-        btnRegistrarAutomovil1.setBorderPainted(false);
-        btnRegistrarAutomovil1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnRegistrarAutomovil1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setBackground(new java.awt.Color(121, 90, 59));
+        btnCancelar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(null);
+        btnCancelar.setBorderPainted(false);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarAutomovil1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
-        Background.add(btnRegistrarAutomovil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 100, 30));
+        Background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 100, 30));
 
-        lblNombres.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
-        lblNombres.setText("\"nombres, apellidopa, apellidoma\"");
-        Background.add(lblNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 310, 20));
+        lblNombreCompleto.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblNombreCompleto.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreCompleto.setText("\"nombres, apellidopa, apellidoma\"");
+        Background.add(lblNombreCompleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 310, 20));
 
-        lblNombres3.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
-        lblNombres3.setText("No.");
-        Background.add(lblNombres3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 30, 20));
+        lblDuracion.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblDuracion.setForeground(new java.awt.Color(255, 255, 255));
+        lblDuracion.setText("No.");
+        Background.add(lblDuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 30, 20));
 
-        lblNombres4.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 21)); // NOI18N
-        lblNombres4.setText("$Cantidad");
-        Background.add(lblNombres4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 110, 20));
+        lblCantidadCosto.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 21)); // NOI18N
+        lblCantidadCosto.setForeground(new java.awt.Color(255, 255, 255));
+        lblCantidadCosto.setText("$Cantidad");
+        Background.add(lblCantidadCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 110, 20));
 
         lblNombres5.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblNombres5.setForeground(new java.awt.Color(255, 255, 255));
         lblNombres5.setText("año(s).");
         Background.add(lblNombres5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 60, 20));
 
         lblNombres6.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblNombres6.setForeground(new java.awt.Color(255, 255, 255));
         lblNombres6.setText("con la duración de");
         Background.add(lblNombres6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 150, 20));
 
         lblNombres7.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblNombres7.setForeground(new java.awt.Color(255, 255, 255));
         lblNombres7.setText("Licencia para la persona:");
         Background.add(lblNombres7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 200, 20));
 
         lblNombres8.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 21)); // NOI18N
+        lblNombres8.setForeground(new java.awt.Color(255, 255, 255));
         lblNombres8.setText("Costo:");
         Background.add(lblNombres8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 70, 20));
         Background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 170, 10));
@@ -142,28 +149,28 @@ public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnRegistrarAutomovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovilActionPerformed
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegistrarAutomovilActionPerformed
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
-    private void btnRegistrarAutomovil1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovil1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegistrarAutomovil1ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
-    private javax.swing.JButton btnRegistrarAutomovil;
-    private javax.swing.JButton btnRegistrarAutomovil1;
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel lblBienvenido;
-    private javax.swing.JLabel lblNombres;
-    private javax.swing.JLabel lblNombres3;
-    private javax.swing.JLabel lblNombres4;
+    private javax.swing.JLabel lblCantidadCosto;
+    private javax.swing.JLabel lblDuracion;
+    private javax.swing.JLabel lblNombreCompleto;
     private javax.swing.JLabel lblNombres5;
     private javax.swing.JLabel lblNombres6;
     private javax.swing.JLabel lblNombres7;
