@@ -26,22 +26,22 @@ public class TramitePlacasConfirmacion extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblBienvenido = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
-        btnRegistrarAutomovil = new javax.swing.JButton();
-        btnRegistrarAutomovil1 = new javax.swing.JButton();
-        lblNombres4 = new javax.swing.JLabel();
+        btnAceptar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        lblCantidadCosto = new javax.swing.JLabel();
         lblNombres5 = new javax.swing.JLabel();
         lblNombres7 = new javax.swing.JLabel();
         lblNombres8 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
-        lblNombres9 = new javax.swing.JLabel();
+        lblAnho = new javax.swing.JLabel();
         lblNombres10 = new javax.swing.JLabel();
         lblNombres11 = new javax.swing.JLabel();
-        lblNombres12 = new javax.swing.JLabel();
-        lblNombres13 = new javax.swing.JLabel();
-        lblNombres14 = new javax.swing.JLabel();
+        lblSerie = new javax.swing.JLabel();
+        lblMarca = new javax.swing.JLabel();
+        lblLinea = new javax.swing.JLabel();
         lblNombres15 = new javax.swing.JLabel();
-        lblNombres = new javax.swing.JLabel();
+        lblNombreCompleto = new javax.swing.JLabel();
 
         jButton2.setText("jButton2");
 
@@ -79,83 +79,95 @@ public class TramitePlacasConfirmacion extends javax.swing.JFrame {
 
         Background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 60));
 
-        btnRegistrarAutomovil.setBackground(new java.awt.Color(121, 90, 59));
-        btnRegistrarAutomovil.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
-        btnRegistrarAutomovil.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrarAutomovil.setText("Aceptar");
-        btnRegistrarAutomovil.setBorder(null);
-        btnRegistrarAutomovil.setBorderPainted(false);
-        btnRegistrarAutomovil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnRegistrarAutomovil.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptar.setBackground(new java.awt.Color(121, 90, 59));
+        btnAceptar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
+        btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAceptar.setText("Aceptar");
+        btnAceptar.setBorder(null);
+        btnAceptar.setBorderPainted(false);
+        btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarAutomovilActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
-        Background.add(btnRegistrarAutomovil, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 100, 30));
+        Background.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 100, 30));
 
-        btnRegistrarAutomovil1.setBackground(new java.awt.Color(121, 90, 59));
-        btnRegistrarAutomovil1.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
-        btnRegistrarAutomovil1.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrarAutomovil1.setText("Cancelar");
-        btnRegistrarAutomovil1.setBorder(null);
-        btnRegistrarAutomovil1.setBorderPainted(false);
-        btnRegistrarAutomovil1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnRegistrarAutomovil1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setBackground(new java.awt.Color(121, 90, 59));
+        btnCancelar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(null);
+        btnCancelar.setBorderPainted(false);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarAutomovil1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
-        Background.add(btnRegistrarAutomovil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 100, 30));
+        Background.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 100, 30));
 
-        lblNombres4.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 21)); // NOI18N
-        lblNombres4.setText("$Cantidad");
-        Background.add(lblNombres4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 110, 20));
+        lblCantidadCosto.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 21)); // NOI18N
+        lblCantidadCosto.setForeground(new java.awt.Color(255, 255, 255));
+        lblCantidadCosto.setText("$Cantidad");
+        Background.add(lblCantidadCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 110, 20));
 
         lblNombres5.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblNombres5.setForeground(new java.awt.Color(255, 255, 255));
         lblNombres5.setText("Perteneciente a:");
         Background.add(lblNombres5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 130, 20));
 
         lblNombres7.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblNombres7.setForeground(new java.awt.Color(255, 255, 255));
         lblNombres7.setText("Placas para el automóvil con serie:");
         Background.add(lblNombres7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 280, 20));
 
         lblNombres8.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 21)); // NOI18N
+        lblNombres8.setForeground(new java.awt.Color(255, 255, 255));
         lblNombres8.setText("Costo:");
         Background.add(lblNombres8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 70, 20));
         Background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 170, 10));
         Background.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 500, 10));
 
-        lblNombres9.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
-        lblNombres9.setText("\"año\"");
-        Background.add(lblNombres9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 150, 20));
+        lblAnho.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblAnho.setForeground(new java.awt.Color(255, 255, 255));
+        lblAnho.setText("\"año\"");
+        Background.add(lblAnho, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 150, 20));
 
         lblNombres10.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblNombres10.setForeground(new java.awt.Color(255, 255, 255));
         lblNombres10.setText("Marca:");
         Background.add(lblNombres10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 60, 20));
 
         lblNombres11.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblNombres11.setForeground(new java.awt.Color(255, 255, 255));
         lblNombres11.setText("Línea:");
         Background.add(lblNombres11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 50, 20));
 
-        lblNombres12.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
-        lblNombres12.setText("\"serie\"");
-        Background.add(lblNombres12, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 150, 20));
+        lblSerie.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblSerie.setForeground(new java.awt.Color(255, 255, 255));
+        lblSerie.setText("\"serie\"");
+        Background.add(lblSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 150, 20));
 
-        lblNombres13.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
-        lblNombres13.setText("\"marca\"");
-        Background.add(lblNombres13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 160, 20));
+        lblMarca.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblMarca.setForeground(new java.awt.Color(255, 255, 255));
+        lblMarca.setText("\"marca\"");
+        Background.add(lblMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 160, 20));
 
-        lblNombres14.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
-        lblNombres14.setText("\"línea\"");
-        Background.add(lblNombres14, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 160, 20));
+        lblLinea.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblLinea.setForeground(new java.awt.Color(255, 255, 255));
+        lblLinea.setText("\"línea\"");
+        Background.add(lblLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 160, 20));
 
         lblNombres15.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblNombres15.setForeground(new java.awt.Color(255, 255, 255));
         lblNombres15.setText("Modelo:");
         Background.add(lblNombres15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 70, 20));
 
-        lblNombres.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
-        lblNombres.setText("\"nombres, apellidopa, apellidoma\"");
-        Background.add(lblNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 330, 20));
+        lblNombreCompleto.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lblNombreCompleto.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreCompleto.setText("\"nombres, apellidopa, apellidoma\"");
+        Background.add(lblNombreCompleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 330, 20));
 
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 400));
 
@@ -167,37 +179,37 @@ public class TramitePlacasConfirmacion extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnRegistrarAutomovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovilActionPerformed
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegistrarAutomovilActionPerformed
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
-    private void btnRegistrarAutomovil1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovil1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegistrarAutomovil1ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
-    private javax.swing.JButton btnRegistrarAutomovil;
-    private javax.swing.JButton btnRegistrarAutomovil1;
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JLabel lblAnho;
     private javax.swing.JLabel lblBienvenido;
-    private javax.swing.JLabel lblNombres;
+    private javax.swing.JLabel lblCantidadCosto;
+    private javax.swing.JLabel lblLinea;
+    private javax.swing.JLabel lblMarca;
+    private javax.swing.JLabel lblNombreCompleto;
     private javax.swing.JLabel lblNombres10;
     private javax.swing.JLabel lblNombres11;
-    private javax.swing.JLabel lblNombres12;
-    private javax.swing.JLabel lblNombres13;
-    private javax.swing.JLabel lblNombres14;
     private javax.swing.JLabel lblNombres15;
-    private javax.swing.JLabel lblNombres4;
     private javax.swing.JLabel lblNombres5;
     private javax.swing.JLabel lblNombres7;
     private javax.swing.JLabel lblNombres8;
-    private javax.swing.JLabel lblNombres9;
+    private javax.swing.JLabel lblSerie;
     // End of variables declaration//GEN-END:variables
 
 
