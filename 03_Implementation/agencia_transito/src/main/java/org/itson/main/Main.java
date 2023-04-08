@@ -3,6 +3,9 @@ package org.itson.main;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.itson.presentacion.MenuPrincipal;
+import static org.itson.temptest.TestPersonasDAO.probarPersonasDAO;
+import static org.itson.temptest.TestTramitesDAO.probarTramitesDAO;
+import static org.itson.temptest.TestVehiculosDAO.probarVehiculosDAO;
 
 /**
  *
@@ -28,6 +31,16 @@ final class Main {
         LOGGER.log(Level.INFO, "Iniciando App");
         MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(true);
+    }
+
+    /**
+     * Método temporal para probar DAOs, se debe reemplazar con el uso de un
+     * script para ingresar datos.
+     */
+    private static void probarDAOS() {
+        probarPersonasDAO();
+        probarTramitesDAO();
+        probarVehiculosDAO();
     }
 
 }

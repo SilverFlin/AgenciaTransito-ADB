@@ -25,13 +25,6 @@ public class Placa extends Tramite {
     private String matricula;
 
     /**
-     * Fecha de emisión de la placa, requerido.
-     */
-    @Column(name = "fechaEmision", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar fechaEmision;
-
-    /**
      * Fecha de recepción de la placa, requerido.
      */
     @Column(name = "fechaRecepcion", nullable = false)
@@ -61,7 +54,7 @@ public class Placa extends Tramite {
      * Constructor que no incluye ID.
      *
      * @param matricula
-     * @param fechaEmision
+     * @param fechaInicio
      * @param fechaRecepcion
      * @param tipo
      * @param vehiculo
@@ -70,16 +63,15 @@ public class Placa extends Tramite {
      */
     public Placa(
             final String matricula,
-            final Calendar fechaEmision,
+            final Calendar fechaInicio,
             final Calendar fechaRecepcion,
             final TipoPlaca tipo,
             final Vehiculo vehiculo,
             final Double costo,
             final Persona tramitante
     ) {
-        super(costo, tramitante);
+        super(costo, tramitante, fechaInicio);
         this.matricula = matricula;
-        this.fechaEmision = fechaEmision;
         this.fechaRecepcion = fechaRecepcion;
         this.tipo = tipo;
         this.vehiculo = vehiculo;
@@ -99,22 +91,6 @@ public class Placa extends Tramite {
      */
     public void setMatricula(final String matricula) {
         this.matricula = matricula;
-    }
-
-    /**
-     *
-     * @return fecha de emisión de la placa.
-     */
-    public Calendar getFechaEmision() {
-        return fechaEmision;
-    }
-
-    /**
-     *
-     * @param fechaEmision
-     */
-    public void setFechaEmision(final Calendar fechaEmision) {
-        this.fechaEmision = fechaEmision;
     }
 
     /**
@@ -175,7 +151,6 @@ public class Placa extends Tramite {
         return "Placa{"
                 + super.toString()
                 + "matricula=" + matricula
-                + ", fechaEmision=" + fechaEmision
                 + ", fechaRecepcion=" + fechaRecepcion
                 + ", tipo=" + tipo + '}';
     }

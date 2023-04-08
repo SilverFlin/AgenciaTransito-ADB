@@ -1,6 +1,7 @@
 package org.itson.dominio;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -27,6 +30,13 @@ public class Tramite implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * Fecha de inicio del tramite, requerido.
+     */
+    @Column(name = "fechaInicio", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Calendar fechaInicio;
 
     /**
      * Columna costo, requerido.
@@ -59,10 +69,16 @@ public class Tramite implements Serializable {
      *
      * @param costo
      * @param tramitante
+     * @param fechaInicio
      */
-    public Tramite(final Double costo, final Persona tramitante) {
+    public Tramite(
+            final Double costo,
+            final Persona tramitante,
+            final Calendar fechaInicio
+    ) {
         this.costo = costo;
         this.tramitante = tramitante;
+        this.fechaInicio = fechaInicio;
     }
 
     /**
@@ -79,6 +95,22 @@ public class Tramite implements Serializable {
      */
     public void setId(final Long id) {
         this.id = id;
+    }
+
+    /**
+     *
+     * @return fecha inicio del tramite.
+     */
+    public Calendar getFechaInicio() {
+        return fechaInicio;
+    }
+
+    /**
+     *
+     * @param fechaInicio
+     */
+    public void setFechaInicio(final Calendar fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
     /**
@@ -166,7 +198,8 @@ public class Tramite implements Serializable {
     public String toString() {
         return " id=" + id
                 + ", costo=" + costo
-                + ", tramitante=" + tramitante.getRfc() + " ";
+                + ", tramitante=" + tramitante.getRfc()
+                + ", fechaInicio=" + fechaInicio.toString();
     }
 
 }

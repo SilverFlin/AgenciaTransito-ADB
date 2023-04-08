@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
-import org.itson.utils.FormateadorTelefono;
 import org.itson.utils.Randomizador;
 import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -81,7 +80,7 @@ public class PersonasDAOImplTest {
     @Test
     public void testGetByAnho() {
         System.out.println("getByAnho");
-        final int anho = 1008;
+        final int anho = 1007;
         PersonasDAOImpl instance = new PersonasDAOImpl();
 
         List<Persona> result = instance.getByAnho(anho);
@@ -119,8 +118,8 @@ public class PersonasDAOImplTest {
         persona.setApellidoPaterno("Toledo");
         final int cantidadRfcFalso = 13;
         persona.setRfc(Randomizador.getRandomLetras(cantidadRfcFalso));
-        FormateadorTelefono telefono = new FormateadorTelefono("1234567890");
-        persona.setTelefono(telefono.getTelefono());
+
+        persona.setTelefono("1234567890");
         final int anho = 1950;
         final int mes = 3;
         final int dia = 10;

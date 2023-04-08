@@ -18,13 +18,6 @@ import javax.persistence.TemporalType;
 public class Licencia extends Tramite {
 
     /**
-     * Fecha de inicio de la licencia, requerido.
-     */
-    @Column(name = "fechaInicio", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar fechaInicio;
-
-    /**
      * Fecha a la que la licencia caduca, requerido.
      */
     @Column(name = "fechaCaducidad", nullable = false)
@@ -60,34 +53,18 @@ public class Licencia extends Tramite {
      * @param costo
      * @param tramitante
      */
-    public Licencia(final Calendar fechaInicio,
+    public Licencia(
+            final Calendar fechaInicio,
             final Calendar fechaCaducidad,
             final Integer anhosVigencia,
             final TipoLicencia tipo,
             final Double costo,
             final Persona tramitante
     ) {
-        super(costo, tramitante);
-        this.fechaInicio = fechaInicio;
+        super(costo, tramitante, fechaInicio);
         this.fechaCaducidad = fechaCaducidad;
         this.anhosVigencia = anhosVigencia;
         this.tipo = tipo;
-    }
-
-    /**
-     *
-     * @return fecha inicio de la licencia.
-     */
-    public Calendar getFechaInicio() {
-        return fechaInicio;
-    }
-
-    /**
-     *
-     * @param fechaInicio
-     */
-    public void setFechaInicio(final Calendar fechaInicio) {
-        this.fechaInicio = fechaInicio;
     }
 
     /**
@@ -147,7 +124,6 @@ public class Licencia extends Tramite {
     public String toString() {
         return "Licencia{"
                 + super.toString()
-                + ", fechaInicio=" + fechaInicio
                 + ", fechaCaducidad=" + fechaCaducidad
                 + ", anhosVigencia=" + anhosVigencia
                 + ", tipo=" + tipo + '}';

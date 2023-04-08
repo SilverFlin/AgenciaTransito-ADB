@@ -9,7 +9,6 @@ import org.itson.dominio.Persona;
 import org.itson.dominio.Placa;
 import org.itson.dominio.TipoPlaca;
 import org.itson.dominio.Vehiculo;
-import org.itson.utils.FormateadorTelefono;
 import org.itson.utils.GeneradorMatricula;
 import org.itson.utils.Randomizador;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -98,8 +97,8 @@ public class VehiculosDAOImplTest {
         duenho.setApellidoPaterno("Toledo");
         final int cantidadRfcFalso = 13;
         duenho.setRfc(Randomizador.getRandomLetras(cantidadRfcFalso));
-        FormateadorTelefono telefono = new FormateadorTelefono("1234567890");
-        duenho.setTelefono(telefono.getTelefono());
+
+        duenho.setTelefono("1234567890");
         final int anho = 1950;
         final int mes = 3;
         final int dia = 10;
@@ -108,7 +107,7 @@ public class VehiculosDAOImplTest {
 
         Placa placa = new Placa();
         placa.setCosto(1.0);
-        placa.setFechaEmision(new GregorianCalendar());
+        placa.setFechaInicio(new GregorianCalendar());
         placa.setFechaRecepcion(new GregorianCalendar());
         placa.setMatricula(GeneradorMatricula.generar());
         placa.setTipo(TipoPlaca.VEHICULO_NUEVO);
