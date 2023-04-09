@@ -39,7 +39,28 @@ public class Automovil extends Vehiculo {
     ) {
         super(duenho, placa, numeroSerie, linea, marca, modelo, color);
     }
-
+    
+    /**
+     * Constructor que no incluye ID ni placa.
+     *
+     * @param duenho
+     * @param numeroSerie
+     * @param linea
+     * @param marca
+     * @param modelo
+     * @param color
+     */
+    public Automovil(
+            final Persona duenho,
+            final String numeroSerie,
+            final String linea,
+            final String marca,
+            final String modelo,
+            final String color
+    ) {
+        super(duenho, numeroSerie, linea, marca, modelo, color);
+    }
+    
     /**
      * Agarra todos los parámetros de la padre, que no especifica la clase.
      *

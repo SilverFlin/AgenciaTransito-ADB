@@ -146,7 +146,29 @@ public class Persona implements Serializable {
         this.vehiculos = vehiculos;
         this.tramites = tramites;
     }
-
+    
+    /**
+     * Constructor que no incluye ID, vehículos y trámites.
+     *
+     * @param rfc
+     * @param nombres
+     * @param apellidoPaterno
+     * @param apellidoMaterno
+     * @param fechaNacimiento
+     */
+    public Persona(
+            final String rfc,
+            final String nombres,
+            final String apellidoPaterno,
+            final String apellidoMaterno,
+            final Calendar fechaNacimiento) {
+        this.rfc = rfc;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+    
     /**
      *
      * @return Llave primaria de la entidad.

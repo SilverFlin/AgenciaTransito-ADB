@@ -123,7 +123,33 @@ public class Vehiculo implements Serializable {
         this.modelo = modelo;
         this.color = color;
     }
-
+    
+    /**
+     * Constructor que no incluye ID ni placa.
+     *
+     * @param duenho
+     * @param numeroSerie
+     * @param linea
+     * @param marca
+     * @param modelo
+     * @param color
+     */
+    public Vehiculo(
+            final Persona duenho,
+            final String numeroSerie,
+            final String linea,
+            final String marca,
+            final String modelo,
+            final String color
+    ) {
+        this.duenho = duenho;
+        this.numeroSerie = numeroSerie;
+        this.linea = linea;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.color = color;
+    }
+    
     /**
      *
      * @return Llave primaria de la entidad.
