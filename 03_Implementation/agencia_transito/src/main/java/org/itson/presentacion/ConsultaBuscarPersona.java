@@ -1,6 +1,7 @@
 package org.itson.presentacion;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
@@ -235,9 +236,10 @@ public class ConsultaBuscarPersona extends JFrame {
      * @param evt Evento que lo acciono
      */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        List<Persona> listaPersonas;
+        List<Persona> listaPersonas = null;
         if (this.rbtnRFC.isSelected()) {
-            listaPersonas = this.personasDAO.getByRFC(this.txtRFC.getText());
+            Optional<Persona> persona = this.personasDAO.getByRFC(this.txtRFC.getText());
+            listaPersonas.add(persona.get());
             this.cargarTablaPersonas(listaPersonas);
         } else if (this.rbtnNombre.isSelected()) {
             listaPersonas = this.personasDAO.getByNombre(this.txtNombre1.getText());
