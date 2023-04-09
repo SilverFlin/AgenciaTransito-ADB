@@ -44,7 +44,7 @@ public final class TestPersonasDAO {
     /**
      * Persiste una persona falsa con fines de pruebas y la regresa.
      *
-     * @return La persona creada.
+     * @return La persona guardada.
      */
     public static Persona agregaPersonaFalsa() {
         Persona persona = crearPersonaFalsa();
@@ -57,7 +57,12 @@ public final class TestPersonasDAO {
         }
     }
 
-    private static Persona crearPersonaFalsa() {
+    /**
+     * Crea una persona falsa y la regresa.
+     *
+     * @return la persona.
+     */
+    public static Persona crearPersonaFalsa() {
         Persona persona = new Persona();
         persona.setNombres("Jedal");
         persona.setApellidoPaterno("Lestibournes");

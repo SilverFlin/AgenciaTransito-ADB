@@ -9,6 +9,7 @@ import org.itson.dominio.Automovil;
 import org.itson.dominio.Vehiculo;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.VehiculosDAO;
+import static org.itson.temptest.TestPersonasDAO.crearPersonaFalsa;
 import static org.itson.utils.LogsUtils.imprimirLista;
 import static org.itson.utils.Randomizador.getRandomNumber;
 
@@ -53,7 +54,7 @@ public final class TestVehiculosDAO {
         try {
             return (Vehiculo) vehiculosDAO.save(vehiculo);
         } catch (PersistenciaException ex) {
-            LOGGER.log(Level.INFO, ex.getMessage());
+            LOGGER.log(Level.WARNING, ex.getMessage());
             return null;
         }
 
@@ -66,6 +67,7 @@ public final class TestVehiculosDAO {
         automovil.setMarca("Marca");
         automovil.setModelo("Modelo");
         automovil.setNumeroSerie(getRandomNoSerie());
+        automovil.setDuenho(crearPersonaFalsa());
 
         return automovil;
     }
