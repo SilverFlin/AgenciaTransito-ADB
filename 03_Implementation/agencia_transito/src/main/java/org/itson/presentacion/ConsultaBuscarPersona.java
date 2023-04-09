@@ -1,7 +1,11 @@
 package org.itson.presentacion;
 
+import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import org.itson.daos.PersonasDAOImpl;
+import org.itson.dominio.Persona;
 import org.itson.utils.*;
 import org.itson.utils.FormUtils;
 
@@ -13,35 +17,26 @@ public class ConsultaBuscarPersona extends JFrame {
 
 //    private static final Logger LOG = Logger.getLogger(ConsultaBuscarPersona.class.getName());
 //    private final JFrame frmAnterior;
-
+    private PersonasDAOImpl personasDAO;
+    
     public ConsultaBuscarPersona() {
         initComponents();
         botones.add(rbtnRFC);
         botones.add(rbtnNombre);
-        botones.add(rbtnFechaNacimiento);
+        botones.add(rbtnAnhoNacimiento);
         tblPersonas.getColumnModel().getColumn(5).setCellEditor(new BotonEditor(this));
         tblPersonas.getColumnModel().getColumn(5).setCellRenderer(new BotonRender());
-        cargarTablaX();
-//        this.frmAnterior = frmAnterior;
+        List<Persona> listaPersonas = this.personasDAO.getAll();
+        cargarTablaPersonas(listaPersonas);
     }
 
-    private void cargarTablaX() {
-        //        List<Publicacion> listaPublicaciones
-        //                = this.conseguirListaPublicaciones();
-        //        DefaultTableModel modeloTabla
-        //                = (DefaultTableModel) this.tblPublicaciones.getModel();
-        //        modeloTabla.setRowCount(0);
-        //        for (Publicacion publicacion : listaPublicaciones) {
-        //            Object[] fila = {
-        //                publicacion.getTitulo(),
-        //        publicacion.getAutor().getNombre() + " ";
-        //                + publicacion.getAutor().getApellidoPaterno(),
-        //                publicacion.getNoPaginas(),
-        //                "$" + publicacion.getCostoProd(),
-        //                "$" + publicacion.getCostoVenta()};
-        //
-        //            modeloTabla.addRow(fila);
-        //        };
+    private void cargarTablaPersonas(List<Persona> listaPersonas) {
+        DefaultTableModel modeloTabla1 = (DefaultTableModel) this.tblPersonas.getModel();
+        modeloTabla1.setRowCount(0);
+        for (Persona persona : listaPersonas) {
+            Object[] fila = {persona.getRfc(), persona.getNombres(), persona.getApellidoPaterno(), persona.getApellidoMaterno(), persona.getFechaNacimiento()};
+            modeloTabla1.addRow(fila);
+        }
 
     }
 
@@ -53,7 +48,7 @@ public class ConsultaBuscarPersona extends JFrame {
         Background = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lblOperaciones = new javax.swing.JLabel();
-        btnAtras1 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         panelTablaCuentas = new javax.swing.JScrollPane();
         tblPersonas = new javax.swing.JTable();
         btnAdelante = new javax.swing.JButton();
@@ -62,15 +57,15 @@ public class ConsultaBuscarPersona extends JFrame {
         txtRFC = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         lblNombre = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txtAnhoNacimiento = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         lblFechaNacimiento = new javax.swing.JLabel();
-        dtFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jSeparator6 = new javax.swing.JSeparator();
         btnBuscar = new javax.swing.JButton();
-        rbtnFechaNacimiento = new javax.swing.JRadioButton();
+        rbtnAnhoNacimiento = new javax.swing.JRadioButton();
         rbtnRFC = new javax.swing.JRadioButton();
         rbtnNombre = new javax.swing.JRadioButton();
+        txtNombre1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 400));
@@ -90,18 +85,18 @@ public class ConsultaBuscarPersona extends JFrame {
         lblOperaciones.setText("Buscar Persona");
         jPanel1.add(lblOperaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, -1, -1));
 
-        btnAtras1.setBackground(new java.awt.Color(102, 10, 10));
-        btnAtras1.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 12)); // NOI18N
-        btnAtras1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAtras1.setText("Regresar");
-        btnAtras1.setBorder(null);
-        btnAtras1.setBorderPainted(false);
-        btnAtras1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setBackground(new java.awt.Color(102, 10, 10));
+        btnRegresar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 12)); // NOI18N
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegresar.setText("Regresar");
+        btnRegresar.setBorder(null);
+        btnRegresar.setBorderPainted(false);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtras1ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAtras1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 40));
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 40));
 
         Background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 60));
 
@@ -177,31 +172,30 @@ public class ConsultaBuscarPersona extends JFrame {
         lblRFC.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
         lblRFC.setForeground(new java.awt.Color(255, 255, 255));
         lblRFC.setText("RFC");
-        Background.add(lblRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+        Background.add(lblRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         txtRFC.setForeground(new java.awt.Color(51, 51, 51));
         txtRFC.setToolTipText("");
         txtRFC.setBorder(null);
-        Background.add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 150, 20));
-        Background.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 150, 10));
+        Background.add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 140, 20));
+        Background.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 140, 10));
 
         lblNombre.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
         lblNombre.setText("Nombre");
         Background.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, -1, -1));
 
-        txtNombre.setForeground(new java.awt.Color(51, 51, 51));
-        txtNombre.setToolTipText("");
-        txtNombre.setBorder(null);
-        Background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 150, 20));
-        Background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 150, 10));
+        txtAnhoNacimiento.setForeground(new java.awt.Color(51, 51, 51));
+        txtAnhoNacimiento.setToolTipText("");
+        txtAnhoNacimiento.setBorder(null);
+        Background.add(txtAnhoNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 130, 20));
+        Background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 140, 10));
 
         lblFechaNacimiento.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
         lblFechaNacimiento.setForeground(new java.awt.Color(255, 255, 255));
-        lblFechaNacimiento.setText("Fecha de Nacimiento");
-        Background.add(lblFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 180, 20));
-        Background.add(dtFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 130, 20));
-        Background.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 130, 10));
+        lblFechaNacimiento.setText("Año de nacimiento");
+        Background.add(lblFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 180, 20));
+        Background.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 130, 10));
 
         btnBuscar.setBackground(new java.awt.Color(102, 10, 10));
         btnBuscar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 12)); // NOI18N
@@ -216,14 +210,19 @@ public class ConsultaBuscarPersona extends JFrame {
         });
         Background.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 70, 30));
 
-        rbtnFechaNacimiento.setBackground(new java.awt.Color(173, 139, 106));
-        Background.add(rbtnFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, -1, -1));
+        rbtnAnhoNacimiento.setBackground(new java.awt.Color(173, 139, 106));
+        Background.add(rbtnAnhoNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 100, 30, -1));
 
         rbtnRFC.setBackground(new java.awt.Color(173, 139, 106));
-        Background.add(rbtnRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, -1));
+        Background.add(rbtnRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 100, 30, -1));
 
         rbtnNombre.setBackground(new java.awt.Color(173, 139, 106));
-        Background.add(rbtnNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
+        Background.add(rbtnNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 100, 30, -1));
+
+        txtNombre1.setForeground(new java.awt.Color(51, 51, 51));
+        txtNombre1.setToolTipText("");
+        txtNombre1.setBorder(null);
+        Background.add(txtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 140, 20));
 
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 400));
 
@@ -236,7 +235,19 @@ public class ConsultaBuscarPersona extends JFrame {
      * @param evt Evento que lo acciono
      */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-//        this.regresar();
+        List<Persona> listaPersonas;
+        if (this.rbtnRFC.isSelected()) {
+            listaPersonas = this.personasDAO.getByRFC(this.txtRFC.getText());
+            this.cargarTablaPersonas(listaPersonas);
+        } else if (this.rbtnNombre.isSelected()) {
+            listaPersonas = this.personasDAO.getByNombre(this.txtNombre1.getText());
+            this.cargarTablaPersonas(listaPersonas);
+        } else if (this.rbtnAnhoNacimiento.isSelected()) {
+            listaPersonas = this.personasDAO.getByAnho(Integer.parseInt(this.txtAnhoNacimiento.getText()));
+            this.cargarTablaPersonas(listaPersonas);
+        } else {
+            Dialogs.mostrarMensajeError(rootPane, "Seleccione un filtro de búsqueda.");
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
     /**
      * Avanza en la pagina de operaciones
@@ -244,8 +255,7 @@ public class ConsultaBuscarPersona extends JFrame {
      * @param evt Evento que lo acciono
      */
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
-        // TODO paginado
-        this.cargarTablaX();
+        
     }//GEN-LAST:event_btnAdelanteActionPerformed
     /**
      * Retrocede en la pagina de operaciones
@@ -253,24 +263,21 @@ public class ConsultaBuscarPersona extends JFrame {
      * @param evt Evento que lo acciono
      */
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
-        // TODO paginado
-        // this.configPaginado.retrocederPag();
-        this.cargarTablaX();
+        
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
-    private void btnAtras1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtras1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAtras1ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        FormUtils.regresar(this, new Consultas());
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.ButtonGroup botones;
     private javax.swing.JButton btnAdelante;
-    private javax.swing.JButton btnAtras1;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRetroceder;
-    private com.toedter.calendar.JDateChooser dtFechaNacimiento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -280,15 +287,13 @@ public class ConsultaBuscarPersona extends JFrame {
     private javax.swing.JLabel lblOperaciones;
     private javax.swing.JLabel lblRFC;
     private javax.swing.JScrollPane panelTablaCuentas;
-    private javax.swing.JRadioButton rbtnFechaNacimiento;
+    private javax.swing.JRadioButton rbtnAnhoNacimiento;
     private javax.swing.JRadioButton rbtnNombre;
     private javax.swing.JRadioButton rbtnRFC;
     private javax.swing.JTable tblPersonas;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtAnhoNacimiento;
+    private javax.swing.JTextField txtNombre1;
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
 
-//    private void regresar() {
-//        FormUtils.regresar(frmAnterior, this);
-//    }
 }
