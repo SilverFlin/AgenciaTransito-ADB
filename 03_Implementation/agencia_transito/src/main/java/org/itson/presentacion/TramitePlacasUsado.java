@@ -1,8 +1,17 @@
 package org.itson.presentacion;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import org.itson.daos.LicenciasDAOImpl;
+import org.itson.daos.PersonasDAOImpl;
+import org.itson.daos.VehiculosDAOImpl;
+import org.itson.dominio.Automovil;
+import org.itson.dominio.Persona;
+import org.itson.dominio.TipoPlaca;
+import org.itson.dominio.Vehiculo;
+import org.itson.utils.Dialogs;
 import org.itson.utils.FormUtils;
 
 /**
@@ -12,9 +21,45 @@ import org.itson.utils.FormUtils;
 public class TramitePlacasUsado extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(TramitePlacasUsado.class.getName());
+    private Optional<Persona> optionalPersona;
+    private Optional<Vehiculo> optionalVehiculo;
+    private Persona persona;
+    private Vehiculo vehiculo;
+    private boolean validarLicenciaPersona;
+    private final double costo;
+    private final TipoPlaca tipo;
 
     public TramitePlacasUsado() {
+        this.optionalPersona = null;
+        this.optionalVehiculo = null;
+        this.persona = null;
+        this.vehiculo = null;
+        this.costo = 1000d;
+        this.tipo = TipoPlaca.VEHICULO_USADO;
         initComponents();
+    }
+
+    private Optional<Persona> buscarPersona() {
+        PersonasDAOImpl personas = new PersonasDAOImpl();
+        return personas.getByRFC(this.txtRFC.getText());
+    }
+
+    private void imprimirDatosPersona() {
+        this.txtNombres.setText(this.persona.getNombres());
+        this.txtApellidoPaterno.setText(this.persona.getApellidoPaterno());
+        this.txtApellidoMaterno.setText(this.persona.getApellidoMaterno());
+    }
+
+    private Optional<Vehiculo> buscarVehiculo() {
+        VehiculosDAOImpl vehiculo = new VehiculosDAOImpl();
+        return vehiculo.getByMatricula(this.txtPlacas.getText());
+    }
+
+    private void imprimirDatosVehiculo() {
+        this.txtSerie.setText(this.vehiculo.getNumeroSerie());
+        this.txtMarca.setText(this.vehiculo.getMarca());
+        this.txtLinea.setText(this.vehiculo.getLinea());
+        this.txtModelo.setText(this.vehiculo.getModelo());
     }
 
     @SuppressWarnings("unchecked")
@@ -29,7 +74,7 @@ public class TramitePlacasUsado extends javax.swing.JFrame {
         btnHistorialPlacas = new javax.swing.JButton();
         btnBuscarAuto = new javax.swing.JButton();
         lblNombres = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txtNombres = new javax.swing.JTextField();
         lblApellidoPaterno = new javax.swing.JLabel();
         txtApellidoPaterno = new javax.swing.JTextField();
         lblApellidoMaterno = new javax.swing.JLabel();
@@ -131,11 +176,11 @@ public class TramitePlacasUsado extends javax.swing.JFrame {
         lblNombres.setText("Nombres");
         Background.add(lblNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, 20));
 
-        txtNombre.setEditable(false);
-        txtNombre.setForeground(new java.awt.Color(51, 51, 51));
-        txtNombre.setToolTipText("");
-        txtNombre.setBorder(null);
-        Background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 170, 20));
+        txtNombres.setEditable(false);
+        txtNombres.setForeground(new java.awt.Color(51, 51, 51));
+        txtNombres.setToolTipText("");
+        txtNombres.setBorder(null);
+        Background.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 170, 20));
 
         lblApellidoPaterno.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
         lblApellidoPaterno.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,7 +325,7 @@ public class TramitePlacasUsado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        
+        FormUtils.regresar(this, new TramitePlacas());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnHistorialPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialPlacasActionPerformed
@@ -288,15 +333,38 @@ public class TramitePlacasUsado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHistorialPlacasActionPerformed
 
     private void btnBuscarAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAutoActionPerformed
-        // TODO add your handling code here:
+        this.optionalVehiculo = this.buscarVehiculo();
+        if (this.optionalVehiculo.isPresent()) {
+            this.vehiculo = optionalVehiculo.get();
+            this.imprimirDatosVehiculo();
+        } else {
+            Dialogs.mostrarMensajeError(rootPane, "No se ha encontrado el vehículo.");
+        }
     }//GEN-LAST:event_btnBuscarAutoActionPerformed
 
     private void btnBuscarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPersonaActionPerformed
-        // TODO add your handling code here:
+        this.optionalPersona = this.buscarPersona();
+        if (this.optionalPersona.isPresent()) {
+            this.persona = optionalPersona.get();
+            this.imprimirDatosPersona();
+            LicenciasDAOImpl licencia = new LicenciasDAOImpl();
+            this.validarLicenciaPersona = licencia.validarLicenciaPersona(this.persona.getId());
+            if (this.validarLicenciaPersona) {
+                this.txtLicencia.setText("Si");
+            } else {
+                this.txtLicencia.setText("No");
+            }
+        } else {
+            Dialogs.mostrarMensajeError(rootPane, "No se ha encontrado a la persona.");
+        }
     }//GEN-LAST:event_btnBuscarPersonaActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        // TODO add your handling code here:
+        if (this.validarLicenciaPersona) {
+            FormUtils.cargarForm(new TramitePlacasNuevoConfirmacion(this.persona, this.vehiculo, this.costo, this.tipo), this);
+        } else {
+            Dialogs.mostrarMensajeError(rootPane, "No se puede realizar, ya que no cuenta con licencia.");
+        }
     }//GEN-LAST:event_btnContinuarActionPerformed
 
 
@@ -337,12 +405,11 @@ public class TramitePlacasUsado extends javax.swing.JFrame {
     private javax.swing.JTextField txtLinea;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtPlacas;
     private javax.swing.JTextField txtRFC;
     private javax.swing.JTextField txtSerie;
     // End of variables declaration//GEN-END:variables
-
 
     private void agregar() {
         throw new UnsupportedOperationException("Not supported yet.");
