@@ -86,11 +86,11 @@ public class Consultas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        
+        FormUtils.regresar(this, new MenuPrincipal());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnHistorialUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialUsuarioActionPerformed
-        // TODO add your handling code here:
+        FormUtils.cargarForm(new ConsultaBuscarPersona(), this);
     }//GEN-LAST:event_btnHistorialUsuarioActionPerformed
 
 
