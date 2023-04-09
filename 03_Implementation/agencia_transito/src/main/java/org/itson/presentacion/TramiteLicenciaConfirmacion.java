@@ -1,8 +1,15 @@
 package org.itson.presentacion;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import org.itson.daos.LicenciasDAOImpl;
+import org.itson.dominio.Licencia;
+import org.itson.dominio.Persona;
+import org.itson.excepciones.PersistenciaException;
+import org.itson.utils.Dialogs;
 import org.itson.utils.FormUtils;
 
 /**
@@ -12,9 +19,21 @@ import org.itson.utils.FormUtils;
 public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(TramiteLicenciaConfirmacion.class.getName());
-
-    public TramiteLicenciaConfirmacion() {
+    private final Licencia licencia;
+    private final Persona persona;
+    private final int duracion;
+    private final double costo;
+    
+    public TramiteLicenciaConfirmacion(Licencia licencia, double costo, int duracion, Persona persona) {
+        this.licencia = licencia;
+        this.costo = costo;
+        this.duracion = duracion;
+        this.persona = persona;
         initComponents();
+        String nombreCompleto = this.persona.getNombres() + " " + this.persona.getApellidoPaterno() + " " +this.persona.getApellidoMaterno();
+        this.lblNombreCompleto.setText(nombreCompleto);
+        this.lblDuracion.setText(String.valueOf(this.duracion));
+        this.lblCantidadCosto.setText(String.valueOf(this.costo));
     }
 
     @SuppressWarnings("unchecked")
@@ -146,15 +165,26 @@ public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        
+        FormUtils.regresar(this, new TramiteLicencia());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        // TODO add your handling code here:
+        LicenciasDAOImpl tramites = new LicenciasDAOImpl();
+        try {
+            tramites.save(this.licencia);
+            Dialogs.mostrarMensajeExito(rootPane, "Licencia registrada exitosamente.");
+            FormUtils.cargarForm(new MenuPrincipal(), this);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(TramiteLicenciaConfirmacion.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar la licencia.");
+        }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el registro?", "CANCELAR REGISTRO", JOptionPane.YES_NO_OPTION);
+        if (respuesta == 0) {
+            FormUtils.cargarForm(new Registros(), this);
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
 
@@ -177,8 +207,4 @@ public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombres8;
     // End of variables declaration//GEN-END:variables
 
-
-    private void agregar() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }
