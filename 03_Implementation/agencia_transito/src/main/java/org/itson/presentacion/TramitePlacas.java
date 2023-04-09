@@ -109,11 +109,17 @@ public class TramitePlacas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        
+        FormUtils.regresar(this, new Tramites());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnTramitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitarActionPerformed
-        // TODO add your handling code here:
+        String vehiculo = this.cbxVehiculo.getItemAt(this.cbxVehiculo.getSelectedIndex());
+        String estado = this.cbxEstado.getItemAt(this.cbxEstado.getSelectedIndex());
+        if(vehiculo.equalsIgnoreCase("automovil") && estado.equalsIgnoreCase("nuevo")){
+            FormUtils.cargarForm(new TramitePlacasNuevo(), this);
+        } else {
+            FormUtils.cargarForm(new TramitePlacasUsado(), this);
+        }
     }//GEN-LAST:event_btnTramitarActionPerformed
 
 
