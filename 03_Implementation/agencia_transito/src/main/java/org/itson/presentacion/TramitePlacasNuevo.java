@@ -1,8 +1,19 @@
 package org.itson.presentacion;
 
+import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import org.itson.daos.LicenciasDAOImpl;
+import org.itson.daos.PersonasDAOImpl;
+import org.itson.daos.VehiculosDAOImpl;
+import org.itson.dominio.Automovil;
+import org.itson.dominio.Persona;
+import org.itson.dominio.TipoPlaca;
+import org.itson.dominio.Vehiculo;
+import org.itson.excepciones.PersistenciaException;
+import org.itson.utils.Dialogs;
 import org.itson.utils.FormUtils;
 
 /**
@@ -12,9 +23,33 @@ import org.itson.utils.FormUtils;
 public class TramitePlacasNuevo extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(TramitePlacasNuevo.class.getName());
+    private Optional<Persona> optionalPersona;
+    private Persona persona;
+    private boolean validarLicenciaPersona;
+    private final double costo;
+    private final TipoPlaca tipo;
 
     public TramitePlacasNuevo() {
+        this.optionalPersona = null;
+        this.persona = null;
+        this.costo = 1500d;
+        this.tipo = TipoPlaca.VEHICULO_NUEVO;
         initComponents();
+    }
+
+    private Optional<Persona> buscarPersona() {
+        PersonasDAOImpl personas = new PersonasDAOImpl();
+        return personas.getByRFC(this.txtRFC.getText());
+    }
+
+    private void imprimirDatosPersona() {
+        this.txtNombres.setText(this.persona.getNombres());
+        this.txtApellidoPaterno.setText(this.persona.getApellidoPaterno());
+        this.txtApellidoMaterno.setText(this.persona.getApellidoMaterno());
+    }
+
+    private Automovil obtenerAutomovil() {
+        return new Automovil(this.persona, this.txtSerie.getText(), this.txtLinea.getText(), this.txtMarca.getText(), this.txtMarca.getText(), this.txtColor.getText());
     }
 
     @SuppressWarnings("unchecked")
@@ -246,15 +281,33 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        
+        FormUtils.regresar(this, new TramitePlacas());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        // TODO add your handling code here:
+        if (this.validarLicenciaPersona) {
+            Automovil automovil = this.obtenerAutomovil();
+            FormUtils.cargarForm(new TramitePlacasNuevoConfirmacion(this.persona, automovil, this.costo, this.tipo), this);
+        } else {
+            Dialogs.mostrarMensajeError(rootPane, "No se puede realizar, ya que no cuenta con licencia.");
+        }
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnBuscarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPersonaActionPerformed
-        // TODO add your handling code here:
+        this.optionalPersona = this.buscarPersona();
+        if (this.optionalPersona.isPresent()) {
+            this.persona = optionalPersona.get();
+            this.imprimirDatosPersona();
+            LicenciasDAOImpl licencia = new LicenciasDAOImpl();
+            this.validarLicenciaPersona = licencia.validarLicenciaPersona(this.persona.getId());
+            if (this.validarLicenciaPersona) {
+                this.txtLicencia.setText("Si");
+            } else {
+                this.txtLicencia.setText("No");
+            }
+        } else {
+            Dialogs.mostrarMensajeError(rootPane, "No se ha encontrado a la persona.");
+        }
     }//GEN-LAST:event_btnBuscarPersonaActionPerformed
 
 
@@ -299,8 +352,4 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
     private javax.swing.JTextField txtSerie;
     // End of variables declaration//GEN-END:variables
 
-
-    private void agregar() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }
