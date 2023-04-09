@@ -130,23 +130,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
-        this.agregar();
+        FormUtils.cargarForm(new Consultas(), this);
     }//GEN-LAST:event_btnConsultasActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        
+        System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrosActionPerformed
-        // TODO add your handling code here:
+        FormUtils.cargarForm(new Registros(), this);
     }//GEN-LAST:event_btnRegistrosActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        // TODO add your handling code here:
+        FormUtils.cargarForm(new Reportes(), this);
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitesActionPerformed
-        // TODO add your handling code here:
+        FormUtils.cargarForm(new Tramites(), this);
     }//GEN-LAST:event_btnTramitesActionPerformed
 
 
@@ -163,7 +163,4 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-    private void agregar() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }
