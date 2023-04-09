@@ -10,13 +10,13 @@ import org.itson.utils.FormUtils;
  * @author Toled
  */
 public class Reportes extends javax.swing.JFrame {
-
+    
     private static final Logger LOG = Logger.getLogger(Reportes.class.getName());
-
+    
     public Reportes() {
         initComponents();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,11 +85,11 @@ public class Reportes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        
+        FormUtils.regresar(this, new MenuPrincipal());        
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnReporteTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteTramitesActionPerformed
-        // TODO add your handling code here:
+        FormUtils.cargarForm(new ReportesTramites(), this);
     }//GEN-LAST:event_btnReporteTramitesActionPerformed
 
 
@@ -102,8 +102,4 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JLabel lblBienvenido;
     // End of variables declaration//GEN-END:variables
 
-
-    private void agregar() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }
