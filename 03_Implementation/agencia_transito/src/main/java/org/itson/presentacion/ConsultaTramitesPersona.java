@@ -1,7 +1,12 @@
 package org.itson.presentacion;
 
+import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import org.itson.daos.TramitesDAOImpl;
+import org.itson.dominio.Persona;
+import org.itson.dominio.Tramite;
 import org.itson.utils.FormUtils;
 
 /**
@@ -10,32 +15,27 @@ import org.itson.utils.FormUtils;
  */
 public class ConsultaTramitesPersona extends JFrame {
 
-//    private static final Logger LOG = Logger.getLogger(ConsultaBuscarPersona.class.getName());
-//    private final JFrame frmAnterior;
+    private static final Logger LOG = Logger.getLogger(ConsultaBuscarPersona.class.getName());
+    private Persona persona;
+    private TramitesDAOImpl tramitesDAO;
 
-    public ConsultaTramitesPersona() {
+    public ConsultaTramitesPersona(Persona persona) {
+        this.persona = persona;
+        this.tramitesDAO = new TramitesDAOImpl();
         initComponents();
-        cargarTablaX();
-//        this.frmAnterior = frmAnterior;
+        String nombreCompleto = this.persona.getNombres() + " " + this.persona.getApellidoPaterno() + " " +this.persona.getApellidoMaterno();
+        this.lblNombreCompleto.setText(nombreCompleto);
+        cargarTablaTramitesPersona();
     }
 
-    private void cargarTablaX() {
-        //        List<Publicacion> listaPublicaciones
-        //                = this.conseguirListaPublicaciones();
-        //        DefaultTableModel modeloTabla
-        //                = (DefaultTableModel) this.tblPublicaciones.getModel();
-        //        modeloTabla.setRowCount(0);
-        //        for (Publicacion publicacion : listaPublicaciones) {
-        //            Object[] fila = {
-        //                publicacion.getTitulo(),
-        //        publicacion.getAutor().getNombre() + " ";
-        //                + publicacion.getAutor().getApellidoPaterno(),
-        //                publicacion.getNoPaginas(),
-        //                "$" + publicacion.getCostoProd(),
-        //                "$" + publicacion.getCostoVenta()};
-        //
-        //            modeloTabla.addRow(fila);
-        //        };
+    private void cargarTablaTramitesPersona() {
+        List<Tramite> listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
+        DefaultTableModel modeloTabla1 = (DefaultTableModel) this.tblTramitesRealizados.getModel();
+        modeloTabla1.setRowCount(0);
+        for (Tramite tramite : listaTramites) {
+            Object[] fila = {tramite, tramite.getTramitante().getNombres(), tramite.getCosto(), tramite};
+            modeloTabla1.addRow(fila);
+        }
 
     }
 
@@ -70,7 +70,7 @@ public class ConsultaTramitesPersona extends JFrame {
         lblOperaciones.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 28)); // NOI18N
         lblOperaciones.setForeground(new java.awt.Color(255, 255, 255));
         lblOperaciones.setText("Trámites Realizados");
-        jPanel1.add(lblOperaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
+        jPanel1.add(lblOperaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
 
         btnRegresar.setBackground(new java.awt.Color(102, 10, 10));
         btnRegresar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 12)); // NOI18N
@@ -167,14 +167,13 @@ public class ConsultaTramitesPersona extends JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-   /**
+    /**
      * Avanza en la pagina de operaciones
      *
      * @param evt Evento que lo acciono
      */
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
-        // TODO paginado
-        this.cargarTablaX();
+
     }//GEN-LAST:event_btnAdelanteActionPerformed
     /**
      * Retrocede en la pagina de operaciones
@@ -182,13 +181,11 @@ public class ConsultaTramitesPersona extends JFrame {
      * @param evt Evento que lo acciono
      */
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
-        // TODO paginado
-        // this.configPaginado.retrocederPag();
-        this.cargarTablaX();
+
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        FormUtils.regresar(this, new ConsultaBuscarPersona());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
 
@@ -205,7 +202,4 @@ public class ConsultaTramitesPersona extends JFrame {
     private javax.swing.JTable tblTramitesRealizados;
     // End of variables declaration//GEN-END:variables
 
-//    private void regresar() {
-//        FormUtils.regresar(frmAnterior, this);
-//    }
 }
