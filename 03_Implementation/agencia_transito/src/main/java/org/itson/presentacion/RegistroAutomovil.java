@@ -1,8 +1,15 @@
 package org.itson.presentacion;
 
+import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
+import org.itson.daos.PersonasDAOImpl;
+import org.itson.daos.VehiculosDAOImpl;
+import org.itson.dominio.Automovil;
+import org.itson.dominio.Vehiculo;
+import org.itson.dominio.Persona;
+import org.itson.excepciones.PersistenciaException;
+import org.itson.utils.Dialogs;
 import org.itson.utils.FormUtils;
 
 /**
@@ -12,9 +19,28 @@ import org.itson.utils.FormUtils;
 public class RegistroAutomovil extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(RegistroAutomovil.class.getName());
+    private Optional<Persona> optionalPersona;
+    private Persona persona;
 
     public RegistroAutomovil() {
+        this.optionalPersona = null;
+        this.persona = null;
         initComponents();
+    }
+
+    private Optional<Persona> buscarPersona() {
+        PersonasDAOImpl personas = new PersonasDAOImpl();
+        return personas.getByRFC(this.txtRFC.getText());
+    }
+
+    private void imprimirDatosPersona() {
+        this.txtNombres.setText(this.persona.getNombres());
+        this.txtApellidoPaterno.setText(this.persona.getApellidoPaterno());
+        this.txtApellidoMaterno.setText(this.persona.getApellidoMaterno());
+    }
+    
+    private Automovil obtenerAutomovil(){
+        return new Automovil(this.persona, this.txtSerie.getText(), this.txtLinea.getText(), this.txtMarca.getText(), this.txtMarca.getText(), this.txtColor.getText());
     }
 
     @SuppressWarnings("unchecked")
@@ -126,6 +152,7 @@ public class RegistroAutomovil extends javax.swing.JFrame {
         lblNombres.setText("Nombres");
         Background.add(lblNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, 20));
 
+        txtNombres.setEditable(false);
         txtNombres.setForeground(new java.awt.Color(51, 51, 51));
         txtNombres.setToolTipText("");
         txtNombres.setBorder(null);
@@ -136,6 +163,7 @@ public class RegistroAutomovil extends javax.swing.JFrame {
         lblApellidoPaterno.setText("Apellido paterno");
         Background.add(lblApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 180, 20));
 
+        txtApellidoPaterno.setEditable(false);
         txtApellidoPaterno.setForeground(new java.awt.Color(51, 51, 51));
         txtApellidoPaterno.setToolTipText("");
         txtApellidoPaterno.setBorder(null);
@@ -146,6 +174,7 @@ public class RegistroAutomovil extends javax.swing.JFrame {
         lblApellidoMaterno.setText("Apellido materno");
         Background.add(lblApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 130, 20));
 
+        txtApellidoMaterno.setEditable(false);
         txtApellidoMaterno.setForeground(new java.awt.Color(51, 51, 51));
         txtApellidoMaterno.setToolTipText("");
         txtApellidoMaterno.setBorder(null);
@@ -153,7 +182,7 @@ public class RegistroAutomovil extends javax.swing.JFrame {
 
         lblRFC.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
         lblRFC.setForeground(new java.awt.Color(255, 255, 255));
-        lblRFC.setText("RFC");
+        lblRFC.setText("Buscar persona por RFC");
         Background.add(lblRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         txtRFC.setForeground(new java.awt.Color(51, 51, 51));
@@ -228,15 +257,30 @@ public class RegistroAutomovil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        
+        FormUtils.regresar(this, new Registros());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnRegistrarAutomovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovilActionPerformed
-        // TODO add your handling code here:
+        Vehiculo automovil = this.obtenerAutomovil();
+        VehiculosDAOImpl vehiculos = new VehiculosDAOImpl();
+        try {
+            vehiculos.save(automovil);
+            Dialogs.mostrarMensajeExito(rootPane, "Automóvil registrado exitosamente.");
+            FormUtils.cargarForm(new MenuPrincipal(), this);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(RegistroAutomovil.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar el automóvil.");
+        }
     }//GEN-LAST:event_btnRegistrarAutomovilActionPerformed
 
     private void btnCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosActionPerformed
-        // TODO add your handling code here:
+        this.optionalPersona = this.buscarPersona();
+        if (this.optionalPersona.isPresent()) {
+            this.persona = optionalPersona.get();
+            this.imprimirDatosPersona();
+        } else {
+            Dialogs.mostrarMensajeError(rootPane, "No se ha encontrado a la persona.");
+        }
     }//GEN-LAST:event_btnCargarDatosActionPerformed
 
 
@@ -277,7 +321,6 @@ public class RegistroAutomovil extends javax.swing.JFrame {
     private javax.swing.JTextField txtRFC;
     private javax.swing.JTextField txtSerie;
     // End of variables declaration//GEN-END:variables
-
 
     private void agregar() {
         throw new UnsupportedOperationException("Not supported yet.");
