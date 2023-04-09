@@ -2,6 +2,7 @@ package org.itson.main;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itson.presentacion.MenuPrincipal;
 
 /**
  *
@@ -25,6 +26,8 @@ final class Main {
      */
     public static void main(final String[] args) {
         LOGGER.log(Level.INFO, "Iniciando App");
+        MenuPrincipal menu = new MenuPrincipal();
+        menu.setVisible(true);
     }
 
 }
