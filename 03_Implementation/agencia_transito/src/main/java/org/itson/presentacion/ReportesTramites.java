@@ -1,7 +1,12 @@
 package org.itson.presentacion;
 
+import java.sql.Date;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import org.itson.daos.TramitesDAOImpl;
+import org.itson.dominio.Tramite;
 import org.itson.utils.*;
 import org.itson.utils.FormUtils;
 
@@ -11,35 +16,33 @@ import org.itson.utils.FormUtils;
  */
 public class ReportesTramites extends JFrame {
 
-//    private static final Logger LOG = Logger.getLogger(ConsultaBuscarPersona.class.getName());
-//    private final JFrame frmAnterior;
-
+    private static final Logger LOG = Logger.getLogger(ConsultaBuscarPersona.class.getName());
+    private Date fechaInicio;
+    private Date fechaFinal;
+    private TramitesDAOImpl tramitesDAO;
+    
     public ReportesTramites() {
+        String fechaInicioNull = "2023-01-01", fechaFinalNull = "2023-12-31";
+        this.fechaInicio = Date.valueOf(fechaInicioNull);
+        this.fechaFinal = Date.valueOf(fechaFinalNull);
+        this.tramitesDAO = new TramitesDAOImpl();
         initComponents();
         botones.add(rbtnTipo);
         botones.add(rbtnNombre);
         botones.add(rbtnPeriodo);
-        cargarTablaX();
-//        this.frmAnterior = frmAnterior;
+        this.txtFechaInicio.setDate(fechaInicio);
+        this.txtFechaFin.setDate(fechaFinal);
+        List<Tramite> listaTramites = this.tramitesDAO.consultarTramitesPeriodo(this.fechaInicio, this.fechaFinal);
+        this.cargarTablaTramites(listaTramites);
     }
 
-    private void cargarTablaX() {
-        //        List<Publicacion> listaPublicaciones
-        //                = this.conseguirListaPublicaciones();
-        //        DefaultTableModel modeloTabla
-        //                = (DefaultTableModel) this.tblPublicaciones.getModel();
-        //        modeloTabla.setRowCount(0);
-        //        for (Publicacion publicacion : listaPublicaciones) {
-        //            Object[] fila = {
-        //                publicacion.getTitulo(),
-        //        publicacion.getAutor().getNombre() + " ";
-        //                + publicacion.getAutor().getApellidoPaterno(),
-        //                publicacion.getNoPaginas(),
-        //                "$" + publicacion.getCostoProd(),
-        //                "$" + publicacion.getCostoVenta()};
-        //
-        //            modeloTabla.addRow(fila);
-        //        };
+    private void cargarTablaTramites(List<Tramite> listaTramites) {
+            DefaultTableModel modeloTabla1 = (DefaultTableModel) this.tblTramites.getModel();
+            modeloTabla1.setRowCount(0);
+            for (Tramite tramite : listaTramites) {
+                Object[] fila = {tramite, tramite.getTramitante().getNombres(), tramite.getCosto(), tramite};
+                modeloTabla1.addRow(fila);
+            }
 
     }
 
@@ -62,14 +65,14 @@ public class ReportesTramites extends JFrame {
         txtNombre = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         lblFin = new javax.swing.JLabel();
-        dtInicio = new com.toedter.calendar.JDateChooser();
+        txtFechaInicio = new com.toedter.calendar.JDateChooser();
         jSeparator6 = new javax.swing.JSeparator();
         btnCrearPDF = new javax.swing.JButton();
         rbtnPeriodo = new javax.swing.JRadioButton();
         rbtnTipo = new javax.swing.JRadioButton();
         rbtnNombre = new javax.swing.JRadioButton();
         cbxTipo = new javax.swing.JComboBox<>();
-        dtFin = new com.toedter.calendar.JDateChooser();
+        txtFechaFin = new com.toedter.calendar.JDateChooser();
         jSeparator7 = new javax.swing.JSeparator();
         lblPeriodo = new javax.swing.JLabel();
         lblInicio = new javax.swing.JLabel();
@@ -198,7 +201,7 @@ public class ReportesTramites extends JFrame {
         lblFin.setForeground(new java.awt.Color(255, 255, 255));
         lblFin.setText("Fin");
         Background.add(lblFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 50, 20));
-        Background.add(dtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 80, 20));
+        Background.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 80, 20));
         Background.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 80, 10));
 
         btnCrearPDF.setBackground(new java.awt.Color(102, 10, 10));
@@ -225,7 +228,7 @@ public class ReportesTramites extends JFrame {
 
         cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Licencia", "Placa" }));
         Background.add(cbxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 130, 20));
-        Background.add(dtFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 80, 20));
+        Background.add(txtFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 80, 20));
         Background.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, 80, 10));
 
         lblPeriodo.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
@@ -262,7 +265,7 @@ public class ReportesTramites extends JFrame {
      * @param evt Evento que lo acciono
      */
     private void btnCrearPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPDFActionPerformed
-//        this.regresar();
+        
     }//GEN-LAST:event_btnCrearPDFActionPerformed
     /**
      * Avanza en la pagina de operaciones
@@ -270,8 +273,7 @@ public class ReportesTramites extends JFrame {
      * @param evt Evento que lo acciono
      */
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
-        // TODO paginado
-        this.cargarTablaX();
+        
     }//GEN-LAST:event_btnAdelanteActionPerformed
     /**
      * Retrocede en la pagina de operaciones
@@ -279,17 +281,27 @@ public class ReportesTramites extends JFrame {
      * @param evt Evento que lo acciono
      */
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
-        // TODO paginado
-        // this.configPaginado.retrocederPag();
-        this.cargarTablaX();
+        
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        FormUtils.regresar(this, new Reportes());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        List<Tramite> listaTramites;
+        if (this.rbtnTipo.isSelected()){
+            listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
+            this.cargarTablaTramites(listaTramites);
+        } else if (this.rbtnNombre.isSelected()){
+            listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
+            this.cargarTablaTramites(listaTramites);
+        } else if (this.rbtnPeriodo.isSelected()){
+            listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
+            this.cargarTablaTramites(listaTramites);
+        } else {
+            Dialogs.mostrarMensajeError(rootPane, "Seleccione un filtro de búsqueda.");
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
 
@@ -302,8 +314,6 @@ public class ReportesTramites extends JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRetroceder;
     private javax.swing.JComboBox<String> cbxTipo;
-    private com.toedter.calendar.JDateChooser dtFin;
-    private com.toedter.calendar.JDateChooser dtInicio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -320,6 +330,8 @@ public class ReportesTramites extends JFrame {
     private javax.swing.JRadioButton rbtnPeriodo;
     private javax.swing.JRadioButton rbtnTipo;
     private javax.swing.JTable tblTramites;
+    private com.toedter.calendar.JDateChooser txtFechaFin;
+    private com.toedter.calendar.JDateChooser txtFechaInicio;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
