@@ -1,8 +1,8 @@
 package org.itson.interfaces;
 
 import java.util.List;
+import org.itson.daos.ParametrosTramitesDTO;
 import org.itson.dominio.Tramite;
-import org.itson.utils.FiltrosTramites;
 
 /**
  *
@@ -17,5 +17,5 @@ public interface TramitesDAO extends DAO<Tramite> {
      * @param filtros
      * @return Lista de tramites que coincidieron.
      */
-    List<Tramite> getAll(FiltrosTramites filtros);
+    List<Tramite> getAll(ParametrosTramitesDTO filtros);
 }

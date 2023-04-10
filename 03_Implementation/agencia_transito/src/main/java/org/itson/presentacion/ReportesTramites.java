@@ -32,8 +32,8 @@ public class ReportesTramites extends JFrame {
         botones.add(rbtnPeriodo);
         this.txtFechaInicio.setDate(fechaInicio);
         this.txtFechaFin.setDate(fechaFinal);
-        List<Tramite> listaTramites = this.tramitesDAO.consultarTramitesPeriodo(this.fechaInicio, this.fechaFinal);
-        this.cargarTablaTramites(listaTramites);
+//        List<Tramite> listaTramites = this.tramitesDAO.consultarTramitesPeriodo(this.fechaInicio, this.fechaFinal);
+//        this.cargarTablaTramites(listaTramites);
     }
 
     private void cargarTablaTramites(List<Tramite> listaTramites) {
@@ -289,19 +289,19 @@ public class ReportesTramites extends JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        List<Tramite> listaTramites;
-        if (this.rbtnTipo.isSelected()){
-            listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
-            this.cargarTablaTramites(listaTramites);
-        } else if (this.rbtnNombre.isSelected()){
-            listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
-            this.cargarTablaTramites(listaTramites);
-        } else if (this.rbtnPeriodo.isSelected()){
-            listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
-            this.cargarTablaTramites(listaTramites);
-        } else {
-            Dialogs.mostrarMensajeError(rootPane, "Seleccione un filtro de búsqueda.");
-        }
+//        List<Tramite> listaTramites;
+//        if (this.rbtnTipo.isSelected()){
+//            listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
+//            this.cargarTablaTramites(listaTramites);
+//        } else if (this.rbtnNombre.isSelected()){
+//            listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
+//            this.cargarTablaTramites(listaTramites);
+//        } else if (this.rbtnPeriodo.isSelected()){
+//            listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
+//            this.cargarTablaTramites(listaTramites);
+//        } else {
+//            Dialogs.mostrarMensajeError(rootPane, "Seleccione un filtro de búsqueda.");
+//        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
 

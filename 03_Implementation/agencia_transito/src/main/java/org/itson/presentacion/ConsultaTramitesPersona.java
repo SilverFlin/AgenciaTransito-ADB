@@ -29,13 +29,13 @@ public class ConsultaTramitesPersona extends JFrame {
     }
 
     private void cargarTablaTramitesPersona() {
-        List<Tramite> listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
-        DefaultTableModel modeloTabla1 = (DefaultTableModel) this.tblTramitesRealizados.getModel();
-        modeloTabla1.setRowCount(0);
-        for (Tramite tramite : listaTramites) {
-            Object[] fila = {tramite, tramite.getTramitante().getNombres(), tramite.getCosto(), tramite};
-            modeloTabla1.addRow(fila);
-        }
+//        List<Tramite> listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
+//        DefaultTableModel modeloTabla1 = (DefaultTableModel) this.tblTramitesRealizados.getModel();
+//        modeloTabla1.setRowCount(0);
+//        for (Tramite tramite : listaTramites) {
+//            Object[] fila = {tramite, tramite.getTramitante().getNombres(), tramite.getCosto(), tramite};
+//            modeloTabla1.addRow(fila);
+//        }
 
     }
 

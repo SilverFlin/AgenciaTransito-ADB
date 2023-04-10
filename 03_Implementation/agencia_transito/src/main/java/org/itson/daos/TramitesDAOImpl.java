@@ -11,7 +11,6 @@ import org.itson.dominio.Tramite;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.TramitesDAO;
 import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
-import org.itson.utils.FiltrosTramites;
 
 /**
  *
@@ -49,7 +48,7 @@ public final class TramitesDAOImpl implements TramitesDAO {
     }
 
     @Override
-    public List<Tramite> getAll(final FiltrosTramites filtros) {
+    public List<Tramite> getAll(final ParametrosTramitesDTO filtros) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
