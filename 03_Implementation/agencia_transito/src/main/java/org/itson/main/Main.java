@@ -28,9 +28,7 @@ final class Main {
      * @param args
      */
     public static void main(final String[] args) {
-        LOGGER.log(Level.INFO, "Iniciando App");
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
+        iniciar();
     }
 
     /**
@@ -41,6 +39,12 @@ final class Main {
         probarPersonasDAO();
         probarTramitesDAO();
         probarVehiculosDAO();
+    }
+
+    private static void iniciar() {
+        LOGGER.log(Level.INFO, "Iniciando App");
+        MenuPrincipal menu = new MenuPrincipal();
+        menu.setVisible(true);
     }
 
 }

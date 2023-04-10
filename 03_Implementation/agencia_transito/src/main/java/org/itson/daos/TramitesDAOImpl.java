@@ -1,6 +1,5 @@
 package org.itson.daos;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
@@ -54,24 +53,16 @@ public final class TramitesDAOImpl implements TramitesDAO {
 
     @Override
     public List<Tramite> getAll(final ParametrosTramitesDTO filtros) {
-
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+        CriteriaQuery<Tramite> criteria = filtros.getCriteria(builder);
         Root<Tramite> root = filtros.getRoot(criteria);
 
-        List<Predicate> predicados = filtros.getPredicados(builder, root);
+        Predicate[] predicados = filtros.getPredicados(builder, root);
 
-        // TODO(Luis): Extraer creacion de array
-        criteria = criteria.select(root).where(predicados.toArray(Predicate[]::new));
-
+        criteria = criteria.select(root).where(predicados);
         TypedQuery<Tramite> query = entityManager.createQuery(criteria);
 
-        List<Tramite> tramites = query.getResultList();
-        for (Tramite t : tramites) {
-            System.out.println(predicados);
-        }
-
-        return tramites;
+        return query.getResultList();
     }
 
     @Override

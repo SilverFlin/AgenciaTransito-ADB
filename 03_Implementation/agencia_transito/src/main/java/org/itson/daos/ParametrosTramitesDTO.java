@@ -8,25 +8,22 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import org.itson.dominio.Licencia;
-import org.itson.dominio.Placa;
 import org.itson.dominio.Tramite;
+import org.itson.utils.Fecha;
 import org.itson.utils.Periodo;
 
 /**
  *
  * @author Toled
+ * @param <T>
  */
-public class ParametrosTramitesDTO {
+public class ParametrosTramitesDTO<T extends Tramite> {
 
     /**
      * Periodo al que pertenece la realizacion del tramite.
      */
     private Periodo periodo;
-    /**
-     * Tipo del Tramite. Licencia, placa, ...
-     */
-    private TipoTramite tipoTramite;
+
     /**
      * Nombre del tramitante, no incluye apellidos y no es necesario que sea un
      * nombre completo.
@@ -34,12 +31,9 @@ public class ParametrosTramitesDTO {
     private String nombreTramitante;
 
     /**
-     * Enum TipoTramite. TODO(Luis): Mover Enum
+     * Clase del tipo del Tramite.
      */
-    public enum TipoTramite {
-        LICENCIA,
-        PLACA
-    }
+    private Class<T> tipoTramite;
 
     /**
      * Constructor con todos los filtros.
@@ -50,7 +44,7 @@ public class ParametrosTramitesDTO {
      */
     public ParametrosTramitesDTO(
             final Periodo periodo,
-            final TipoTramite tipoTramite,
+            final Class<T> tipoTramite,
             final String nombreTramitante
     ) {
         this.periodo = periodo;
@@ -60,8 +54,11 @@ public class ParametrosTramitesDTO {
 
     /**
      * Constructor vacío.
+     *
+     * @param tipoTramite
      */
-    public ParametrosTramitesDTO() {
+    public ParametrosTramitesDTO(final Class<T> tipoTramite) {
+        this.tipoTramite = tipoTramite;
     }
 
     /**
@@ -82,9 +79,9 @@ public class ParametrosTramitesDTO {
 
     /**
      *
-     * @return Tipo del trámite del filtro, si lo hay.
+     * @return Clase del tipo del trámite del filtro, si lo hay.
      */
-    public TipoTramite getTipoTramite() {
+    public Class<T> getTipoTramite() {
         return tipoTramite;
     }
 
@@ -92,7 +89,7 @@ public class ParametrosTramitesDTO {
      *
      * @param tipoTramite
      */
-    public void setTipoTramite(final TipoTramite tipoTramite) {
+    public void setTipoTramite(final Class<T> tipoTramite) {
         this.tipoTramite = tipoTramite;
     }
 
@@ -112,30 +109,89 @@ public class ParametrosTramitesDTO {
         this.nombreTramitante = nombreTramitante;
     }
 
-    public List<Predicate> getPredicados(CriteriaBuilder builder, Root<Tramite> root) {
+    /**
+     *
+     * @param builder
+     * @param root
+     * @return Lista de los predicados segun los filtros presentes.
+     */
+    public Predicate[] getPredicados(
+            final CriteriaBuilder builder,
+            final Root<T> root
+    ) {
         List<Predicate> predicados = new LinkedList<>();
 
-        if (this.getNombreTramitante() != null && !this.getNombreTramitante().isBlank()) {
-            Expression<String> nombresTramitante = root.get("tramitante").get("nombres");
-            
-            
-            Predicate predicadoNombre = builder.like(nombresTramitante, "%" + this.getNombreTramitante() + "%");
+        if (this.isNombreTramitante()) {
+            Predicate predicadoNombre = getPredicadoNombre(root, builder);
             predicados.add(predicadoNombre);
         }
 
-        if (this.getPeriodo() != null) {
-            // Crea la expresión para el parámetro Calendar
-            Expression<Calendar> fechaInicio = builder.literal(this.getPeriodo().getFechaInicio().getFecha());
-            Expression<Calendar> fechaFin = builder.literal(this.getPeriodo().getFechaFin().getFecha());
-            // Crea las expresiones para el año, mes y día del parámetro Calendar
-            Predicate predicadoPeriodo = builder.between(root.get("fechaInicio"), fechaInicio, fechaFin);
+        if (this.isPeriodo()) {
+            Predicate predicadoPeriodo = getPredicadoPeriodo(root, builder);
             predicados.add(predicadoPeriodo);
         }
 
-        return predicados;
+        return predicados.toArray(Predicate[]::new);
     }
 
-    public Root<Tramite> getRoot(CriteriaQuery<Tramite> criteria) {
-        return criteria.from(Tramite.class);
+    /**
+     *
+     * @param builder
+     * @return CriteriaQuery segun el tipo de tramite.
+     */
+    public CriteriaQuery<T> getCriteria(final CriteriaBuilder builder) {
+        return builder.createQuery(this.tipoTramite);
+    }
+
+    /**
+     *
+     * @param criteria
+     * @return Root segun el tipo de tramite.
+     */
+    public Root<T> getRoot(final CriteriaQuery<T> criteria) {
+        return criteria.from(this.tipoTramite);
+    }
+
+    private boolean isNombreTramitante() {
+        return this.getNombreTramitante() != null
+                && !this.getNombreTramitante().isBlank();
+    }
+
+    private Predicate getPredicadoNombre(
+            final Root<T> root,
+            final CriteriaBuilder builder
+    ) {
+        Expression<String> nombresTramitante
+                = root.get("tramitante").get("nombres");
+
+        String nombreConWildcards = "%" + this.getNombreTramitante() + "%";
+
+        return builder.like(nombresTramitante, nombreConWildcards);
+    }
+
+    private boolean isPeriodo() {
+        return this.getPeriodo() != null;
+    }
+
+    private Predicate getPredicadoPeriodo(
+            final Root<T> root,
+            final CriteriaBuilder builder
+    ) {
+        Fecha fechaInicio = this.getPeriodo().getFechaInicio();
+        Calendar fechaInicioCalendar = fechaInicio.getCalendar();
+
+        Fecha fechaFin = this.getPeriodo().getFechaFin();
+        Calendar fechaFinCalendar = fechaFin.getCalendar();
+
+        Expression<Calendar> exprFechaInicio
+                = builder.literal(fechaInicioCalendar);
+        Expression<Calendar> exprFechaFin
+                = builder.literal(fechaFinCalendar);
+
+        return builder.between(
+                root.get("fechaInicio"),
+                exprFechaInicio,
+                exprFechaFin
+        );
     }
 }
