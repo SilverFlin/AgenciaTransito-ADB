@@ -1,5 +1,6 @@
 package org.itson.daos;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
@@ -7,6 +8,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.itson.dominio.Tramite;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.TramitesDAO;
@@ -49,7 +54,24 @@ public final class TramitesDAOImpl implements TramitesDAO {
 
     @Override
     public List<Tramite> getAll(final ParametrosTramitesDTO filtros) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+        Root<Tramite> root = filtros.getRoot(criteria);
+
+        List<Predicate> predicados = filtros.getPredicados(builder, root);
+
+        // TODO(Luis): Extraer creacion de array
+        criteria = criteria.select(root).where(predicados.toArray(Predicate[]::new));
+
+        TypedQuery<Tramite> query = entityManager.createQuery(criteria);
+
+        List<Tramite> tramites = query.getResultList();
+        for (Tramite t : tramites) {
+            System.out.println(predicados);
+        }
+
+        return tramites;
     }
 
     @Override

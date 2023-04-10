@@ -1,5 +1,16 @@
 package org.itson.daos;
 
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import org.itson.dominio.Licencia;
+import org.itson.dominio.Placa;
+import org.itson.dominio.Tramite;
 import org.itson.utils.Periodo;
 
 /**
@@ -89,7 +100,7 @@ public class ParametrosTramitesDTO {
      *
      * @return Nombre parcial del tramitante, si lo hay.
      */
-    public String getNombreTramitante() {
+    private String getNombreTramitante() {
         return nombreTramitante;
     }
 
@@ -101,4 +112,30 @@ public class ParametrosTramitesDTO {
         this.nombreTramitante = nombreTramitante;
     }
 
+    public List<Predicate> getPredicados(CriteriaBuilder builder, Root<Tramite> root) {
+        List<Predicate> predicados = new LinkedList<>();
+
+        if (this.getNombreTramitante() != null && !this.getNombreTramitante().isBlank()) {
+            Expression<String> nombresTramitante = root.get("tramitante").get("nombres");
+            
+            
+            Predicate predicadoNombre = builder.like(nombresTramitante, "%" + this.getNombreTramitante() + "%");
+            predicados.add(predicadoNombre);
+        }
+
+        if (this.getPeriodo() != null) {
+            // Crea la expresión para el parámetro Calendar
+            Expression<Calendar> fechaInicio = builder.literal(this.getPeriodo().getFechaInicio().getFecha());
+            Expression<Calendar> fechaFin = builder.literal(this.getPeriodo().getFechaFin().getFecha());
+            // Crea las expresiones para el año, mes y día del parámetro Calendar
+            Predicate predicadoPeriodo = builder.between(root.get("fechaInicio"), fechaInicio, fechaFin);
+            predicados.add(predicadoPeriodo);
+        }
+
+        return predicados;
+    }
+
+    public Root<Tramite> getRoot(CriteriaQuery<Tramite> criteria) {
+        return criteria.from(Tramite.class);
+    }
 }
