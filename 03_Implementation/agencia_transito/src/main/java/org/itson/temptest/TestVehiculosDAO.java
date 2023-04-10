@@ -11,7 +11,7 @@ import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.VehiculosDAO;
 import static org.itson.temptest.TestPersonasDAO.crearPersonaFalsa;
 import static org.itson.utils.LogsUtils.imprimirLista;
-import static org.itson.utils.Randomizador.getRandomNumber;
+import static org.itson.utils.Randomizador.getRandomStringNumber;
 
 /**
  *
@@ -44,7 +44,7 @@ public final class TestVehiculosDAO {
 
     private static String getRandomNoSerie() {
         final int longitudNoSerie = 17;
-        return getRandomNumber(longitudNoSerie);
+        return getRandomStringNumber(longitudNoSerie);
     }
 
     private static Vehiculo agregaVehiculoFalso() {

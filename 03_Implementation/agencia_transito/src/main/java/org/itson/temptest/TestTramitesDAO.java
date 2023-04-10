@@ -1,22 +1,28 @@
 package org.itson.temptest;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itson.daos.LicenciasDAOImpl;
 import org.itson.daos.PlacasDAOImpl;
 import org.itson.interfaces.DAO;
 import org.itson.daos.TramitesDAOImpl;
+import org.itson.dominio.Licencia;
 import org.itson.dominio.Placa;
+import org.itson.dominio.TipoLicencia;
 import org.itson.dominio.TipoPlaca;
 import org.itson.dominio.Tramite;
 import org.itson.excepciones.PersistenciaException;
+import org.itson.interfaces.LicenciasDAO;
 import org.itson.interfaces.PlacasDAO;
 import org.itson.interfaces.TramitesDAO;
 import static org.itson.temptest.TestPersonasDAO.agregaPersonaFalsa;
 import org.itson.utils.GeneradorMatricula;
 import static org.itson.utils.LogsUtils.imprimirLista;
+import org.itson.utils.Randomizador;
 
 /**
  *
@@ -52,14 +58,15 @@ public final class TestTramitesDAO {
         return tramitesDAO.getAll();
     }
 
-    private static Placa ingresarPlacaFalso() {
+    public static Placa ingresarPlacaFalso() {
         PlacasDAO placasDAO = new PlacasDAOImpl();
         Placa placa = new Placa();
         String matricula = GeneradorMatricula.generar();
         placa.setMatricula(matricula);
-        final double costo = 100.0;
+        final int tamanhoRandom = 100;
+        final double costo = (Math.random() * tamanhoRandom) + 1;
         placa.setCosto(costo);
-        placa.setFechaInicio(new GregorianCalendar());
+        placa.setFechaInicio(generarFechaFalsa());
         placa.setTipo(TipoPlaca.VEHICULO_NUEVO);
         placa.setFechaRecepcion(new GregorianCalendar());
         placa.setTramitante(agregaPersonaFalsa());
@@ -72,8 +79,41 @@ public final class TestTramitesDAO {
         return placa;
     }
 
+    public static Licencia ingresarLicenciaFalsa() {
+        LicenciasDAO licenciasDAO = new LicenciasDAOImpl();
+        Licencia licencia = new Licencia();
+        final int tamanhoRandom = 100;
+        final double costo = (Math.random() * tamanhoRandom) + 1;
+        licencia.setCosto(costo);
+        licencia.setFechaInicio(generarFechaFalsa());
+        licencia.setTipo(TipoLicencia.DISCAPACITADO);
+        licencia.setFechaCaducidad(new GregorianCalendar());
+        licencia.setTramitante(agregaPersonaFalsa());
+        licencia.setAnhosVigencia(2);
+        try {
+            licencia = licenciasDAO.save(licencia);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(TestTramitesDAO.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+        return licencia;
+    }
+
     private static Optional<Tramite> consultaPrimerTramite() {
         DAO tramitesDAO = new TramitesDAOImpl();
         return tramitesDAO.get(1);
     }
+
+    private static Calendar generarFechaFalsa() {
+
+        final int limiteAnho = 2000;
+        final int year = Randomizador.getRandomNumber(limiteAnho);
+        final int limiteMes = 12;
+        final int mes = Randomizador.getRandomNumber(limiteMes);
+        final int limiteDia = 28;
+        final int dia = Randomizador.getRandomNumber(limiteDia);
+
+        return new GregorianCalendar(year, mes, dia);
+    }
+
 }

@@ -30,9 +30,9 @@ public final class Randomizador {
     /**
      *
      * @param digCount
-     * @return Numero aleatorio generado
+     * @return Numero aleatorio generado en string.
      */
-    public static String getRandomNumber(final int digCount) {
+    public static String getRandomStringNumber(final int digCount) {
         StringBuilder sb = new StringBuilder(digCount);
 
         for (int i = 0; i < digCount; i++) {
@@ -40,7 +40,16 @@ public final class Randomizador {
         }
         return sb.toString();
     }
-    
+
+    /**
+     *
+     * @param max
+     * @return Integer aleatorio entre 0 y max.
+     */
+    public static Integer getRandomNumber(final int max) {
+        return RAND.nextInt(max);
+    }
+
     /**
      *
      * @param charCount
@@ -55,7 +64,5 @@ public final class Randomizador {
         }
         return sb.toString();
     }
-    
-    
 
 }

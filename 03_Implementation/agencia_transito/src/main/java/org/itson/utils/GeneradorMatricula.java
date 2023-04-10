@@ -47,6 +47,6 @@ public class GeneradorMatricula {
      */
     private static String generarSegundaSeccion() {
         final int cantidad = 3;
-        return Randomizador.getRandomNumber(cantidad);
+        return Randomizador.getRandomStringNumber(cantidad);
     }
 }

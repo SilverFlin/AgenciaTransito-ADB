@@ -10,7 +10,7 @@ import org.itson.daos.PersonasDAOImpl;
 import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
 import static org.itson.utils.LogsUtils.imprimirLista;
-import static org.itson.utils.Randomizador.getRandomNumber;
+import static org.itson.utils.Randomizador.getRandomStringNumber;
 
 /**
  *
@@ -75,7 +75,7 @@ public final class TestPersonasDAO {
                 new GregorianCalendar(anhoPrueba, mesPrueba, diaPrueba)
         );
         final int longitudRfc = 13;
-        persona.setRfc(getRandomNumber(longitudRfc));
+        persona.setRfc(getRandomStringNumber(longitudRfc));
         persona.setTelefono("123123123");
 
         return persona;
