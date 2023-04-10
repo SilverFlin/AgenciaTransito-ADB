@@ -89,7 +89,7 @@ public class Fecha {
      *
      * @return Regresa la instancia de GregorianCalendar.
      */
-    public GregorianCalendar getFecha() {
+    public GregorianCalendar getCalendar() {
         return gregorianCalendar;
     }
 

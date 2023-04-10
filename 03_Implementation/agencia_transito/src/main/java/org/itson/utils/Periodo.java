@@ -22,7 +22,7 @@ public class Periodo {
      * @param fechaFin
      */
     public Periodo(final Fecha fechaInicio, final Fecha fechaFin) {
-        if (fechaInicio.getFecha().after(fechaFin.getFecha())) {
+        if (fechaInicio.getCalendar().after(fechaFin.getCalendar())) {
             String msg = "La fecha de inicio debe"
                     + " ser anterior a la fecha de fin";
             throw new IllegalArgumentException(msg);
