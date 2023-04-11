@@ -1,23 +1,28 @@
 package org.itson.presentacion;
 
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import org.itson.utils.FormUtils;
 
 /**
  *
  * @author Toled
  */
-public class Reportes extends javax.swing.JFrame {
-    
-    private static final Logger LOG = Logger.getLogger(Reportes.class.getName());
-    
-    public Reportes() {
+public class FrmReportes extends javax.swing.JFrame {
+
+    /**
+     * Logger.
+     */
+    private static final Logger LOG
+            = Logger.getLogger(FrmReportes.class.getName());
+
+    /**
+     * Constructor principal.
+     */
+    public FrmReportes() {
         initComponents();
     }
-    
-    @SuppressWarnings("unchecked")
+
+    @SuppressWarnings("all")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -84,15 +89,17 @@ public class Reportes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new MenuPrincipal());        
+        FormUtils.regresar(this, new FrmMenuPrincipal());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    @SuppressWarnings("all")
     private void btnReporteTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteTramitesActionPerformed
-        FormUtils.cargarForm(new ReportesTramites(), this);
+        FormUtils.cargarForm(new FrmReportesTramites(), this);
     }//GEN-LAST:event_btnReporteTramitesActionPerformed
 
-
+    //CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnRegresar;
@@ -101,5 +108,5 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenido;
     // End of variables declaration//GEN-END:variables
-
+    //CHECKSTYLE:ON
 }

@@ -2,8 +2,6 @@ package org.itson.presentacion;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.itson.daos.LicenciasDAOImpl;
 import org.itson.dominio.Licencia;
@@ -16,27 +14,62 @@ import org.itson.utils.FormUtils;
  *
  * @author Toled
  */
-public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
+public class FrmTramiteLicenciaConfirmacion extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(TramiteLicenciaConfirmacion.class.getName());
+    /**
+     * Logger.
+     */
+    private static final Logger LOG
+            = Logger.getLogger(FrmTramiteLicenciaConfirmacion.class.getName());
+    /**
+     * Licencia cargada.
+     */
     private final Licencia licencia;
+
+    /**
+     * Dueño de la licencia.
+     */
     private final Persona persona;
+
+    /**
+     * Duración de la licencia en años.
+     */
     private final int duracion;
+
+    /**
+     * Costo de la licencia en MXN.
+     */
     private final double costo;
-    
-    public TramiteLicenciaConfirmacion(Licencia licencia, double costo, int duracion, Persona persona) {
+
+    /**
+     * Constructor principal.
+     *
+     * @param licencia
+     * @param costo
+     * @param duracion
+     * @param persona
+     */
+    public FrmTramiteLicenciaConfirmacion(
+            final Licencia licencia,
+            final double costo,
+            final int duracion,
+            final Persona persona
+    ) {
         this.licencia = licencia;
         this.costo = costo;
         this.duracion = duracion;
         this.persona = persona;
         initComponents();
-        String nombreCompleto = this.persona.getNombres() + " " + this.persona.getApellidoPaterno() + " " +this.persona.getApellidoMaterno();
+        String nombreCompleto
+                = this.persona.getNombres() + " "
+                + this.persona.getApellidoPaterno()
+                + " " + this.persona.getApellidoMaterno();
         this.lblNombreCompleto.setText(nombreCompleto);
         this.lblDuracion.setText(String.valueOf(this.duracion));
         this.lblCantidadCosto.setText(String.valueOf(this.costo));
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("all")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -164,30 +197,35 @@ public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new TramiteLicencia());
+
+        FormUtils.regresar(this, new FrmTramiteLicencia());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    @SuppressWarnings("all")
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+
         LicenciasDAOImpl tramites = new LicenciasDAOImpl();
         try {
             tramites.save(this.licencia);
             Dialogs.mostrarMensajeExito(rootPane, "Licencia registrada exitosamente.");
-            FormUtils.cargarForm(new MenuPrincipal(), this);
+            FormUtils.cargarForm(new FrmMenuPrincipal(), this);
         } catch (PersistenciaException ex) {
-            Logger.getLogger(TramiteLicenciaConfirmacion.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
             Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar la licencia.");
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    @SuppressWarnings("all")
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el registro?", "CANCELAR REGISTRO", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
-            FormUtils.cargarForm(new Registros(), this);
+            FormUtils.cargarForm(new FrmRegistros(), this);
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-
+    //CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnAceptar;
@@ -206,5 +244,6 @@ public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombres7;
     private javax.swing.JLabel lblNombres8;
     // End of variables declaration//GEN-END:variables
+    //CHECKSTYLE:ON
 
 }

@@ -1,20 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.utils;
 
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
-import org.itson.presentacion.ConsultaBuscarPersona;
+import org.itson.presentacion.FrmConsultaBuscarPersona;
 
 /**
  *
@@ -22,32 +17,61 @@ import org.itson.presentacion.ConsultaBuscarPersona;
  */
 public class BotonEditor extends AbstractCellEditor implements TableCellEditor {
 
+    /**
+     * Boton generado.
+     */
     private JButton boton;
 
-    public BotonEditor(JFrame frame) {
+    /**
+     * Constructor principal.
+     *
+     * @param frame
+     */
+    public BotonEditor(final JFrame frame) {
         boton = new JButton();
         boton.setFocusPainted(false);
         boton.setBorderPainted(false);
         boton.setText("🔍");
-        boton.setBackground(new Color(159, 34, 65));
+        final int red = 159;
+        final int green = 34;
+        final int blue = 65;
+        boton.setBackground(new Color(red, green, blue));
         boton.setForeground(Color.WHITE);
-        boton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(frame, "Buscando");
-                new ConsultaBuscarPersona().setVisible(true);
-                frame.dispose();
-            }
+        boton.addActionListener((ActionEvent e) -> {
+            JOptionPane.showMessageDialog(frame, "Buscando");
+            new FrmConsultaBuscarPersona().setVisible(true);
+            frame.dispose();
         });
     }
 
+    /**
+     * No se necesita.
+     *
+     * @return null
+     */
     @Override
     public Object getCellEditorValue() {
         return null;
     }
 
+    /**
+     * Regresa el boton generado, hace falta cambiar.
+     *
+     * @param table
+     * @param value
+     * @param isSelected
+     * @param row
+     * @param column
+     * @return
+     */
     @Override
-    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+    public Component getTableCellEditorComponent(
+            final JTable table,
+            final Object value,
+            final boolean isSelected,
+            final int row,
+            final int column
+    ) {
         return boton;
     }
 

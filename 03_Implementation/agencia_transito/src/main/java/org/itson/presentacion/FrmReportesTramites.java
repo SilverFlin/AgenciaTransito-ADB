@@ -7,22 +7,41 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import org.itson.daos.TramitesDAOImpl;
 import org.itson.dominio.Tramite;
-import org.itson.utils.*;
 import org.itson.utils.FormUtils;
 
 /**
  *
  * @author Toled
  */
-public class ReportesTramites extends JFrame {
+public class FrmReportesTramites extends JFrame {
 
-    private static final Logger LOG = Logger.getLogger(ConsultaBuscarPersona.class.getName());
+    // TODO(Luis): Remover variables del filtro.
+    // TODO(Luis): Usar Unit of Work.
+    /**
+     * Logger.
+     */
+    private static final Logger LOG
+            = Logger.getLogger(FrmReportesTramites.class.getName());
+    /**
+     * Fecha inicio del filtro.
+     */
     private Date fechaInicio;
+    /**
+     * Fecha final del filtro.
+     */
     private Date fechaFinal;
+
+    /**
+     * Dao necesario.
+     */
     private TramitesDAOImpl tramitesDAO;
-    
-    public ReportesTramites() {
-        String fechaInicioNull = "2023-01-01", fechaFinalNull = "2023-12-31";
+
+    /**
+     * Constructor principal.
+     */
+    public FrmReportesTramites() {
+        String fechaInicioNull = "2023-01-01";
+        String fechaFinalNull = "2023-12-31";
         this.fechaInicio = Date.valueOf(fechaInicioNull);
         this.fechaFinal = Date.valueOf(fechaFinalNull);
         this.tramitesDAO = new TramitesDAOImpl();
@@ -32,21 +51,29 @@ public class ReportesTramites extends JFrame {
         botones.add(rbtnPeriodo);
         this.txtFechaInicio.setDate(fechaInicio);
         this.txtFechaFin.setDate(fechaFinal);
-//        List<Tramite> listaTramites = this.tramitesDAO.consultarTramitesPeriodo(this.fechaInicio, this.fechaFinal);
+//        List<Tramite> listaTramites
+//          = this.tramitesDAO
+//               .consultarTramitesPeriodo(this.fechaInicio, this.fechaFinal);
 //        this.cargarTablaTramites(listaTramites);
     }
 
-    private void cargarTablaTramites(List<Tramite> listaTramites) {
-            DefaultTableModel modeloTabla1 = (DefaultTableModel) this.tblTramites.getModel();
-            modeloTabla1.setRowCount(0);
-            for (Tramite tramite : listaTramites) {
-                Object[] fila = {tramite, tramite.getTramitante().getNombres(), tramite.getCosto(), tramite};
-                modeloTabla1.addRow(fila);
-            }
+    private void cargarTablaTramites(final List<Tramite> listaTramites) {
+        DefaultTableModel modeloTabla1
+                = (DefaultTableModel) this.tblTramites.getModel();
+        modeloTabla1.setRowCount(0);
+        for (Tramite tramite : listaTramites) {
+            Object[] fila = {
+                tramite,
+                tramite.getTramitante().getNombres(),
+                tramite.getCosto(),
+                tramite
+            };
+            modeloTabla1.addRow(fila);
+        }
 
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("all")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -264,30 +291,37 @@ public class ReportesTramites extends JFrame {
      *
      * @param evt Evento que lo acciono
      */
+    @SuppressWarnings("all")
     private void btnCrearPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPDFActionPerformed
-        
+
     }//GEN-LAST:event_btnCrearPDFActionPerformed
+
     /**
      * Avanza en la pagina de operaciones
      *
      * @param evt Evento que lo acciono
      */
+    @SuppressWarnings("all")
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
-        
+
     }//GEN-LAST:event_btnAdelanteActionPerformed
+
     /**
      * Retrocede en la pagina de operaciones
      *
      * @param evt Evento que lo acciono
      */
+    @SuppressWarnings("all")
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
-        
+
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
+    @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new Reportes());
+        this.regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    @SuppressWarnings("all")
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 //        List<Tramite> listaTramites;
 //        if (this.rbtnTipo.isSelected()){
@@ -304,7 +338,7 @@ public class ReportesTramites extends JFrame {
 //        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-
+    //CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.ButtonGroup botones;
@@ -334,8 +368,9 @@ public class ReportesTramites extends JFrame {
     private com.toedter.calendar.JDateChooser txtFechaInicio;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+    //CHECKSTYLE:ON
 
-//    private void regresar() {
-//        FormUtils.regresar(frmAnterior, this);
-//    }
+    private void regresar() {
+        FormUtils.regresar(this, new FrmReportes());
+    }
 }
