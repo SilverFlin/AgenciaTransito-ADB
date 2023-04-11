@@ -31,8 +31,10 @@ public final class TestPersonasDAO {
 
     /**
      * Prueba el agregar y consultar de PersonasDAO.
+     *
+     * @throws org.itson.excepciones.PersistenciaException
      */
-    public static void probarPersonasDAO() {
+    public static void probarPersonasDAO() throws PersistenciaException {
         LOGGER.log(Level.INFO, "Agregar Persona falsa:");
         agregaPersonaFalsa();
         LOGGER.log(Level.INFO, "\nConsultar Personas");
@@ -45,16 +47,13 @@ public final class TestPersonasDAO {
      * Persiste una persona falsa con fines de pruebas y la regresa.
      *
      * @return La persona guardada.
+     * @throws org.itson.excepciones.PersistenciaException
      */
-    public static Persona agregaPersonaFalsa() {
+    public static Persona agregaPersonaFalsa() throws PersistenciaException {
         Persona persona = crearPersonaFalsa();
         DAO personasDAO = new PersonasDAOImpl();
-        try {
-            return (Persona) personasDAO.save(persona);
-        } catch (PersistenciaException ex) {
-            LOGGER.log(Level.INFO, ex.getMessage());
-            return null;
-        }
+
+        return (Persona) personasDAO.save(persona);
     }
 
     /**

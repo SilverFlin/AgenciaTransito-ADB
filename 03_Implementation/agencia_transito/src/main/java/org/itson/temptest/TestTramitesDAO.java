@@ -43,8 +43,10 @@ public final class TestTramitesDAO {
 
     /**
      * Prueba el agregar y consultar de TramitesDAO.
+     *
+     * @throws org.itson.excepciones.PersistenciaException
      */
-    public static void probarTramitesDAO() {
+    public static void probarTramitesDAO() throws PersistenciaException {
         LOGGER.log(Level.INFO, "\nConsultar Tramites");
         imprimirLista(consultaTramites());
         LOGGER.log(Level.INFO, "\nIngresar Tramite:");
@@ -58,7 +60,13 @@ public final class TestTramitesDAO {
         return tramitesDAO.getAll();
     }
 
-    public static Placa ingresarPlacaFalso() {
+    /**
+     * Crea una placa y la persiste.
+     *
+     * @return La placa persistida.
+     * @throws PersistenciaException
+     */
+    public static Placa ingresarPlacaFalso() throws PersistenciaException {
         PlacasDAO placasDAO = new PlacasDAOImpl();
         Placa placa = new Placa();
         String matricula = GeneradorMatricula.generar();
@@ -79,7 +87,14 @@ public final class TestTramitesDAO {
         return placa;
     }
 
-    public static Licencia ingresarLicenciaFalsa() {
+    /**
+     * Crea una licencia y la persiste.
+     *
+     * @return La licencia persistida.
+     * @throws PersistenciaException
+     */
+    public static Licencia ingresarLicenciaFalsa()
+            throws PersistenciaException {
         LicenciasDAO licenciasDAO = new LicenciasDAOImpl();
         Licencia licencia = new Licencia();
         final int tamanhoRandom = 100;

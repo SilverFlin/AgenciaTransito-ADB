@@ -4,12 +4,9 @@ import java.util.GregorianCalendar;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.itson.daos.PlacasDAOImpl;
 import org.itson.daos.VehiculosDAOImpl;
-import org.itson.dominio.Automovil;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Placa;
 import org.itson.dominio.TipoPlaca;
@@ -24,7 +21,8 @@ import org.itson.utils.FormUtils;
  */
 public class TramitePlacasNuevoConfirmacion extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(TramitePlacasNuevoConfirmacion.class.getName());
+    private static final Logger LOG
+            = Logger.getLogger(TramitePlacasNuevoConfirmacion.class.getName());
     private final Vehiculo automovil;
     private final Persona persona;
     private final double costo;
@@ -37,26 +35,26 @@ public class TramitePlacasNuevoConfirmacion extends javax.swing.JFrame {
         this.costo = costo;
         this.tipo = tipo;
         initComponents();
-        String nombreCompleto = this.persona.getNombres() + " " + this.persona.getApellidoPaterno() + " " +this.persona.getApellidoMaterno();
+        String nombreCompleto = this.persona.getNombres() + " " + this.persona.getApellidoPaterno() + " " + this.persona.getApellidoMaterno();
         this.lblSerie.setText(this.automovil.getNumeroSerie());
         this.lblMarca.setText(this.automovil.getMarca());
         this.lblLinea.setText(this.automovil.getLinea());
         this.lblAnho.setText(this.automovil.getModelo());
-        
+
         this.placas = cadenaPlacasPrimeraParte() + "-" + cadenaPlacasSegundaParte();
         this.lblPlacas.setText(placas);
-        
+
         this.lblNombreCompleto.setText(nombreCompleto);
         this.lblCantidadCosto.setText(String.valueOf(this.costo));
     }
-    
-    private Placa obtenerPlaca(){
+
+    private Placa obtenerPlaca() {
         GregorianCalendar fechaEmision = new GregorianCalendar();
         int diaRecepcion = fechaEmision.get(GregorianCalendar.DAY_OF_MONTH) + 3;
         GregorianCalendar fechaRecepcion = new GregorianCalendar(fechaEmision.get(GregorianCalendar.YEAR), fechaEmision.get(GregorianCalendar.MONTH), diaRecepcion);
         return new Placa(this.placas, fechaEmision, fechaRecepcion, this.tipo, this.automovil, this.costo, this.persona);
     }
-    
+
     /**
      * Método que regresa una cadena de texto aleatoria de 16 dígitos.
      *
@@ -74,7 +72,7 @@ public class TramitePlacasNuevoConfirmacion extends javax.swing.JFrame {
         }
         return cadena;
     }
-    
+
     /**
      * Método que regresa una cadena de texto aleatoria de 16 dígitos.
      *
@@ -104,7 +102,8 @@ public class TramitePlacasNuevoConfirmacion extends javax.swing.JFrame {
         // nextInt regresa en rango pero con límite superior exclusivo, por eso sumamos 1
         return ThreadLocalRandom.current().nextInt(minimo, maximo + 1);
     }
-    
+//CHECKSTYLE:OFF
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -274,12 +273,17 @@ public class TramitePlacasNuevoConfirmacion extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+//CHECKSTYLE:ON
 
+//CHECKSTYLE:OFF
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+//CHECKSTYLE:ON
         FormUtils.regresar(this, new TramitePlacasNuevo());
     }//GEN-LAST:event_btnRegresarActionPerformed
+//CHECKSTYLE:OFF
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+//CHECKSTYLE:ON
         VehiculosDAOImpl vehiculos = new VehiculosDAOImpl();
         Placa placas = this.obtenerPlaca();
         PlacasDAOImpl tramite = new PlacasDAOImpl();
@@ -287,21 +291,24 @@ public class TramitePlacasNuevoConfirmacion extends javax.swing.JFrame {
             vehiculos.save(this.automovil);
             tramite.save(placas);
             Dialogs.mostrarMensajeExito(rootPane, "Automóvil y placas registradas exitosamente.");
-            FormUtils.cargarForm(new MenuPrincipal(), this);
+            FormUtils.cargarForm(new FrmMenuPrincipal(), this);
         } catch (PersistenciaException ex) {
-            Logger.getLogger(RegistroAutomovil.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
             Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar el automóvil ni las placas.");
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+//CHECKSTYLE:OFF
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+//CHECKSTYLE:ON
+
         int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el registro?", "CANCELAR REGISTRO", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
             FormUtils.cargarForm(new Tramites(), this);
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-
+//CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnAceptar;
@@ -327,6 +334,7 @@ public class TramitePlacasNuevoConfirmacion extends javax.swing.JFrame {
     private javax.swing.JLabel lblPlacas;
     private javax.swing.JLabel lblSerie;
     // End of variables declaration//GEN-END:variables
+//CHECKSTYLE:ON
 
     private void agregar() {
         throw new UnsupportedOperationException("Not supported yet.");

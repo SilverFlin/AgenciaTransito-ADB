@@ -1,22 +1,23 @@
 package org.itson.presentacion;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import org.itson.utils.FormUtils;
 
 /**
  *
  * @author Toled
  */
-public class Consultas extends javax.swing.JFrame {
+public class FrmMenuConsultas extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(Consultas.class.getName());
+    private static final Logger LOG
+            = Logger.getLogger(FrmMenuConsultas.class.getName());
 
-    public Consultas() {
+    public FrmMenuConsultas() {
         initComponents();
     }
 
+//CHECKSTYLE:OFF
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,13 +85,28 @@ public class Consultas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+//CHECKSTYLE:ON
 
+//CHECKSTYLE:OFF
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new MenuPrincipal());
+//CHECKSTYLE:ON
+
+        try {
+            this.regresar();
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al regresar");
+        }
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+//CHECKSTYLE:OFF
     private void btnHistorialUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialUsuarioActionPerformed
-        FormUtils.cargarForm(new ConsultaBuscarPersona(), this);
+//CHECKSTYLE:ON
+
+        try {
+            this.cargarHistorialUsuario();
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al regresar");
+        }
     }//GEN-LAST:event_btnHistorialUsuarioActionPerformed
 
 
@@ -103,8 +119,12 @@ public class Consultas extends javax.swing.JFrame {
     private javax.swing.JLabel lblBienvenido;
     // End of variables declaration//GEN-END:variables
 
-
-    private void agregar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private void regresar() {
+        FormUtils.regresar(this, new FrmMenuPrincipal());
     }
+
+    private void cargarHistorialUsuario() {
+        FormUtils.cargarForm(new ConsultaBuscarPersona(), this);
+    }
+
 }

@@ -10,6 +10,8 @@ import org.itson.dominio.Vehiculo;
 import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.utils.Dialogs;
+import static org.itson.utils.Dialogs.mostrarMensajeError;
+import static org.itson.utils.Dialogs.mostrarMensajeExito;
 import org.itson.utils.FormUtils;
 
 /**
@@ -18,7 +20,8 @@ import org.itson.utils.FormUtils;
  */
 public class RegistroAutomovil extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(RegistroAutomovil.class.getName());
+    private static final Logger LOG
+            = Logger.getLogger(RegistroAutomovil.class.getName());
     private Optional<Persona> optionalPersona;
     private Persona persona;
 
@@ -38,10 +41,19 @@ public class RegistroAutomovil extends javax.swing.JFrame {
         this.txtApellidoPaterno.setText(this.persona.getApellidoPaterno());
         this.txtApellidoMaterno.setText(this.persona.getApellidoMaterno());
     }
-    
-    private Automovil obtenerAutomovil(){
-        return new Automovil(this.persona, this.txtSerie.getText(), this.txtLinea.getText(), this.txtMarca.getText(), this.txtMarca.getText(), this.txtColor.getText());
+
+    private Automovil obtenerAutomovil() {
+        // TODO(Luis): Especificar variables
+        return new Automovil(
+                this.persona,
+                this.txtSerie.getText(),
+                this.txtLinea.getText(),
+                this.txtMarca.getText(),
+                this.txtMarca.getText(),
+                this.txtColor.getText()
+        );
     }
+//CHECKSTYLE:OFF
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -255,25 +267,33 @@ public class RegistroAutomovil extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+//CHECKSTYLE:ON
 
+//CHECKSTYLE:OFF
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+//CHECKSTYLE:ON
         FormUtils.regresar(this, new Registros());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+//CHECKSTYLE:OFF
     private void btnRegistrarAutomovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovilActionPerformed
+//CHECKSTYLE:ON
+
         Vehiculo automovil = this.obtenerAutomovil();
         VehiculosDAOImpl vehiculos = new VehiculosDAOImpl();
         try {
             vehiculos.save(automovil);
-            Dialogs.mostrarMensajeExito(rootPane, "Automóvil registrado exitosamente.");
-            FormUtils.cargarForm(new MenuPrincipal(), this);
+            mostrarMensajeExito(rootPane, "Automóvil registrado exitosamente.");
+            FormUtils.cargarForm(new FrmMenuPrincipal(), this);
         } catch (PersistenciaException ex) {
-            Logger.getLogger(RegistroAutomovil.class.getName()).log(Level.SEVERE, null, ex);
-            Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar el automóvil.");
+            LOG.log(Level.SEVERE, null, ex);
+            mostrarMensajeError(rootPane, "No se pudo registrar el automóvil.");
         }
     }//GEN-LAST:event_btnRegistrarAutomovilActionPerformed
-
+//CHECKSTYLE:OFF
     private void btnCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosActionPerformed
+//CHECKSTYLE:ON
+
         this.optionalPersona = this.buscarPersona();
         if (this.optionalPersona.isPresent()) {
             this.persona = optionalPersona.get();
@@ -283,6 +303,7 @@ public class RegistroAutomovil extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCargarDatosActionPerformed
 
+//CHECKSTYLE:OFF
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
@@ -321,6 +342,7 @@ public class RegistroAutomovil extends javax.swing.JFrame {
     private javax.swing.JTextField txtRFC;
     private javax.swing.JTextField txtSerie;
     // End of variables declaration//GEN-END:variables
+//CHECKSTYLE:ON
 
     private void agregar() {
         throw new UnsupportedOperationException("Not supported yet.");

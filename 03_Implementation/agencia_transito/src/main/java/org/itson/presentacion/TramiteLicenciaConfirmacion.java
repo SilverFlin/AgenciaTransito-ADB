@@ -2,8 +2,6 @@ package org.itson.presentacion;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.itson.daos.LicenciasDAOImpl;
 import org.itson.dominio.Licencia;
@@ -18,23 +16,25 @@ import org.itson.utils.FormUtils;
  */
 public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(TramiteLicenciaConfirmacion.class.getName());
+    private static final Logger LOG
+            = Logger.getLogger(TramiteLicenciaConfirmacion.class.getName());
     private final Licencia licencia;
     private final Persona persona;
     private final int duracion;
     private final double costo;
-    
+
     public TramiteLicenciaConfirmacion(Licencia licencia, double costo, int duracion, Persona persona) {
         this.licencia = licencia;
         this.costo = costo;
         this.duracion = duracion;
         this.persona = persona;
         initComponents();
-        String nombreCompleto = this.persona.getNombres() + " " + this.persona.getApellidoPaterno() + " " +this.persona.getApellidoMaterno();
+        String nombreCompleto = this.persona.getNombres() + " " + this.persona.getApellidoPaterno() + " " + this.persona.getApellidoMaterno();
         this.lblNombreCompleto.setText(nombreCompleto);
         this.lblDuracion.setText(String.valueOf(this.duracion));
         this.lblCantidadCosto.setText(String.valueOf(this.costo));
     }
+//CHECKSTYLE:OFF
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -163,31 +163,38 @@ public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+//CHECKSTYLE:ON
+
+//CHECKSTYLE:OFF
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+//CHECKSTYLE:ON
         FormUtils.regresar(this, new TramiteLicencia());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+//CHECKSTYLE:OFF
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+//CHECKSTYLE:ON
         LicenciasDAOImpl tramites = new LicenciasDAOImpl();
         try {
             tramites.save(this.licencia);
             Dialogs.mostrarMensajeExito(rootPane, "Licencia registrada exitosamente.");
-            FormUtils.cargarForm(new MenuPrincipal(), this);
+            FormUtils.cargarForm(new FrmMenuPrincipal(), this);
         } catch (PersistenciaException ex) {
-            Logger.getLogger(TramiteLicenciaConfirmacion.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
             Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar la licencia.");
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
-
+//CHECKSTYLE:OFF
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+//CHECKSTYLE:ON
         int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el registro?", "CANCELAR REGISTRO", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
             FormUtils.cargarForm(new Registros(), this);
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-
+//CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnAceptar;
@@ -206,5 +213,6 @@ public class TramiteLicenciaConfirmacion extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombres7;
     private javax.swing.JLabel lblNombres8;
     // End of variables declaration//GEN-END:variables
+//CHECKSTYLE:OFF
 
 }

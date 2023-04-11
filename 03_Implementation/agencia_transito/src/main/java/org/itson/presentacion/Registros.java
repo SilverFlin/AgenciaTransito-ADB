@@ -1,11 +1,9 @@
 package org.itson.presentacion;
 
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.itson.dominio.Persona;
-import org.itson.daos.PersonasDAOImpl;
 import org.itson.excepciones.PersistenciaException;
+import org.itson.temptest.TestPersonasDAO;
 import org.itson.utils.*;
 
 /**
@@ -14,64 +12,24 @@ import org.itson.utils.*;
  */
 public class Registros extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(Registros.class.getName());
+    private static final Logger LOG
+            = Logger.getLogger(Registros.class.getName());
 
     public Registros() {
         initComponents();
     }
 
-    private void registrarPersonas() throws PersistenciaException {
-        Persona p1 = new Persona("MAPM0305271M1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p2 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p3 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p4 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p5 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p6 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p7 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p8 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p9 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p10 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p11 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p12 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p13 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p14 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p15 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p16 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p17 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p18 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p19 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-        Persona p20 = new Persona("MAOS2047152H1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 05, 27));
-
-        PersonasDAOImpl personas = new PersonasDAOImpl();
-        personas.save(p1);
-        personas.save(p2);
-        personas.save(p3);
-        personas.save(p4);
-        personas.save(p5);
-        personas.save(p6);
-        personas.save(p7);
-        personas.save(p8);
-        personas.save(p9);
-        personas.save(p10);
-        personas.save(p11);
-        personas.save(p12);
-        personas.save(p13);
-        personas.save(p14);
-        personas.save(p15);
-        personas.save(p16);
-        personas.save(p17);
-        personas.save(p18);
-        personas.save(p19);
-        personas.save(p20);
-    }
-
-    private boolean validarRegistros() {
-        PersonasDAOImpl personas = new PersonasDAOImpl();
-        if (personas.getAll() == null) {
-            return true;
+    private void registrarPersonas(final int cantidad) {
+        for (int i = 0; i < cantidad; i++) {
+            try {
+                TestPersonasDAO.agregaPersonaFalsa();
+            } catch (PersistenciaException ex) {
+                LOG.log(Level.SEVERE, "Error al registrar personas");
+                return;
+            }
         }
-        return false;
     }
+//CHECKSTYLE:OFF
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -155,30 +113,29 @@ public class Registros extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+//CHECKSTYLE:ON
 
+//CHECKSTYLE:OFF
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new MenuPrincipal());
+//CHECKSTYLE:ON
+        FormUtils.regresar(this, new FrmMenuPrincipal());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+//CHECKSTYLE:OFF
     private void btnRegistrarAutomovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovilActionPerformed
+//CHECKSTYLE:ON
         FormUtils.cargarForm(new RegistroAutomovil(), this);
     }//GEN-LAST:event_btnRegistrarAutomovilActionPerformed
 
+//CHECKSTYLE:OFF
     private void btnRegistrarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPersonasActionPerformed
-        if (validarRegistros()) {
-            try {
-                registrarPersonas();
-                Dialogs.mostrarMensajeExito(rootPane, "Se han registrado 20 personas exitosamente.");
-            } catch (PersistenciaException ex) {
-                Logger.getLogger(Registros.class.getName()).log(Level.SEVERE, null, ex);
-                Dialogs.mostrarMensajeError(rootPane, "No se pudieron registrar las 20 personas.");
-            }
-        } else {
-            Dialogs.mostrarMensajeError(rootPane, "Ya se han registrado las 20 personas.");
-        }
+//CHECKSTYLE:ON
+        int cantidadPersonasIngresar = 20;
+        registrarPersonas(cantidadPersonasIngresar);
+        Dialogs.mostrarMensajeExito(rootPane, "Se han registrado 20 personas exitosamente.");
     }//GEN-LAST:event_btnRegistrarPersonasActionPerformed
 
-
+//CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnRegistrarAutomovil;
@@ -188,5 +145,6 @@ public class Registros extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenido;
     // End of variables declaration//GEN-END:variables
+//CHECKSTYLE:ON
 
 }

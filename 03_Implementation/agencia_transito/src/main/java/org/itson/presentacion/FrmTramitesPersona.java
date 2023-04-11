@@ -1,10 +1,14 @@
 package org.itson.presentacion;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
-import org.itson.daos.TramitesDAOImpl;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Tramite;
 import org.itson.utils.FormUtils;
@@ -13,31 +17,60 @@ import org.itson.utils.FormUtils;
  *
  * @author Toled
  */
-public class ConsultaTramitesPersona extends JFrame {
+public class FrmTramitesPersona extends JFrame {
 
-    private static final Logger LOG = Logger.getLogger(ConsultaBuscarPersona.class.getName());
-    private Persona persona;
-    private TramitesDAOImpl tramitesDAO;
+    private static final Logger LOG
+            = Logger.getLogger(FrmTramitesPersona.class.getName());
 
-    public ConsultaTramitesPersona(Persona persona) {
-        this.persona = persona;
-        this.tramitesDAO = new TramitesDAOImpl();
-        initComponents();
-        String nombreCompleto = this.persona.getNombres() + " " + this.persona.getApellidoPaterno() + " " +this.persona.getApellidoMaterno();
-        this.lblNombreCompleto.setText(nombreCompleto);
-        cargarTablaTramitesPersona();
+    private UnitOfWork unitOfWork;
+
+    private Persona tramitante;
+    private List<Tramite> listaTramites;
+
+    private final DateFormat formateador = new SimpleDateFormat("dd/MM/yyy");
+
+    /**
+     * Constructor principal del Frame.
+     *
+     * @param persona
+     * @param unitOfWork
+     */
+    public FrmTramitesPersona(
+            final Persona persona,
+            final UnitOfWork unitOfWork
+    ) {
+        try {
+            this.tramitante = persona;
+            this.unitOfWork = unitOfWork;
+            initComponents();
+            this.actualizarListaTramites();
+            this.cargarNombreTramitante();
+            this.cargarTablaTramitesPersona();
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al cargar Frame");
+            this.regresar();
+        }
+
     }
 
     private void cargarTablaTramitesPersona() {
-//        List<Tramite> listaTramites = this.tramitesDAO.consultarLista(this.cuentaIniciada.getNumeroCuenta(), this.fechaInicio, this.fechaFinal);
-//        DefaultTableModel modeloTabla1 = (DefaultTableModel) this.tblTramitesRealizados.getModel();
-//        modeloTabla1.setRowCount(0);
-//        for (Tramite tramite : listaTramites) {
-//            Object[] fila = {tramite, tramite.getTramitante().getNombres(), tramite.getCosto(), tramite};
-//            modeloTabla1.addRow(fila);
-//        }
 
+        this.vaciarTabla();
+        this.actualizarListaTramites();
+        DefaultTableModel modeloTabla
+                = (DefaultTableModel) this.tblTramitesRealizados.getModel();
+
+        for (Tramite tramite : this.listaTramites) {
+            Object[] fila = {
+                tramite.getId(),//borrar
+                tramite.getClass(),
+                tramite.getCosto(),
+                formatoFecha(tramite.getFechaInicio())
+            };
+            modeloTabla.addRow(fila);
+        }
     }
+//CHECKSTYLE:OFF
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -166,29 +199,43 @@ public class ConsultaTramitesPersona extends JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+//CHECKSTYLE:ON
 
     /**
      * Avanza en la pagina de operaciones
      *
      * @param evt Evento que lo acciono
      */
-    private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
+//CHECKSTYLE:OFF
 
+    private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
+//CHECKSTYLE:ON 
+        // TODO
     }//GEN-LAST:event_btnAdelanteActionPerformed
     /**
      * Retrocede en la pagina de operaciones
      *
      * @param evt Evento que lo acciono
      */
+//CHECKSTYLE:OFF
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
-
+//CHECKSTYLE:ON
+        // TODO
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
+//CHECKSTYLE:OFF
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new ConsultaBuscarPersona());
+//CHECKSTYLE:ON
+
+        try {
+            this.regresar();
+        } catch (Exception e) {
+            // TODO(Luis): cambiar msg a constantes
+            LOG.log(Level.SEVERE, "Error al regresar form");
+        }
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-
+//CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnAdelante;
@@ -201,5 +248,46 @@ public class ConsultaTramitesPersona extends JFrame {
     private javax.swing.JScrollPane panelTablaCuentas;
     private javax.swing.JTable tblTramitesRealizados;
     // End of variables declaration//GEN-END:variables
+//CHECKSTYLE:OFF
+
+    private void cargarNombreTramitante() {
+        String nombres = this.tramitante.getNombres();
+        String apellidoPaterno = this.tramitante.getApellidoPaterno();
+        String apellidoMaterno
+                = (this.tramitante.getApellidoMaterno() == null)
+                ? "" : this.tramitante.getApellidoMaterno();
+        String nombreCompleto
+                = nombres + " "
+                + apellidoPaterno + " "
+                + apellidoMaterno;
+        this.lblNombreCompleto.setText(nombreCompleto);
+    }
+
+    private void vaciarTabla() {
+        DefaultTableModel modeloTabla
+                = (DefaultTableModel) this.tblTramitesRealizados.getModel();
+        modeloTabla.setRowCount(0);
+    }
+
+    private void actualizarListaTramites() {
+        Optional<Persona> optPersona
+                = unitOfWork
+                        .personasDAO()
+                        .get(this.tramitante.getId());
+
+        if (optPersona.isEmpty()) {
+            Persona persona = optPersona.get();
+            this.listaTramites = persona.getTramites();
+        }
+
+    }
+
+    private String formatoFecha(Calendar calendar) {
+        return formateador.format(calendar.getTime());
+    }
+
+    private void regresar() {
+        FormUtils.regresar(this, new ConsultaBuscarPersona());
+    }
 
 }

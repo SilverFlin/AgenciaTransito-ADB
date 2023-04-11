@@ -1,8 +1,6 @@
 package org.itson.presentacion;
 
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import org.itson.utils.FormUtils;
 
 /**
@@ -10,13 +8,15 @@ import org.itson.utils.FormUtils;
  * @author Toled
  */
 public class Reportes extends javax.swing.JFrame {
-    
-    private static final Logger LOG = Logger.getLogger(Reportes.class.getName());
-    
+
+    private static final Logger LOG
+            = Logger.getLogger(Reportes.class.getName());
+
     public Reportes() {
         initComponents();
     }
-    
+
+//CHECKSTYLE:OFF
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -83,16 +83,20 @@ public class Reportes extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+//CHECKSTYLE:ON
 
+//CHECKSTYLE:OFF
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new MenuPrincipal());        
+//CHECKSTYLE:ON
+        FormUtils.regresar(this, new FrmMenuPrincipal());
     }//GEN-LAST:event_btnRegresarActionPerformed
-
+//CHECKSTYLE:OFF
     private void btnReporteTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteTramitesActionPerformed
+//CHECKSTYLE:ON
         FormUtils.cargarForm(new ReportesTramites(), this);
     }//GEN-LAST:event_btnReporteTramitesActionPerformed
 
-
+//CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnRegresar;
@@ -101,5 +105,6 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenido;
     // End of variables declaration//GEN-END:variables
+//CHECKSTYLE:ON
 
 }

@@ -1,8 +1,6 @@
 package org.itson.presentacion;
 
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import org.itson.utils.FormUtils;
 
 /**
@@ -11,11 +9,13 @@ import org.itson.utils.FormUtils;
  */
 public class Tramites extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(Tramites.class.getName());
+    private static final Logger LOG
+            = Logger.getLogger(Tramites.class.getName());
 
     public Tramites() {
         initComponents();
     }
+//CHECKSTYLE:OFF
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -98,20 +98,27 @@ public class Tramites extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+//CHECKSTYLE:ON
 
+//CHECKSTYLE:OFF
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-       FormUtils.regresar(this, new MenuPrincipal()); 
+//CHECKSTYLE:ON
+        FormUtils.regresar(this, new FrmMenuPrincipal());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+//CHECKSTYLE:OFF
     private void btnTramitePlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitePlacasActionPerformed
+//CHECKSTYLE:ON
         FormUtils.cargarForm(new TramitePlacas(), this);
     }//GEN-LAST:event_btnTramitePlacasActionPerformed
 
+//CHECKSTYLE:OFF
     private void btnTramiteLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramiteLicenciaActionPerformed
+//CHECKSTYLE:ON
         FormUtils.cargarForm(new TramiteLicencia(), this);
     }//GEN-LAST:event_btnTramiteLicenciaActionPerformed
 
-
+//CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnRegresar;
@@ -121,7 +128,7 @@ public class Tramites extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenido;
     // End of variables declaration//GEN-END:variables
-
+//CHECKSTYLE:ON
 
     private void agregar() {
         throw new UnsupportedOperationException("Not supported yet.");
