@@ -24,12 +24,13 @@ public final class FormUtils {
             final T cargar,
             final JFrame actual
     ) throws InstantiationError {
-        if (cargar != null) {
-            actual.setVisible(false);
-            cargar.setVisible(true);
-            return;
+
+        if (cargar == null || actual == null) {
+            throw new InstantiationError("Form no instanciado");
         }
-        throw new InstantiationError("Form no instanciado");
+        actual.setVisible(false);
+        cargar.setVisible(true);
+
     }
 
     /**
@@ -42,6 +43,6 @@ public final class FormUtils {
             final JFrame actual,
             final JFrame frmAnterior
     ) {
-        cargarForm(actual, frmAnterior);
+        cargarForm(frmAnterior, actual);
     }
 }
