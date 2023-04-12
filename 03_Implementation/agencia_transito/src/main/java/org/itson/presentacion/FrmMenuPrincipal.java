@@ -1,23 +1,29 @@
 package org.itson.presentacion;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import org.itson.utils.FormUtils;
 
 /**
  *
  * @author Toled
  */
-public class MenuPrincipal extends javax.swing.JFrame {
+public class FrmMenuPrincipal extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(MenuPrincipal.class.getName());
+    /**
+     * Logger.
+     */
+    private static final Logger LOG
+            = Logger.getLogger(FrmMenuPrincipal.class.getName());
 
-    public MenuPrincipal() {
+    /**
+     * Constructor principal.
+     */
+    public FrmMenuPrincipal() {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("all")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -129,27 +135,56 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    @SuppressWarnings("all")
     private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
-        FormUtils.cargarForm(new Consultas(), this);
+
+        try {
+            this.cargarConsultas();
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al cambiar de Frame.");
+        }
+
     }//GEN-LAST:event_btnConsultasActionPerformed
 
+    @SuppressWarnings("all")
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    @SuppressWarnings("all")
     private void btnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrosActionPerformed
-        FormUtils.cargarForm(new Registros(), this);
+
+        try {
+            this.cargarRegistros();
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al cambiar de Frame.");
+        }
+
+
     }//GEN-LAST:event_btnRegistrosActionPerformed
 
+    @SuppressWarnings("all")
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        FormUtils.cargarForm(new Reportes(), this);
+
+        try {
+            this.cargarReportes();
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al cambiar de Frame.");
+        }
     }//GEN-LAST:event_btnReportesActionPerformed
 
+    @SuppressWarnings("all")
     private void btnTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitesActionPerformed
-        FormUtils.cargarForm(new Tramites(), this);
+
+        try {
+            this.cargarTramites();
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al cambiar de Frame.");
+        }
     }//GEN-LAST:event_btnTramitesActionPerformed
 
-
+    //CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnConsultas;
@@ -161,6 +196,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenido;
     // End of variables declaration//GEN-END:variables
+    //CHECKSTYLE:ON
 
+    private void cargarConsultas() {
+        FormUtils.cargarForm(new FrmMenuConsultas(), this);
+    }
+
+    private void cargarRegistros() {
+        FormUtils.cargarForm(new FrmRegistros(), this);
+    }
+
+    private void cargarReportes() {
+        FormUtils.cargarForm(new FrmReportes(), this);
+    }
+
+    private void cargarTramites() {
+        FormUtils.cargarForm(new FrmTramites(), this);
+    }
 
 }

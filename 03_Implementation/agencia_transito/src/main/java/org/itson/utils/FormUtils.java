@@ -39,8 +39,8 @@ public final class FormUtils {
      * @param actual
      */
     public static void regresar(
-            final JFrame frmAnterior,
-            final JFrame actual
+            final JFrame actual,
+            final JFrame frmAnterior
     ) {
         cargarForm(actual, frmAnterior);
     }

@@ -7,41 +7,66 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import org.itson.daos.PersonasDAOImpl;
 import org.itson.dominio.Persona;
-import org.itson.utils.*;
+import org.itson.interfaces.PersonasDAO;
+import org.itson.utils.BotonEditor;
+import org.itson.utils.BotonRender;
+import static org.itson.utils.Dialogs.mostrarMensajeError;
 import org.itson.utils.FormUtils;
 
 /**
  *
  * @author Toled
  */
-public class ConsultaBuscarPersona extends JFrame {
+public class FrmConsultaBuscarPersona extends JFrame {
 
-//    private static final Logger LOG = Logger.getLogger(ConsultaBuscarPersona.class.getName());
+    /**
+     * Logger.
+     */
+    private static final Logger LOG
+            = Logger.getLogger(FrmConsultaBuscarPersona.class.getName());
 //    private final JFrame frmAnterior;
-    private PersonasDAOImpl personasDAO;
-    
-    public ConsultaBuscarPersona() {
+
+    /**
+     * PersonasDAO.
+     */
+    private PersonasDAO personasDAO;
+
+    /**
+     * Constructor principal.
+     */
+    public FrmConsultaBuscarPersona() {
         initComponents();
         botones.add(rbtnRFC);
         botones.add(rbtnNombre);
         botones.add(rbtnAnhoNacimiento);
-        tblPersonas.getColumnModel().getColumn(5).setCellEditor(new BotonEditor(this));
-        tblPersonas.getColumnModel().getColumn(5).setCellRenderer(new BotonRender());
+        final int columnaBoton = 5;
+        tblPersonas.getColumnModel().getColumn(columnaBoton)
+                .setCellEditor(new BotonEditor(this));
+        tblPersonas.getColumnModel().getColumn(columnaBoton)
+                .setCellRenderer(new BotonRender());
+        this.personasDAO = new PersonasDAOImpl();
         List<Persona> listaPersonas = this.personasDAO.getAll();
         cargarTablaPersonas(listaPersonas);
     }
 
-    private void cargarTablaPersonas(List<Persona> listaPersonas) {
-        DefaultTableModel modeloTabla1 = (DefaultTableModel) this.tblPersonas.getModel();
+    private void cargarTablaPersonas(final List<Persona> listaPersonas) {
+        DefaultTableModel modeloTabla1
+                = (DefaultTableModel) this.tblPersonas.getModel();
         modeloTabla1.setRowCount(0);
         for (Persona persona : listaPersonas) {
-            Object[] fila = {persona.getRfc(), persona.getNombres(), persona.getApellidoPaterno(), persona.getApellidoMaterno(), persona.getFechaNacimiento()};
+            Object[] fila = {
+                persona.getRfc(),
+                persona.getNombres(),
+                persona.getApellidoPaterno(),
+                persona.getApellidoMaterno(),
+                persona.getFechaNacimiento()
+            };
             modeloTabla1.addRow(fila);
         }
 
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("all")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -230,49 +255,64 @@ public class ConsultaBuscarPersona extends JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
     /**
-     * Dirige a la ventana anterior
+     * Dirige a la ventana anterior.
      *
      * @param evt Evento que lo acciono
      */
+    @SuppressWarnings("all")
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO refactor
         List<Persona> listaPersonas = null;
         if (this.rbtnRFC.isSelected()) {
-            Optional<Persona> persona = this.personasDAO.getByRFC(this.txtRFC.getText());
+            Optional<Persona> persona
+                    = this.personasDAO.getByRFC(this.txtRFC.getText());
             listaPersonas.add(persona.get());
             this.cargarTablaPersonas(listaPersonas);
         } else if (this.rbtnNombre.isSelected()) {
-            listaPersonas = this.personasDAO.getByNombre(this.txtNombre1.getText());
+            listaPersonas
+                    = this.personasDAO.getByNombre(this.txtNombre1.getText());
             this.cargarTablaPersonas(listaPersonas);
         } else if (this.rbtnAnhoNacimiento.isSelected()) {
-            listaPersonas = this.personasDAO.getByAnho(Integer.parseInt(this.txtAnhoNacimiento.getText()));
+            Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
+            listaPersonas = this.personasDAO.getByAnho(anho);
             this.cargarTablaPersonas(listaPersonas);
         } else {
-            Dialogs.mostrarMensajeError(rootPane, "Seleccione un filtro de búsqueda.");
+            mostrarMensajeError(rootPane, "Seleccione un filtro de búsqueda.");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
     /**
-     * Avanza en la pagina de operaciones
+     * Avanza en la pagina de operaciones.
      *
      * @param evt Evento que lo acciono
      */
+    @SuppressWarnings("all")
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
-        
+
     }//GEN-LAST:event_btnAdelanteActionPerformed
     /**
-     * Retrocede en la pagina de operaciones
+     * Retrocede en la pagina de operaciones.
      *
      * @param evt Evento que lo acciono
      */
+    @SuppressWarnings("all")
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
-        
+
+
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
+    /**
+     * Regresa al Frame anterior.
+     *
+     * @param evt
+     */
+    @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new Consultas());
+        FormUtils.regresar(this, new FrmMenuConsultas());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-
+    //CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.ButtonGroup botones;
@@ -297,5 +337,5 @@ public class ConsultaBuscarPersona extends JFrame {
     private javax.swing.JTextField txtNombre1;
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
-
+    //CHECKSTYLE:ON
 }

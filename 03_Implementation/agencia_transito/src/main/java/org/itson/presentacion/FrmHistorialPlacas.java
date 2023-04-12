@@ -2,44 +2,50 @@ package org.itson.presentacion;
 
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import org.itson.utils.FormUtils;
 
 /**
  *
  * @author Toled
  */
-public class HistorialPlacas extends JFrame {
+public class FrmHistorialPlacas extends JFrame {
 
-//    private static final Logger LOG = Logger.getLogger(ConsultaBuscarPersona.class.getName());
+    /**
+     * Logger.
+     */
+    private static final Logger LOG
+            = Logger.getLogger(FrmHistorialPlacas.class.getName());
 //    private final JFrame frmAnterior;
 
-    public HistorialPlacas() {
+    /**
+     * Constructor principal.
+     */
+    public FrmHistorialPlacas() {
         initComponents();
         cargarTablaX();
 //        this.frmAnterior = frmAnterior;
     }
 
     private void cargarTablaX() {
-        //        List<Publicacion> listaPublicaciones
-        //                = this.conseguirListaPublicaciones();
-        //        DefaultTableModel modeloTabla
-        //                = (DefaultTableModel) this.tblPublicaciones.getModel();
-        //        modeloTabla.setRowCount(0);
-        //        for (Publicacion publicacion : listaPublicaciones) {
-        //            Object[] fila = {
-        //                publicacion.getTitulo(),
-        //        publicacion.getAutor().getNombre() + " ";
-        //                + publicacion.getAutor().getApellidoPaterno(),
-        //                publicacion.getNoPaginas(),
-        //                "$" + publicacion.getCostoProd(),
-        //                "$" + publicacion.getCostoVenta()};
-        //
-        //            modeloTabla.addRow(fila);
-        //        };
+//        List<Publicacion> listaPublicaciones
+//                = this.conseguirListaPublicaciones();
+//        DefaultTableModel modeloTabla
+//                = (DefaultTableModel) this.tblPublicaciones.getModel();
+//        modeloTabla.setRowCount(0);
+//        for (Publicacion publicacion : listaPublicaciones) {
+//            Object[] fila = {
+//                publicacion.getTitulo(),
+//        publicacion.getAutor().getNombre() + " ";
+//                + publicacion.getAutor().getApellidoPaterno(),
+//                publicacion.getNoPaginas(),
+//                "$" + publicacion.getCostoProd(),
+//                "$" + publicacion.getCostoVenta()};
+//
+//            modeloTabla.addRow(fila);
+//        };
 
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("all")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -155,11 +161,12 @@ public class HistorialPlacas extends JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-   /**
+    /**
      * Avanza en la pagina de operaciones
      *
      * @param evt Evento que lo acciono
      */
+    @SuppressWarnings("all")
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
         // TODO paginado
         this.cargarTablaX();
@@ -169,17 +176,19 @@ public class HistorialPlacas extends JFrame {
      *
      * @param evt Evento que lo acciono
      */
+    @SuppressWarnings("all")
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
         // TODO paginado
         // this.configPaginado.retrocederPag();
         this.cargarTablaX();
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
+    @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        this.regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-
+    //CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnAdelante;
@@ -190,8 +199,9 @@ public class HistorialPlacas extends JFrame {
     private javax.swing.JScrollPane panelTablaCuentas;
     private javax.swing.JTable tblHistorialPlacas;
     // End of variables declaration//GEN-END:variables
+    //CHECKSTYLE:ON
 
-//    private void regresar() {
+    private void regresar() {
 //        FormUtils.regresar(frmAnterior, this);
-//    }
+    }
 }

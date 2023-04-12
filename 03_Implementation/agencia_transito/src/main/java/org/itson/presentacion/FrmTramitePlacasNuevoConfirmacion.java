@@ -1,15 +1,11 @@
 package org.itson.presentacion;
 
 import java.util.GregorianCalendar;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.itson.daos.PlacasDAOImpl;
 import org.itson.daos.VehiculosDAOImpl;
-import org.itson.dominio.Automovil;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Placa;
 import org.itson.dominio.TipoPlaca;
@@ -17,95 +13,98 @@ import org.itson.dominio.Vehiculo;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.utils.Dialogs;
 import org.itson.utils.FormUtils;
+import org.itson.utils.GeneradorMatricula;
 
 /**
  *
  * @author Toled
  */
-public class TramitePlacasUsadoConfirmacion extends javax.swing.JFrame {
+public class FrmTramitePlacasNuevoConfirmacion extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(TramitePlacasUsadoConfirmacion.class.getName());
+    /**
+     * Logger.
+     */
+    @SuppressWarnings("checkstyle:linelength")
+    private static final Logger LOG = Logger.getLogger(FrmTramitePlacasNuevoConfirmacion.class.getName());
+    /**
+     * Vehiculo asociado a las placas.
+     */
     private final Vehiculo automovil;
+    /**
+     * Persona asociada a las placas.
+     */
     private final Persona persona;
+    /**
+     * Costo de las placas, en MXN.
+     */
     private final double costo;
+    /**
+     * Tipo de las placas.
+     */
     private final TipoPlaca tipo;
+    /**
+     * Matricula de la placa.
+     */
     private final String placas;
 
-    public TramitePlacasUsadoConfirmacion(Persona persona, Vehiculo automovil, double costo, TipoPlaca tipo) {
+    /**
+     * Constructor principal.
+     *
+     * @param persona
+     * @param automovil
+     * @param costo
+     * @param tipo
+     */
+    public FrmTramitePlacasNuevoConfirmacion(
+            final Persona persona,
+            final Vehiculo automovil,
+            final double costo,
+            final TipoPlaca tipo
+    ) {
         this.automovil = automovil;
         this.persona = persona;
         this.costo = costo;
         this.tipo = tipo;
         initComponents();
-        String nombreCompleto = this.persona.getNombres() + " " + this.persona.getApellidoPaterno() + " " +this.persona.getApellidoMaterno();
+        String nombreCompleto
+                = this.persona.getNombres() + " "
+                + this.persona.getApellidoPaterno()
+                + " " + this.persona.getApellidoMaterno();
         this.lblSerie.setText(this.automovil.getNumeroSerie());
         this.lblMarca.setText(this.automovil.getMarca());
         this.lblLinea.setText(this.automovil.getLinea());
         this.lblAnho.setText(this.automovil.getModelo());
-        
-        this.placas = cadenaPlacasPrimeraParte() + "-" + cadenaPlacasSegundaParte();
+
+        this.placas = GeneradorMatricula.generar();
         this.lblPlacas.setText(placas);
-        
+
         this.lblNombreCompleto.setText(nombreCompleto);
         this.lblCantidadCosto.setText(String.valueOf(this.costo));
     }
-    
-    private Placa obtenerPlaca(){
+
+    private Placa obtenerPlaca() {
         GregorianCalendar fechaEmision = new GregorianCalendar();
-        int diaRecepcion = fechaEmision.get(GregorianCalendar.DAY_OF_MONTH) + 3;
-        GregorianCalendar fechaRecepcion = new GregorianCalendar(fechaEmision.get(GregorianCalendar.YEAR), fechaEmision.get(GregorianCalendar.MONTH), diaRecepcion);
-        return new Placa(this.placas, fechaEmision, fechaRecepcion, this.tipo, this.automovil, this.costo, this.persona);
-    }
-    
-    /**
-     * Método que regresa una cadena de texto aleatoria de 16 dígitos.
-     *
-     * @return cadena Cadena de texto aleatoria.
-     */
-    private static String cadenaPlacasPrimeraParte() {
-        // El banco de caracteres
-        String placas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        // La cadena en donde iremos agregando un carácter aleatorio
-        String cadena = "";
-        for (int x = 0; x < 3; x++) {
-            int indiceAleatorio = numeroAleatorioEnRango(0, placas.length() - 1);
-            char caracterAleatorio = placas.charAt(indiceAleatorio);
-            cadena += caracterAleatorio;
-        }
-        return cadena;
-    }
-    
-    /**
-     * Método que regresa una cadena de texto aleatoria de 16 dígitos.
-     *
-     * @return cadena Cadena de texto aleatoria.
-     */
-    private static String cadenaPlacasSegundaParte() {
-        // El banco de caracteres
-        String placas = "1234567890";
-        // La cadena en donde iremos agregando un carácter aleatorio
-        String cadena = "";
-        for (int x = 0; x < 3; x++) {
-            int indiceAleatorio = numeroAleatorioEnRango(0, placas.length() - 1);
-            char caracterAleatorio = placas.charAt(indiceAleatorio);
-            cadena += caracterAleatorio;
-        }
-        return cadena;
+        final int plazoDias = 3;
+        int diaRecepcion
+                = fechaEmision.get(GregorianCalendar.DAY_OF_MONTH) + plazoDias;
+        GregorianCalendar fechaRecepcion
+                = new GregorianCalendar(
+                        fechaEmision.get(GregorianCalendar.YEAR),
+                        fechaEmision.get(GregorianCalendar.MONTH),
+                        diaRecepcion
+                );
+        return new Placa(
+                this.placas,
+                fechaEmision,
+                fechaRecepcion,
+                this.tipo,
+                this.automovil,
+                this.costo,
+                this.persona
+        );
     }
 
-    /**
-     * Método que regresa un número entero aleatorio dentro de un rango.
-     *
-     * @param minimo Número entero con el mínimo del rango.
-     * @param maximo Número entero con el máximo del rango.
-     * @return número entero aleatorio.
-     */
-    private static int numeroAleatorioEnRango(int minimo, int maximo) {
-        // nextInt regresa en rango pero con límite superior exclusivo, por eso sumamos 1
-        return ThreadLocalRandom.current().nextInt(minimo, maximo + 1);
-    }
-    
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("all")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -275,31 +274,38 @@ public class TramitePlacasUsadoConfirmacion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new TramitePlacasNuevo());
+        FormUtils.regresar(this, new FrmTramitePlacasNuevo());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    @SuppressWarnings("all")
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+
+        VehiculosDAOImpl vehiculos = new VehiculosDAOImpl();
         Placa placas = this.obtenerPlaca();
         PlacasDAOImpl tramite = new PlacasDAOImpl();
         try {
+            vehiculos.save(this.automovil);
             tramite.save(placas);
-            Dialogs.mostrarMensajeExito(rootPane, "Placa registrada exitosamente.");
-            FormUtils.cargarForm(new MenuPrincipal(), this);
+            Dialogs.mostrarMensajeExito(rootPane, "Automóvil y placas registradas exitosamente.");
+            FormUtils.cargarForm(new FrmMenuPrincipal(), this);
         } catch (PersistenciaException ex) {
-            Logger.getLogger(RegistroAutomovil.class.getName()).log(Level.SEVERE, null, ex);
-            Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar la placa.");
+            LOG.log(Level.SEVERE, null, ex);
+            Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar el automóvil ni las placas.");
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    @SuppressWarnings("all")
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+
         int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el registro?", "CANCELAR REGISTRO", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
-            FormUtils.cargarForm(new Tramites(), this);
+            FormUtils.cargarForm(new FrmTramites(), this);
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-
+    //CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnAceptar;
@@ -325,6 +331,7 @@ public class TramitePlacasUsadoConfirmacion extends javax.swing.JFrame {
     private javax.swing.JLabel lblPlacas;
     private javax.swing.JLabel lblSerie;
     // End of variables declaration//GEN-END:variables
+    //CHECKSTYLE:ON
 
     private void agregar() {
         throw new UnsupportedOperationException("Not supported yet.");

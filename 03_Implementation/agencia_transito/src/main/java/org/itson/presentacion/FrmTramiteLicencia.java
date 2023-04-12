@@ -3,9 +3,6 @@ package org.itson.presentacion;
 import java.util.GregorianCalendar;
 import java.util.Optional;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
 import org.itson.daos.PersonasDAOImpl;
 import org.itson.dominio.Licencia;
 import org.itson.dominio.Persona;
@@ -17,22 +14,35 @@ import org.itson.utils.FormUtils;
  *
  * @author Toled
  */
-public class TramiteLicencia extends javax.swing.JFrame {
+public class FrmTramiteLicencia extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(TramiteLicencia.class.getName());
-    private Optional<Persona> optionalPersona;
+    /**
+     * Logger.
+     */
+    private static final Logger LOG
+            = Logger.getLogger(FrmTramiteLicencia.class.getName());
+    /**
+     * Persona a la que se le generará la licencia.
+     */
     private Persona persona;
+    /**
+     * Duración de la licencia, en años.
+     */
     private int duracion;
+    /**
+     * Costo de la licencia, en MXN.
+     */
     private double costo;
-    
-    public TramiteLicencia() {
+
+    /**
+     * Constructor principal.
+     */
+    public FrmTramiteLicencia() {
         initComponents();
-        this.optionalPersona = null;
-        this.persona = null;
         this.duracion = 0;
         this.costo = 0.0d;
     }
-    
+
     private Optional<Persona> buscarPersona() {
         PersonasDAOImpl personas = new PersonasDAOImpl();
         return personas.getByRFC(this.txtRFC.getText());
@@ -43,39 +53,73 @@ public class TramiteLicencia extends javax.swing.JFrame {
         this.txtApellidoPaterno.setText(this.persona.getApellidoPaterno());
         this.txtApellidoMaterno.setText(this.persona.getApellidoMaterno());
     }
-    
-    private Licencia obtenerLicencia(){
+
+    private Licencia obtenerLicencia() {
+        // TODO(Luis): Refactor
         TipoLicencia tipo = null;
-        if(this.chbxDiscapacitado.isSelected()){
+        if (this.chbxDiscapacitado.isSelected()) {
             tipo = TipoLicencia.DISCAPACITADO;
         } else {
             tipo = TipoLicencia.NORMAL;
         }
-        
-        this.duracion = Integer.parseInt(this.cbxDuracion.getItemAt(this.cbxDuracion.getSelectedIndex()));
-        
-        if(!this.chbxDiscapacitado.isSelected() && Integer.parseInt(this.cbxDuracion.getItemAt(this.cbxDuracion.getSelectedIndex())) == 1){
-            this.costo = 600d;
-        } else if (this.chbxDiscapacitado.isSelected() && Integer.parseInt(this.cbxDuracion.getItemAt(this.cbxDuracion.getSelectedIndex())) == 1){
-            this.costo = 200d;
-        } else if (!this.chbxDiscapacitado.isSelected() && Integer.parseInt(this.cbxDuracion.getItemAt(this.cbxDuracion.getSelectedIndex())) == 2){
-            this.costo = 900;
-        } else if (this.chbxDiscapacitado.isSelected() && Integer.parseInt(this.cbxDuracion.getItemAt(this.cbxDuracion.getSelectedIndex())) == 2){
-            this.costo = 500;
-        } else if (!this.chbxDiscapacitado.isSelected() && Integer.parseInt(this.cbxDuracion.getItemAt(this.cbxDuracion.getSelectedIndex())) == 3){
-            this.costo = 1100;
-        } else if (this.chbxDiscapacitado.isSelected() && Integer.parseInt(this.cbxDuracion.getItemAt(this.cbxDuracion.getSelectedIndex())) == 3){
-            this.costo = 700;
+
+        String item = cbxDuracion.getItemAt(cbxDuracion.getSelectedIndex());
+        this.duracion = Integer.parseInt(item);
+
+        final int unAnho = 1;
+        final int dosAnhos = 2;
+        final int tresAnhos = 3;
+
+        // TODO(Luis): usar matriz
+        if (!this.chbxDiscapacitado.isSelected()
+                && duracion == unAnho) {
+            final Double costoNormalUnAnho = 600d;
+            this.costo = costoNormalUnAnho;
+
+        } else if (this.chbxDiscapacitado.isSelected()
+                && duracion == unAnho) {
+            final Double costoDiscapacitadoUnAnho = 200d;
+            this.costo = costoDiscapacitadoUnAnho;
+
+        } else if (!this.chbxDiscapacitado.isSelected()
+                && duracion == dosAnhos) {
+            final Double costoNormalDosAnhos = 900d;
+            this.costo = costoNormalDosAnhos;
+
+        } else if (this.chbxDiscapacitado.isSelected()
+                && duracion == dosAnhos) {
+            final Double costoDiscapacitadoDosAnhos = 500d;
+            this.costo = costoDiscapacitadoDosAnhos;
+
+        } else if (!this.chbxDiscapacitado.isSelected()
+                && duracion == tresAnhos) {
+            final Double costoNormalTresAnhos = 1100d;
+            this.costo = costoNormalTresAnhos;
+
+        } else if (this.chbxDiscapacitado.isSelected()
+                && duracion == tresAnhos) {
+            final Double costoDiscapacitadoTresAnhos = 700d;
+            this.costo = costoDiscapacitadoTresAnhos;
         }
-        
+
         GregorianCalendar fechaInicio = new GregorianCalendar();
-        int anhoCaducidad = fechaInicio.get(GregorianCalendar.YEAR) + this.duracion;
-        GregorianCalendar fechaCaducidad = new GregorianCalendar(anhoCaducidad, fechaInicio.get(GregorianCalendar.MONTH), fechaInicio.get(GregorianCalendar.DAY_OF_MONTH));
-        
-        return new Licencia(fechaInicio, fechaCaducidad, this.duracion, tipo, this.costo, this.persona);
+        int anhoFechaInicio = fechaInicio.get(GregorianCalendar.YEAR);
+        int anhoCaducidad = anhoFechaInicio + this.duracion;
+        GregorianCalendar fechaCaducidad
+                = new GregorianCalendar(anhoCaducidad,
+                        fechaInicio.get(GregorianCalendar.MONTH),
+                        fechaInicio.get(GregorianCalendar.DAY_OF_MONTH));
+
+        return new Licencia(
+                fechaInicio,
+                fechaCaducidad,
+                this.duracion,
+                tipo,
+                this.costo,
+                this.persona);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("all")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -238,26 +282,30 @@ public class TramiteLicencia extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new Tramites());
+        FormUtils.regresar(this, new FrmTramites());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    @SuppressWarnings("all")
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         Licencia licencia = this.obtenerLicencia();
-        FormUtils.cargarForm(new TramiteLicenciaConfirmacion(licencia, this.costo, this.duracion, this.persona), this);
+        // TODO(Luis): Crear DTO
+        FormUtils.cargarForm(new FrmTramiteLicenciaConfirmacion(licencia, this.costo, this.duracion, this.persona), this);
     }//GEN-LAST:event_btnContinuarActionPerformed
 
+    @SuppressWarnings("all")
     private void btnCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosActionPerformed
-        this.optionalPersona = this.buscarPersona();
-        if (this.optionalPersona.isPresent()) {
-            this.persona = optionalPersona.get();
+        Optional<Persona> optPersona = this.buscarPersona();
+        if (optPersona.isPresent()) {
+            this.persona = optPersona.get();
             this.imprimirDatosPersona();
         } else {
             Dialogs.mostrarMensajeError(rootPane, "No se ha encontrado a la persona.");
         }
     }//GEN-LAST:event_btnCargarDatosActionPerformed
 
-
+    //CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnCargarDatos;
@@ -285,5 +333,5 @@ public class TramiteLicencia extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
-
+    //CHECKSTYLE:ON
 }

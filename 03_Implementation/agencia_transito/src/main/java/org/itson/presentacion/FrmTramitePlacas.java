@@ -1,23 +1,28 @@
 package org.itson.presentacion;
 
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import org.itson.utils.FormUtils;
 
 /**
  *
  * @author Toled
  */
-public class TramitePlacas extends javax.swing.JFrame {
+public class FrmTramitePlacas extends javax.swing.JFrame {
 
-    private static final Logger LOG = Logger.getLogger(TramitePlacas.class.getName());
+    /**
+     * Logger.
+     */
+    private static final Logger LOG
+            = Logger.getLogger(FrmTramitePlacas.class.getName());
 
-    public TramitePlacas() {
+    /**
+     * Constructor principal.
+     */
+    public FrmTramitePlacas() {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("all")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -108,21 +113,23 @@ public class TramitePlacas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new Tramites());
+        FormUtils.regresar(this, new FrmTramites());
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    @SuppressWarnings("all")
     private void btnTramitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitarActionPerformed
         String vehiculo = this.cbxVehiculo.getItemAt(this.cbxVehiculo.getSelectedIndex());
         String estado = this.cbxEstado.getItemAt(this.cbxEstado.getSelectedIndex());
-        if(vehiculo.equalsIgnoreCase("automovil") && estado.equalsIgnoreCase("nuevo")){
-            FormUtils.cargarForm(new TramitePlacasNuevo(), this);
+        if (vehiculo.equalsIgnoreCase("automovil") && estado.equalsIgnoreCase("nuevo")) {
+            FormUtils.cargarForm(new FrmTramitePlacasNuevo(), this);
         } else {
-            FormUtils.cargarForm(new TramitePlacasUsado(), this);
+            FormUtils.cargarForm(new FrmTramitePlacasUsado(), this);
         }
     }//GEN-LAST:event_btnTramitarActionPerformed
 
-
+    //CHECKSTYLE:OFF
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JButton btnRegresar;
@@ -137,7 +144,7 @@ public class TramitePlacas extends javax.swing.JFrame {
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblVehiculo;
     // End of variables declaration//GEN-END:variables
-
+    //CHECKSTYLE:ON
 
     private void agregar() {
         throw new UnsupportedOperationException("Not supported yet.");
