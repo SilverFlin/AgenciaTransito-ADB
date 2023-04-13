@@ -21,8 +21,8 @@ public class BotonRender implements TableCellRenderer {
 
     public BotonRender() {
         boton = new JButton();
-        boton.setText("🔍");
-        boton.setBackground(new Color(159, 34, 65));
+        boton.setText("Trámites");
+        boton.setBackground(new Color(102,10,10));
         boton.setForeground(Color.WHITE);
     }
 

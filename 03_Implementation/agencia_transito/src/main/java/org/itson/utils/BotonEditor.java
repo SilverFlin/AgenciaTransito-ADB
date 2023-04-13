@@ -3,13 +3,18 @@ package org.itson.utils;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.util.Optional;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableModel;
+import org.itson.dominio.Persona;
 import org.itson.presentacion.FrmConsultaBuscarPersona;
+import org.itson.presentacion.FrmTramitesPersona;
+import org.itson.presentacion.UnitOfWork;
 
 /**
  *
@@ -27,19 +32,18 @@ public class BotonEditor extends AbstractCellEditor implements TableCellEditor {
      *
      * @param frame
      */
-    public BotonEditor(final JFrame frame) {
+    public BotonEditor(final JFrame frame, UnitOfWork unit, JTable tabla) {
         boton = new JButton();
         boton.setFocusPainted(false);
-        boton.setBorderPainted(false);
-        boton.setText("🔍");
-        final int red = 159;
-        final int green = 34;
-        final int blue = 65;
-        boton.setBackground(new Color(red, green, blue));
+        boton.setText("Trámites");
+        boton.setBackground(new Color(102,10,10));
         boton.setForeground(Color.WHITE);
         boton.addActionListener((ActionEvent e) -> {
-            JOptionPane.showMessageDialog(frame, "Buscando");
-            new FrmConsultaBuscarPersona().setVisible(true);
+            int fila = tabla.convertRowIndexToModel(tabla.getEditingRow());
+            TableModel model = tabla.getModel();
+            String rfc = model.getValueAt(fila, 0).toString();
+            Optional<Persona> persona = unit.personasDAO().getByRFC(rfc);
+            new FrmTramitesPersona(persona.get(), unit).setVisible(true);
             frame.dispose();
         });
     }
