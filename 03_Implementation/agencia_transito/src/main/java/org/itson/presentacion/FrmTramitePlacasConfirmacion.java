@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.itson.daos.PlacasDAOImpl;
+import org.itson.daos.VehiculosDAOImpl;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Placa;
 import org.itson.dominio.TipoPlaca;
@@ -18,21 +19,21 @@ import org.itson.utils.GeneradorMatricula;
  *
  * @author Toled
  */
-public class FrmTramitePlacasUsadoConfirmacion extends javax.swing.JFrame {
+public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
 
     /**
      * Logger.
      */
     @SuppressWarnings("checkstyle:linelength")
-    private static final Logger LOG = Logger.getLogger(FrmTramitePlacasUsadoConfirmacion.class.getName());
+    private static final Logger LOG = Logger.getLogger(FrmTramitePlacasConfirmacion.class.getName());
     /**
-     * Persona dueña del vehículo.
-     */
-    private final Persona persona;
-    /**
-     * Vehículo asociado a las placas.
+     * Vehiculo asociado a las placas.
      */
     private final Vehiculo automovil;
+    /**
+     * Persona asociada a las placas.
+     */
+    private final Persona persona;
     /**
      * Costo de las placas, en MXN.
      */
@@ -42,7 +43,7 @@ public class FrmTramitePlacasUsadoConfirmacion extends javax.swing.JFrame {
      */
     private final TipoPlaca tipo;
     /**
-     * Matrícula de las placas.
+     * Matricula de la placa.
      */
     private final String placas;
 
@@ -54,7 +55,7 @@ public class FrmTramitePlacasUsadoConfirmacion extends javax.swing.JFrame {
      * @param costo
      * @param tipo
      */
-    public FrmTramitePlacasUsadoConfirmacion(
+    public FrmTramitePlacasConfirmacion(
             final Persona persona,
             final Vehiculo automovil,
             final double costo,
@@ -99,7 +100,8 @@ public class FrmTramitePlacasUsadoConfirmacion extends javax.swing.JFrame {
                 this.tipo,
                 this.automovil,
                 this.costo,
-                this.persona);
+                this.persona
+        );
     }
 
     @SuppressWarnings("all")
@@ -280,15 +282,17 @@ public class FrmTramitePlacasUsadoConfirmacion extends javax.swing.JFrame {
     @SuppressWarnings("all")
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
+        VehiculosDAOImpl vehiculos = new VehiculosDAOImpl();
         Placa placas = this.obtenerPlaca();
         PlacasDAOImpl tramite = new PlacasDAOImpl();
         try {
+            vehiculos.save(this.automovil);
             tramite.save(placas);
-            Dialogs.mostrarMensajeExito(rootPane, "Placa registrada exitosamente.");
+            Dialogs.mostrarMensajeExito(rootPane, "Automóvil y placas registradas exitosamente.");
             FormUtils.cargarForm(new FrmMenuPrincipal(), this);
         } catch (PersistenciaException ex) {
-            Logger.getLogger(FrmRegistroAutomovil.class.getName()).log(Level.SEVERE, null, ex);
-            Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar la placa.");
+            LOG.log(Level.SEVERE, null, ex);
+            Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar el automóvil ni las placas.");
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 

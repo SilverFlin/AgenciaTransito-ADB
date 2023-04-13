@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -40,13 +41,18 @@ public final class VehiculosDAOImpl implements VehiculosDAO {
 
     @Override
     public Optional<Vehiculo> getByMatricula(final String matricula) {
-         TypedQuery<Vehiculo> query
+        TypedQuery<Vehiculo> query
                 = entityManager.createNamedQuery(
                         "vehiculoPorMatricula",
                         Vehiculo.class);
         query.setParameter("matricula", matricula);
 
-        Vehiculo vehiculo = (Vehiculo) query.getSingleResult();
+        Vehiculo vehiculo = null;
+        try {
+            vehiculo = (Vehiculo) query.getSingleResult();
+        } catch (NoResultException e) {
+            // No hace falta hacer nada.
+        }
 
         return Optional.ofNullable(vehiculo);
     }

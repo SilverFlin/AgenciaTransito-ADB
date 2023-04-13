@@ -311,7 +311,7 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         if (this.validarLicenciaPersona) {
             Automovil automovil = this.obtenerAutomovil();
-            FormUtils.cargarForm(new FrmTramitePlacasNuevoConfirmacion(this.persona, automovil, this.costo, this.tipo), this);
+            FormUtils.cargarForm(new FrmTramitePlacasConfirmacion(this.persona, automovil, this.costo, this.tipo), this);
         } else {
             Dialogs.mostrarMensajeError(rootPane, "No se puede realizar, ya que no cuenta con licencia.");
         }

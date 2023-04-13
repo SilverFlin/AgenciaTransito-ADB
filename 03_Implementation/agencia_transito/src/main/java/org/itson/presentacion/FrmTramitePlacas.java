@@ -1,7 +1,12 @@
 package org.itson.presentacion;
 
+import java.util.Optional;
 import java.util.logging.Logger;
+import org.itson.dominio.Vehiculo;
+import static org.itson.utils.Dialogs.mostrarMensajeError;
 import org.itson.utils.FormUtils;
+import static org.itson.utils.FormUtils.getItemComboBox;
+import static org.itson.utils.FormUtils.pedirInputUsuario;
 
 /**
  *
@@ -14,6 +19,10 @@ public class FrmTramitePlacas extends javax.swing.JFrame {
      */
     private static final Logger LOG
             = Logger.getLogger(FrmTramitePlacas.class.getName());
+    /**
+     * Unit of Work, que contiene todos los daos.
+     */
+    private final UnitOfWork unitOfWork = new UnitOfWork();
 
     /**
      * Constructor principal.
@@ -120,13 +129,7 @@ public class FrmTramitePlacas extends javax.swing.JFrame {
 
     @SuppressWarnings("all")
     private void btnTramitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitarActionPerformed
-        String vehiculo = this.cbxVehiculo.getItemAt(this.cbxVehiculo.getSelectedIndex());
-        String estado = this.cbxEstado.getItemAt(this.cbxEstado.getSelectedIndex());
-        if (vehiculo.equalsIgnoreCase("automovil") && estado.equalsIgnoreCase("nuevo")) {
-            FormUtils.cargarForm(new FrmTramitePlacasNuevo(), this);
-        } else {
-            FormUtils.cargarForm(new FrmTramitePlacasUsado(), this);
-        }
+        this.tramitar();
     }//GEN-LAST:event_btnTramitarActionPerformed
 
     //CHECKSTYLE:OFF
@@ -146,7 +149,54 @@ public class FrmTramitePlacas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
 
-    private void agregar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private void tramitar() {
+        String seleccionVehiculo = getItemComboBox(this.cbxVehiculo);
+        String seleccionEstado = getItemComboBox(this.cbxEstado);
+
+        // TODO(Luis): Mover a enum
+        String tipoVehiculoAutomovil = "automovil";
+
+        boolean isAutomovil
+                = seleccionVehiculo.equalsIgnoreCase(tipoVehiculoAutomovil);
+
+        boolean isNuevo = seleccionEstado.equalsIgnoreCase("nuevo");
+
+        if (isAutomovil) {
+
+            if (isNuevo) {
+                this.tramitarAutomovilNuevo();
+            } else {
+                this.tramitarAutomovilUsado();
+            }
+
+        } else {
+            throw new IllegalStateException("Campos seleccionados inválidos");
+        }
+
+    }
+
+    private void tramitarAutomovilNuevo() {
+        FormUtils.cargarForm(new FrmTramitePlacasNuevo(), this);
+    }
+
+    private void tramitarAutomovilUsado() {
+        String matricula = this.pedirMatricula();
+        Optional<Vehiculo> optVehiculo
+                = unitOfWork.vehiculosDAO().getByMatricula(matricula);
+
+        if (optVehiculo.isEmpty()) {
+            mostrarMensajeError(rootPane, "Vehículo no encontrado");
+            return;
+        }
+
+        // TODO(Luis): Hacer y cargar resumen de vehiculo.
+        System.out.println("Cargar Resumen vehiculo");
+
+    }
+
+    private String pedirMatricula() {
+        String titulo = "Ingresar Matrícula";
+        String msg = "Ingresa la matrícula de la placa activa";
+        return pedirInputUsuario(rootPane, titulo, msg);
     }
 }
