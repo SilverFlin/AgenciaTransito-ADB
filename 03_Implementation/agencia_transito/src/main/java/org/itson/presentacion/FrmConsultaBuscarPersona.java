@@ -1,5 +1,6 @@
 package org.itson.presentacion;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -37,17 +38,8 @@ public class FrmConsultaBuscarPersona extends JFrame {
     public FrmConsultaBuscarPersona() {
         this.unitOfWork = new UnitOfWork();
         initComponents();
-        botones.add(rbtnRFC);
-        botones.add(rbtnNombre);
-        botones.add(rbtnAnhoNacimiento);
-        final int columnaBoton = 5;
-        tblPersonas.getColumnModel().getColumn(columnaBoton)
-                .setCellEditor(new BotonEditor(this, this.unitOfWork, this.tblPersonas));
-        tblPersonas.getColumnModel().getColumn(columnaBoton)
-                .setCellRenderer(new BotonRender());
-        List<Persona> listaPersonas; 
-        listaPersonas = this.unitOfWork.personasDAO().getAll();
-        cargarTablaPersonas(listaPersonas);
+        this.configurarTabla();
+
     }
 
     private void cargarTablaPersonas(final List<Persona> listaPersonas) {
@@ -268,24 +260,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO refactor
-        List<Persona> listaPersonas = null;
-        if (this.rbtnRFC.isSelected()) {
-            Optional<Persona> persona
-                    = this.unitOfWork.personasDAO().getByRFC(this.txtRFC.getText());
-            listaPersonas.add(persona.get());
-            this.cargarTablaPersonas(listaPersonas);
-        } else if (this.rbtnNombre.isSelected()) {
-            listaPersonas
-                    = this.unitOfWork.personasDAO().getByNombre(this.txtNombre1.getText());
-            this.cargarTablaPersonas(listaPersonas);
-        } else if (this.rbtnAnhoNacimiento.isSelected()) {
-            Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
-            listaPersonas = this.unitOfWork.personasDAO().getByAnho(anho);
-            this.cargarTablaPersonas(listaPersonas);
-        } else {
-            mostrarMensajeError(rootPane, "Seleccione un filtro de búsqueda.");
-        }
+        this.buscar();
     }//GEN-LAST:event_btnBuscarActionPerformed
     /**
      * Avanza en la pagina de operaciones.
@@ -343,4 +318,73 @@ public class FrmConsultaBuscarPersona extends JFrame {
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
+
+    private void configurarTabla() {
+        botones.add(rbtnRFC);
+        botones.add(rbtnNombre);
+        botones.add(rbtnAnhoNacimiento);
+
+        final int columnaBoton = 5;
+        BotonEditor botonEditor
+                = new BotonEditor(this, this.unitOfWork, this.tblPersonas);
+        tblPersonas.getColumnModel()
+                .getColumn(columnaBoton)
+                .setCellEditor(botonEditor);
+
+        BotonRender botonRender = new BotonRender();
+        tblPersonas.getColumnModel()
+                .getColumn(columnaBoton)
+                .setCellRenderer(botonRender);
+
+        List<Persona> listaPersonas = this.unitOfWork.personasDAO().getAll();
+        cargarTablaPersonas(listaPersonas);
+    }
+
+    private void buscar() {
+
+        List<Persona> listaPersonas = new ArrayList<>();
+
+        if (!this.hayFiltrosSeleccionados()) {
+            mostrarMensajeError(rootPane, "Seleccione un filtro.");
+            return;
+        }
+
+        if (this.rbtnRFC.isSelected()) {
+            String rfc = this.txtRFC.getText();
+            Optional<Persona> optPersona
+                    = this.unitOfWork.personasDAO().getByRFC(rfc);
+            if (optPersona.isPresent()) {
+                listaPersonas.add(optPersona.get());
+            }
+        }
+
+        if (this.rbtnNombre.isSelected()) {
+            String nombre = this.txtNombre1.getText();
+            List<Persona> personasConsultadas
+                    = this.unitOfWork.personasDAO().getByNombre(nombre);
+
+            listaPersonas.addAll(personasConsultadas);
+        }
+
+        if (this.rbtnAnhoNacimiento.isSelected()) {
+            Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
+            List<Persona> personasConsultadas
+                    = this.unitOfWork.personasDAO().getByAnho(anho);
+
+            listaPersonas.addAll(personasConsultadas);
+        }
+
+        if (listaPersonas.isEmpty()) {
+            mostrarMensajeError(rootPane, "No se encontraron registros.");
+            return;
+        }
+
+        this.cargarTablaPersonas(listaPersonas);
+    }
+
+    private boolean hayFiltrosSeleccionados() {
+        return this.rbtnAnhoNacimiento.isSelected()
+                || this.rbtnNombre.isSelected()
+                || this.rbtnRFC.isSelected();
+    }
 }
