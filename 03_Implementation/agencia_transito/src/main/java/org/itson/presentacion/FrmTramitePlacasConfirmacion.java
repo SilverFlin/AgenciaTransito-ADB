@@ -4,11 +4,8 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.itson.daos.PlacasDAOImpl;
-import org.itson.daos.VehiculosDAOImpl;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Placa;
-import org.itson.dominio.TipoPlaca;
 import org.itson.dominio.Vehiculo;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.utils.Dialogs;
@@ -26,82 +23,29 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
      */
     @SuppressWarnings("checkstyle:linelength")
     private static final Logger LOG = Logger.getLogger(FrmTramitePlacasConfirmacion.class.getName());
+
     /**
-     * Vehiculo asociado a las placas.
+     * Data Transfer Object con lo que necesita el Frame.
      */
-    private final Vehiculo automovil;
+    private final ConfirmacionPlacasDTO confirmacionPlacasDTO;
+
     /**
-     * Persona asociada a las placas.
+     * Unit of Work, que contiene todos los daos.
      */
-    private final Persona persona;
-    /**
-     * Costo de las placas, en MXN.
-     */
-    private final double costo;
-    /**
-     * Tipo de las placas.
-     */
-    private final TipoPlaca tipo;
-    /**
-     * Matricula de la placa.
-     */
-    private final String placas;
+    private final UnitOfWork unitOfWork = new UnitOfWork();
 
     /**
      * Constructor principal.
      *
-     * @param persona
-     * @param automovil
-     * @param costo
-     * @param tipo
+     * @param confirmacionPlacasDTO
      */
     public FrmTramitePlacasConfirmacion(
-            final Persona persona,
-            final Vehiculo automovil,
-            final double costo,
-            final TipoPlaca tipo
+            final ConfirmacionPlacasDTO confirmacionPlacasDTO
     ) {
-        this.automovil = automovil;
-        this.persona = persona;
-        this.costo = costo;
-        this.tipo = tipo;
+        this.confirmacionPlacasDTO = confirmacionPlacasDTO;
         initComponents();
-        String nombreCompleto
-                = this.persona.getNombres() + " "
-                + this.persona.getApellidoPaterno()
-                + " " + this.persona.getApellidoMaterno();
-        this.lblSerie.setText(this.automovil.getNumeroSerie());
-        this.lblMarca.setText(this.automovil.getMarca());
-        this.lblLinea.setText(this.automovil.getLinea());
-        this.lblAnho.setText(this.automovil.getModelo());
+        this.rellenarCampos();
 
-        this.placas = GeneradorMatricula.generar();
-        this.lblPlacas.setText(placas);
-
-        this.lblNombreCompleto.setText(nombreCompleto);
-        this.lblCantidadCosto.setText(String.valueOf(this.costo));
-    }
-
-    private Placa obtenerPlaca() {
-        GregorianCalendar fechaEmision = new GregorianCalendar();
-        final int plazoDias = 3;
-        int diaRecepcion
-                = fechaEmision.get(GregorianCalendar.DAY_OF_MONTH) + plazoDias;
-        GregorianCalendar fechaRecepcion
-                = new GregorianCalendar(
-                        fechaEmision.get(GregorianCalendar.YEAR),
-                        fechaEmision.get(GregorianCalendar.MONTH),
-                        diaRecepcion
-                );
-        return new Placa(
-                this.placas,
-                fechaEmision,
-                fechaRecepcion,
-                this.tipo,
-                this.automovil,
-                this.costo,
-                this.persona
-        );
     }
 
     @SuppressWarnings("all")
@@ -129,8 +73,6 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
         lblLinea = new javax.swing.JLabel();
         lblNombres15 = new javax.swing.JLabel();
         lblNombreCompleto = new javax.swing.JLabel();
-        lblNombres12 = new javax.swing.JLabel();
-        lblPlacas = new javax.swing.JLabel();
 
         jButton2.setText("jButton2");
 
@@ -258,16 +200,6 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
         lblNombreCompleto.setText("\"nombres, apellidopa, apellidoma\"");
         Background.add(lblNombreCompleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 330, 20));
 
-        lblNombres12.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
-        lblNombres12.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombres12.setText("Placas nuevas:");
-        Background.add(lblNombres12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 120, 20));
-
-        lblPlacas.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
-        lblPlacas.setForeground(new java.awt.Color(255, 255, 255));
-        lblPlacas.setText("\"placas\"");
-        Background.add(lblPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 160, 20));
-
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 400));
 
         pack();
@@ -276,24 +208,12 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
 
     @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new FrmTramitePlacasNuevo());
+        this.regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     @SuppressWarnings("all")
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-
-        VehiculosDAOImpl vehiculos = new VehiculosDAOImpl();
-        Placa placas = this.obtenerPlaca();
-        PlacasDAOImpl tramite = new PlacasDAOImpl();
-        try {
-            vehiculos.save(this.automovil);
-            tramite.save(placas);
-            Dialogs.mostrarMensajeExito(rootPane, "Automóvil y placas registradas exitosamente.");
-            FormUtils.cargarForm(new FrmMenuPrincipal(), this);
-        } catch (PersistenciaException ex) {
-            LOG.log(Level.SEVERE, null, ex);
-            Dialogs.mostrarMensajeError(rootPane, "No se pudo registrar el automóvil ni las placas.");
-        }
+        this.aceptar();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     @SuppressWarnings("all")
@@ -323,17 +243,85 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombreCompleto;
     private javax.swing.JLabel lblNombres10;
     private javax.swing.JLabel lblNombres11;
-    private javax.swing.JLabel lblNombres12;
     private javax.swing.JLabel lblNombres15;
     private javax.swing.JLabel lblNombres5;
     private javax.swing.JLabel lblNombres7;
     private javax.swing.JLabel lblNombres8;
-    private javax.swing.JLabel lblPlacas;
     private javax.swing.JLabel lblSerie;
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
 
-    private void agregar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private Placa obtenerPlaca() {
+        GregorianCalendar fechaEmision = new GregorianCalendar();
+        GregorianCalendar fechaRecepcion
+                = this.calcularFechaRecepcion(fechaEmision);
+        String matriculaNueva = GeneradorMatricula.generar();
+
+        Placa placa = new Placa();
+        placa.setMatricula(matriculaNueva);
+        placa.setFechaInicio(fechaEmision);
+        placa.setFechaRecepcion(fechaRecepcion);
+        placa.setTipo(confirmacionPlacasDTO.getTipo());
+        placa.setVehiculo(confirmacionPlacasDTO.getAutomovil());
+        placa.setCosto(confirmacionPlacasDTO.getCosto());
+        placa.setTramitante(confirmacionPlacasDTO.getPersona());
+
+        return placa;
+    }
+
+    private void rellenarCampos() {
+        Persona persona = this.confirmacionPlacasDTO.getPersona();
+        Vehiculo automovil = this.confirmacionPlacasDTO.getAutomovil();
+        Double costo = this.confirmacionPlacasDTO.getCosto();
+
+        String nombreCompleto
+                = persona.getNombres() + " "
+                + persona.getApellidoPaterno()
+                + " " + persona.getApellidoMaterno();
+        this.lblSerie.setText(automovil.getNumeroSerie());
+        this.lblMarca.setText(automovil.getMarca());
+        this.lblLinea.setText(automovil.getLinea());
+        this.lblAnho.setText(automovil.getModelo());
+
+        this.lblNombreCompleto.setText(nombreCompleto);
+        this.lblCantidadCosto.setText(String.valueOf(costo));
+    }
+
+    private GregorianCalendar calcularFechaRecepcion(
+            final GregorianCalendar fechaEmision
+    ) {
+        final int plazoDias = 3;
+        int diaRecepcion
+                = fechaEmision.get(GregorianCalendar.DAY_OF_MONTH) + plazoDias;
+        return new GregorianCalendar(
+                fechaEmision.get(GregorianCalendar.YEAR),
+                fechaEmision.get(GregorianCalendar.MONTH),
+                diaRecepcion
+        );
+    }
+
+    private void aceptar() {
+        // TODO(Luis): agregar a historial y desactivar
+        Placa placa = this.obtenerPlaca();
+        try {
+            unitOfWork.placasDAO().save(placa);
+
+            String msgExito = "Placas registradas exitosamente."
+                    + "Matricula: " + placa.getMatricula();
+            Dialogs.mostrarMensajeExito(rootPane, msgExito);
+
+            this.regresarMenuPrincipal();
+        } catch (PersistenciaException ex) {
+            LOG.log(Level.SEVERE, ex.getMessage());
+            Dialogs.mostrarMensajeError(rootPane, "Algo salió mal.");
+        }
+    }
+
+    private void regresarMenuPrincipal() {
+        FormUtils.cargarForm(new FrmMenuPrincipal(), this);
+    }
+
+    private void regresar() {
+        FormUtils.regresar(this, new FrmTramitePlacasNuevo());
     }
 }

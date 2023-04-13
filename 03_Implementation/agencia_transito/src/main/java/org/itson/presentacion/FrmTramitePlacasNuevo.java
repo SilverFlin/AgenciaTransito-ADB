@@ -2,12 +2,10 @@ package org.itson.presentacion;
 
 import java.util.Optional;
 import java.util.logging.Logger;
-import org.itson.daos.LicenciasDAOImpl;
 import org.itson.daos.PersonasDAOImpl;
 import org.itson.dominio.Automovil;
 import org.itson.dominio.Persona;
 import org.itson.dominio.TipoPlaca;
-import org.itson.utils.Dialogs;
 import static org.itson.utils.Dialogs.mostrarMensajeError;
 import org.itson.utils.FormUtils;
 
@@ -30,7 +28,7 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
     /**
      * Existencia de licencia de la persona.
      */
-    private boolean validarLicenciaPersona;
+    private boolean tieneLicencia;
 
     /**
      * Costo de la licencia.
@@ -43,6 +41,11 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
     private final TipoPlaca tipo;
 
     /**
+     * Unit of Work, que contiene todos los daos.
+     */
+    private final UnitOfWork unitOfWork = new UnitOfWork();
+
+    /**
      * Constructor principal.
      */
     public FrmTramitePlacasNuevo() {
@@ -50,28 +53,6 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
         this.costo = costoBase;
         this.tipo = TipoPlaca.VEHICULO_NUEVO;
         initComponents();
-    }
-
-    private Optional<Persona> buscarPersona() {
-        PersonasDAOImpl personas = new PersonasDAOImpl();
-        return personas.getByRFC(this.txtRFC.getText());
-    }
-
-    private void imprimirDatosPersona() {
-        this.txtNombres.setText(this.persona.getNombres());
-        this.txtApellidoPaterno.setText(this.persona.getApellidoPaterno());
-        this.txtApellidoMaterno.setText(this.persona.getApellidoMaterno());
-    }
-
-    private Automovil obtenerAutomovil() {
-        return new Automovil(
-                this.persona,
-                this.txtSerie.getText(),
-                this.txtLinea.getText(),
-                this.txtMarca.getText(),
-                this.txtMarca.getText(),
-                this.txtColor.getText()
-        );
     }
 
     @SuppressWarnings("all")
@@ -304,35 +285,18 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
 
     @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new FrmTramitePlacas());
+        this.regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     @SuppressWarnings("all")
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        if (this.validarLicenciaPersona) {
-            Automovil automovil = this.obtenerAutomovil();
-            FormUtils.cargarForm(new FrmTramitePlacasConfirmacion(this.persona, automovil, this.costo, this.tipo), this);
-        } else {
-            Dialogs.mostrarMensajeError(rootPane, "No se puede realizar, ya que no cuenta con licencia.");
-        }
+        this.continuarTramite();
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     @SuppressWarnings("all")
     private void btnBuscarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPersonaActionPerformed
-        Optional<Persona> optPersona = this.buscarPersona();
-        if (optPersona.isPresent()) {
-            this.persona = optPersona.get();
-            this.imprimirDatosPersona();
-            LicenciasDAOImpl licencia = new LicenciasDAOImpl();
-            this.validarLicenciaPersona = licencia.validarLicenciaPersona(this.persona.getId());
-            if (this.validarLicenciaPersona) {
-                this.txtLicencia.setText("Si");
-            } else {
-                this.txtLicencia.setText("No");
-            }
-        } else {
-            mostrarMensajeError(rootPane, "No se ha encontrado a la persona.");
-        }
+
+        this.buscarPersona();
     }//GEN-LAST:event_btnBuscarPersonaActionPerformed
 
     //CHECKSTYLE:OFF
@@ -377,5 +341,73 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
     private javax.swing.JTextField txtSerie;
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
+
+    private void buscarPersona() {
+        Optional<Persona> optPersona = this.consultarPersona();
+        if (optPersona.isEmpty()) {
+            mostrarMensajeError(rootPane, "No se ha encontrado a la persona.");
+            return;
+        }
+
+        this.persona = optPersona.get();
+        this.imprimirDatosPersona();
+
+    }
+
+    private Optional<Persona> consultarPersona() {
+        PersonasDAOImpl personas = new PersonasDAOImpl();
+        return personas.getByRFC(this.txtRFC.getText());
+    }
+
+    private void imprimirDatosPersona() {
+        this.txtNombres.setText(this.persona.getNombres());
+        this.txtApellidoPaterno.setText(this.persona.getApellidoPaterno());
+        this.txtApellidoMaterno.setText(this.persona.getApellidoMaterno());
+
+        this.tieneLicencia
+                = unitOfWork.licenciasDAO()
+                        .validarLicenciaPersona(this.persona.getId());
+        if (this.tieneLicencia) {
+            this.txtLicencia.setText("Si");
+        } else {
+            this.txtLicencia.setText("No");
+        }
+
+    }
+
+    private void continuarTramite() {
+        if (this.tieneLicencia) {
+            Automovil automovil = this.obtenerAutomovil();
+            ConfirmacionPlacasDTO confirmacionPlacasDTO
+                    = new ConfirmacionPlacasDTO();
+            confirmacionPlacasDTO.setAutomovil(automovil);
+            confirmacionPlacasDTO.setPersona(this.persona);
+            confirmacionPlacasDTO.setCosto(this.costo);
+            confirmacionPlacasDTO.setTipo(this.tipo);
+
+            FormUtils.cargarForm(
+                    new FrmTramitePlacasConfirmacion(confirmacionPlacasDTO),
+                    this);
+        } else {
+            String msgError = "No se puede realizar, "
+                    + "ya que no cuenta con licencia.";
+            mostrarMensajeError(rootPane, msgError);
+        }
+    }
+
+    private Automovil obtenerAutomovil() {
+        return new Automovil(
+                this.persona,
+                this.txtSerie.getText(),
+                this.txtLinea.getText(),
+                this.txtMarca.getText(),
+                this.txtMarca.getText(),
+                this.txtColor.getText()
+        );
+    }
+
+    private void regresar() {
+        FormUtils.regresar(this, new FrmTramitePlacas());
+    }
 
 }
