@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Tramite;
 import org.itson.utils.FormUtils;
+import static org.itson.utils.Formateador.formatoDinero;
 
 /**
  *
@@ -77,12 +78,10 @@ public class FrmTramitesPersona extends JFrame {
 
         // TODO(Luis): remover id
         for (Tramite tramite : this.listaTramites) {
-            Object[] fila = {
-                tramite.getId(),
-                tramite.getClass(),
-                tramite.getCosto(),
-                formatoFecha(tramite.getFechaInicio())
-            };
+            String tipo = tramite.getClass().getSimpleName();
+            String costo = formatoDinero(tramite.getCosto());
+            String fecha = formatoFecha(tramite.getFechaInicio());
+            Object[] fila = {tipo, costo, fecha};
             modeloTabla.addRow(fila);
         }
     }
@@ -137,26 +136,26 @@ public class FrmTramitesPersona extends JFrame {
 
         tblTramitesRealizados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Tipo", "Costo", "Fecha de realización"
+                "Tipo", "Costo", "Fecha de realización"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
