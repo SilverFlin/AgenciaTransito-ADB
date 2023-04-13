@@ -1,6 +1,7 @@
 package org.itson.dominio;
 
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -43,7 +44,8 @@ public class Placa extends Tramite {
     /**
      * Vehículo que contiene la placa activa.
      */
-    @OneToOne(mappedBy = "placa")
+    @OneToOne(mappedBy = "placa",
+            cascade = {CascadeType.MERGE})
     private Vehiculo vehiculo;
 
     /**
@@ -57,7 +59,7 @@ public class Placa extends Tramite {
      * Vehiculo al que pertenenció la placa.
      */
     @ManyToOne
-    @JoinColumn(name = "idVehiculo", nullable = false)
+    @JoinColumn(name = "idVehiculo", nullable = true)
     private Vehiculo vehiculoPasado;
 
     /**
