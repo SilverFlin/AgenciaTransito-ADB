@@ -27,25 +27,26 @@ public class FrmConsultaBuscarPersona extends JFrame {
 //    private final JFrame frmAnterior;
 
     /**
-     * PersonasDAO.
+     * Unit of Work.
      */
-    private PersonasDAO personasDAO;
+    private UnitOfWork unitOfWork;
 
     /**
      * Constructor principal.
      */
     public FrmConsultaBuscarPersona() {
+        this.unitOfWork = new UnitOfWork();
         initComponents();
         botones.add(rbtnRFC);
         botones.add(rbtnNombre);
         botones.add(rbtnAnhoNacimiento);
         final int columnaBoton = 5;
         tblPersonas.getColumnModel().getColumn(columnaBoton)
-                .setCellEditor(new BotonEditor(this));
+                .setCellEditor(new BotonEditor(this, this.unitOfWork, this.tblPersonas));
         tblPersonas.getColumnModel().getColumn(columnaBoton)
                 .setCellRenderer(new BotonRender());
-        this.personasDAO = new PersonasDAOImpl();
-        List<Persona> listaPersonas = this.personasDAO.getAll();
+        List<Persona> listaPersonas; 
+        listaPersonas = this.unitOfWork.personasDAO().getAll();
         cargarTablaPersonas(listaPersonas);
     }
 
@@ -147,7 +148,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -162,9 +163,13 @@ public class FrmConsultaBuscarPersona extends JFrame {
         panelTablaCuentas.setViewportView(tblPersonas);
         tblPersonas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (tblPersonas.getColumnModel().getColumnCount() > 0) {
-            tblPersonas.getColumnModel().getColumn(5).setMinWidth(50);
-            tblPersonas.getColumnModel().getColumn(5).setPreferredWidth(50);
-            tblPersonas.getColumnModel().getColumn(5).setMaxWidth(50);
+            tblPersonas.getColumnModel().getColumn(0).setResizable(false);
+            tblPersonas.getColumnModel().getColumn(1).setResizable(false);
+            tblPersonas.getColumnModel().getColumn(2).setResizable(false);
+            tblPersonas.getColumnModel().getColumn(3).setResizable(false);
+            tblPersonas.getColumnModel().getColumn(4).setResizable(false);
+            tblPersonas.getColumnModel().getColumn(5).setResizable(false);
+            tblPersonas.getColumnModel().getColumn(5).setPreferredWidth(70);
         }
 
         Background.add(panelTablaCuentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 560, 190));
@@ -267,16 +272,16 @@ public class FrmConsultaBuscarPersona extends JFrame {
         List<Persona> listaPersonas = null;
         if (this.rbtnRFC.isSelected()) {
             Optional<Persona> persona
-                    = this.personasDAO.getByRFC(this.txtRFC.getText());
+                    = this.unitOfWork.personasDAO().getByRFC(this.txtRFC.getText());
             listaPersonas.add(persona.get());
             this.cargarTablaPersonas(listaPersonas);
         } else if (this.rbtnNombre.isSelected()) {
             listaPersonas
-                    = this.personasDAO.getByNombre(this.txtNombre1.getText());
+                    = this.unitOfWork.personasDAO().getByNombre(this.txtNombre1.getText());
             this.cargarTablaPersonas(listaPersonas);
         } else if (this.rbtnAnhoNacimiento.isSelected()) {
             Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
-            listaPersonas = this.personasDAO.getByAnho(anho);
+            listaPersonas = this.unitOfWork.personasDAO().getByAnho(anho);
             this.cargarTablaPersonas(listaPersonas);
         } else {
             mostrarMensajeError(rootPane, "Seleccione un filtro de búsqueda.");
