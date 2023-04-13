@@ -1,14 +1,15 @@
 package org.itson.presentacion;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
-import org.itson.daos.PersonasDAOImpl;
 import org.itson.dominio.Persona;
-import org.itson.interfaces.PersonasDAO;
 import org.itson.utils.BotonEditor;
 import org.itson.utils.BotonRender;
 import static org.itson.utils.Dialogs.mostrarMensajeError;
@@ -33,6 +34,11 @@ public class FrmConsultaBuscarPersona extends JFrame {
     private UnitOfWork unitOfWork;
 
     /**
+     * Formateador de fecha, con formato dd/MM/yyy.
+     */
+    private final DateFormat formateador = new SimpleDateFormat("dd/MM/yyy");
+
+    /**
      * Constructor principal.
      */
     public FrmConsultaBuscarPersona() {
@@ -52,7 +58,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
                 persona.getNombres(),
                 persona.getApellidoPaterno(),
                 persona.getApellidoMaterno(),
-                persona.getFechaNacimiento()
+                this.formatoFecha(persona.getFechaNacimiento())
             };
             modeloTabla1.addRow(fila);
         }
@@ -386,5 +392,9 @@ public class FrmConsultaBuscarPersona extends JFrame {
         return this.rbtnAnhoNacimiento.isSelected()
                 || this.rbtnNombre.isSelected()
                 || this.rbtnRFC.isSelected();
+    }
+
+    private String formatoFecha(final Calendar calendar) {
+        return formateador.format(calendar.getTime());
     }
 }
