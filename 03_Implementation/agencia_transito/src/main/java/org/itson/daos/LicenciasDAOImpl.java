@@ -63,7 +63,7 @@ public final class LicenciasDAOImpl implements LicenciasDAO {
     }
 
     @Override
-    public Licencia update(final Licencia t, final String[] params) {
+    public Licencia update(final Licencia t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -72,15 +72,17 @@ public final class LicenciasDAOImpl implements LicenciasDAO {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public boolean validarLicenciaPersona(final Long id) {
-        String codigoJPQL = "SELECT l FROM Licencia "
-                + "l WHERE l.idPersona LIKE %:id%";
-        TypedQuery<Licencia> query
-                = entityManager.createQuery(codigoJPQL, Licencia.class);
-        query.setParameter("id", id);
-        Licencia licencia = query.getSingleResult();
-
-        return licencia != null;
-    }
+//    @Override
+//    public boolean validarLicenciaPersona(final Long id) {
+//        String codigoJPQL = "SELECT lic FROM Licencia "
+//                + "lic WHERE lic.tramitante LIKE :id";
+//        TypedQuery<Licencia> query
+//                = entityManager.createQuery(codigoJPQL, Licencia.class);
+//        String idStr = id.toString();
+//        query.setParameter("id", idStr);
+//        Licencia licencia = query.getSingleResult();
+//        
+//
+//        return licencia != null;
+//    }
 }

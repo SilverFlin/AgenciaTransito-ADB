@@ -82,8 +82,17 @@ public final class VehiculosDAOImpl implements VehiculosDAO {
     }
 
     @Override
-    public Vehiculo update(final Vehiculo t, final String[] params) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Vehiculo update(final Vehiculo vehiculo)
+            throws PersistenciaException {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(entityManager.merge(vehiculo));
+            entityManager.getTransaction().commit();
+            return vehiculo;
+        } catch (Exception e) {
+            String msgError = "Error al actualizar vehiculo: " + e.getMessage();
+            throw new PersistenciaException(msgError);
+        }
     }
 
     @Override

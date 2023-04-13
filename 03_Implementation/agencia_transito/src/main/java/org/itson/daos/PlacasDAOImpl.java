@@ -62,8 +62,16 @@ public final class PlacasDAOImpl implements PlacasDAO {
     }
 
     @Override
-    public Placa update(final Placa t, final String[] params) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Placa update(final Placa placa) throws PersistenciaException {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(entityManager.merge(placa));
+            entityManager.getTransaction().commit();
+            return placa;
+        } catch (Exception e) {
+            String msgError = "Error al actualizar placa: " + e.getMessage();
+            throw new PersistenciaException(msgError);
+        }
     }
 
     @Override
