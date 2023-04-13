@@ -81,11 +81,8 @@ public final class PersonasDAOImpl implements PersonasDAO {
 
     @Override
     public List<Persona> getAll() {
-
-        String codigoJPQL = "SELECT p FROM Persona p ";
         TypedQuery<Persona> query
-                = entityManager.createQuery(codigoJPQL, Persona.class);
-
+                = entityManager.createQuery("SELECT p FROM Persona p", Persona.class);
         return query.getResultList();
     }
 
