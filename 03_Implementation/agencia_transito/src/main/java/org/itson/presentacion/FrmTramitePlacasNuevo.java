@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 import org.itson.daos.PersonasDAOImpl;
 import org.itson.dominio.Automovil;
+import org.itson.dominio.Licencia;
 import org.itson.dominio.Persona;
 import org.itson.dominio.TipoPlaca;
 import static org.itson.utils.Dialogs.mostrarMensajeError;
@@ -364,9 +365,7 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
         this.txtApellidoPaterno.setText(this.persona.getApellidoPaterno());
         this.txtApellidoMaterno.setText(this.persona.getApellidoMaterno());
 
-        this.tieneLicencia
-                = unitOfWork.licenciasDAO()
-                        .validarLicenciaPersona(this.persona.getId());
+        this.tieneLicencia = this.validarLicencia();
         if (this.tieneLicencia) {
             this.txtLicencia.setText("Si");
         } else {
@@ -379,6 +378,13 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
         if (!this.tieneLicencia) {
             String msgError = "No se puede realizar, "
                     + "ya que no cuenta con licencia.";
+            mostrarMensajeError(rootPane, msgError);
+            return;
+        }
+
+        if (!this.validarCamposVehiculo()) {
+            String msgError = "No se puede realizar, "
+                    + "ya que no ha ingresado datos del vehículo.";
             mostrarMensajeError(rootPane, msgError);
             return;
         }
@@ -414,6 +420,23 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
         confirmacionPlacasDTO.setTipo(this.tipo);
 
         cargarForm(new FrmResumenVehiculo(this, confirmacionPlacasDTO), this);
+    }
+
+    private boolean validarLicencia() {
+        Optional<Licencia> optLic
+                = unitOfWork.licenciasDAO().get(this.persona.getId());
+        return optLic.isPresent();
+
+    }
+
+    private boolean validarCamposVehiculo() {
+        // TODO mejorar validaciones
+
+        return !this.txtColor.getText().isBlank()
+                || !this.txtLinea.getText().isBlank()
+                || !this.txtMarca.getText().isBlank()
+                || !this.txtModelo.getText().isBlank()
+                || !this.txtSerie.getText().isBlank();
     }
 
 }
