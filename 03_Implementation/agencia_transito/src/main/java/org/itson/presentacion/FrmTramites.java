@@ -106,17 +106,17 @@ public class FrmTramites extends javax.swing.JFrame {
 
     @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new FrmMenuPrincipal());
+        this.regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     @SuppressWarnings("all")
     private void btnTramitePlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitePlacasActionPerformed
-        FormUtils.cargarForm(new FrmTramitePlacas(), this);
+        this.cargarTramitePlacas();
     }//GEN-LAST:event_btnTramitePlacasActionPerformed
 
     @SuppressWarnings("all")
     private void btnTramiteLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramiteLicenciaActionPerformed
-        FormUtils.cargarForm(new FrmTramiteLicencia(), this);
+        this.cargarTramiteLicencia();
     }//GEN-LAST:event_btnTramiteLicenciaActionPerformed
 
     //CHECKSTYLE:OFF
@@ -131,7 +131,15 @@ public class FrmTramites extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
 
-    private void agregar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private void regresar() {
+        FormUtils.regresar(this, new FrmMenuPrincipal());
+    }
+
+    private void cargarTramitePlacas() {
+        FormUtils.cargarForm(new FrmTramitePlacas(), this);
+    }
+
+    private void cargarTramiteLicencia() {
+        FormUtils.cargarForm(new FrmTramiteLicencia(), this);
     }
 }

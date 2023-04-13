@@ -286,7 +286,7 @@ public class FrmTramitesPersona extends JFrame {
                         .personasDAO()
                         .get(this.tramitante.getId());
 
-        if (optPersona.isEmpty()) {
+        if (optPersona.isPresent()) {
             Persona persona = optPersona.get();
             this.listaTramites = persona.getTramites();
         }
