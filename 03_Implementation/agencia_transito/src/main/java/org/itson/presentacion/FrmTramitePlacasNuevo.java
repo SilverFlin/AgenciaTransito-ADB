@@ -8,6 +8,7 @@ import org.itson.dominio.Persona;
 import org.itson.dominio.TipoPlaca;
 import static org.itson.utils.Dialogs.mostrarMensajeError;
 import org.itson.utils.FormUtils;
+import static org.itson.utils.FormUtils.cargarForm;
 
 /**
  *
@@ -295,7 +296,6 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
 
     @SuppressWarnings("all")
     private void btnBuscarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPersonaActionPerformed
-
         this.buscarPersona();
     }//GEN-LAST:event_btnBuscarPersonaActionPerformed
 
@@ -376,23 +376,15 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
     }
 
     private void continuarTramite() {
-        if (this.tieneLicencia) {
-            Automovil automovil = this.obtenerAutomovil();
-            ConfirmacionPlacasDTO confirmacionPlacasDTO
-                    = new ConfirmacionPlacasDTO();
-            confirmacionPlacasDTO.setAutomovil(automovil);
-            confirmacionPlacasDTO.setPersona(this.persona);
-            confirmacionPlacasDTO.setCosto(this.costo);
-            confirmacionPlacasDTO.setTipo(this.tipo);
-
-            FormUtils.cargarForm(
-                    new FrmTramitePlacasConfirmacion(confirmacionPlacasDTO),
-                    this);
-        } else {
+        if (!this.tieneLicencia) {
             String msgError = "No se puede realizar, "
                     + "ya que no cuenta con licencia.";
             mostrarMensajeError(rootPane, msgError);
+            return;
         }
+
+        this.cargarResumenVehiculo();
+
     }
 
     private Automovil obtenerAutomovil() {
@@ -408,6 +400,20 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
 
     private void regresar() {
         FormUtils.regresar(this, new FrmTramitePlacas());
+    }
+
+    private void cargarResumenVehiculo() {
+        // Cargar Resumen y mover confirmacion
+
+        Automovil automovil = this.obtenerAutomovil();
+        ConfirmacionPlacasDTO confirmacionPlacasDTO
+                = new ConfirmacionPlacasDTO();
+        confirmacionPlacasDTO.setAutomovil(automovil);
+        confirmacionPlacasDTO.setPersona(this.persona);
+        confirmacionPlacasDTO.setCosto(this.costo);
+        confirmacionPlacasDTO.setTipo(this.tipo);
+
+        cargarForm(new FrmResumenVehiculo(this, confirmacionPlacasDTO), this);
     }
 
 }

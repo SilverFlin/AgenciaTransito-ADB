@@ -274,10 +274,7 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
         Vehiculo automovil = this.confirmacionPlacasDTO.getAutomovil();
         Double costo = this.confirmacionPlacasDTO.getCosto();
 
-        String nombreCompleto
-                = persona.getNombres() + " "
-                + persona.getApellidoPaterno()
-                + " " + persona.getApellidoMaterno();
+        String nombreCompleto = generarNombreCompleto();
         this.lblSerie.setText(automovil.getNumeroSerie());
         this.lblMarca.setText(automovil.getMarca());
         this.lblLinea.setText(automovil.getLinea());
@@ -285,6 +282,18 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
 
         this.lblNombreCompleto.setText(nombreCompleto);
         this.lblCantidadCosto.setText(String.valueOf(costo));
+    }
+
+    private String generarNombreCompleto() {
+        Persona tramitante = this.confirmacionPlacasDTO.getPersona();
+        String nombres = tramitante.getNombres();
+        String apellidoPaterno = tramitante.getApellidoPaterno();
+        String apellidoMaterno = tramitante.getApellidoMaterno();
+        if (apellidoMaterno == null) {
+            apellidoMaterno = "";
+        }
+
+        return nombres + " " + apellidoPaterno + " " + apellidoMaterno;
     }
 
     private GregorianCalendar calcularFechaRecepcion(

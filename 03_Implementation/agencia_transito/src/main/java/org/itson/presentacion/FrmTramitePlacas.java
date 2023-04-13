@@ -2,9 +2,11 @@ package org.itson.presentacion;
 
 import java.util.Optional;
 import java.util.logging.Logger;
+import org.itson.dominio.TipoPlaca;
 import org.itson.dominio.Vehiculo;
 import static org.itson.utils.Dialogs.mostrarMensajeError;
 import org.itson.utils.FormUtils;
+import static org.itson.utils.FormUtils.cargarForm;
 import static org.itson.utils.FormUtils.getItemComboBox;
 import static org.itson.utils.FormUtils.pedirInputUsuario;
 
@@ -189,8 +191,16 @@ public class FrmTramitePlacas extends javax.swing.JFrame {
             return;
         }
 
-        // TODO(Luis): Hacer y cargar resumen de vehiculo.
-        System.out.println("Cargar Resumen vehiculo");
+        ConfirmacionPlacasDTO confirmacionPlacasDTO
+                = new ConfirmacionPlacasDTO();
+        Vehiculo vehiculo = optVehiculo.get();
+        confirmacionPlacasDTO.setAutomovil(vehiculo);
+        final double costoNuevo = 1500d;
+        confirmacionPlacasDTO.setCosto(costoNuevo);
+        confirmacionPlacasDTO.setPersona(vehiculo.getDuenho());
+        confirmacionPlacasDTO.setTipo(TipoPlaca.VEHICULO_USADO);
+
+        cargarForm(new FrmResumenVehiculo(this, confirmacionPlacasDTO), this);
 
     }
 
