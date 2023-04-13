@@ -1,6 +1,7 @@
 package org.itson.dominio;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -90,42 +92,19 @@ public class Vehiculo implements Serializable {
     private String color;
 
     /**
+     * Historial de placas.
+     */
+    @OneToMany(mappedBy = "vehiculoPasado")
+    private List<Placa> historialPlacas;
+
+    /**
      * Constructor vacío.
      */
     public Vehiculo() {
     }
 
     /**
-     * Constructor que no incluye ID.
-     *
-     * @param duenho
-     * @param placa
-     * @param numeroSerie
-     * @param linea
-     * @param marca
-     * @param modelo
-     * @param color
-     */
-    public Vehiculo(
-            final Persona duenho,
-            final Placa placa,
-            final String numeroSerie,
-            final String linea,
-            final String marca,
-            final String modelo,
-            final String color
-    ) {
-        this.duenho = duenho;
-        this.placa = placa;
-        this.numeroSerie = numeroSerie;
-        this.linea = linea;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.color = color;
-    }
-
-    /**
-     * Constructor que no incluye ID ni placa.
+     * Constructor que no incluye ID, placa, ni historial de placa.
      *
      * @param duenho
      * @param numeroSerie
@@ -276,6 +255,22 @@ public class Vehiculo implements Serializable {
      */
     public void setColor(final String color) {
         this.color = color;
+    }
+
+    /**
+     *
+     * @return el historial de placas, si las hay, o nulo.
+     */
+    public List<Placa> getHistorialPlacas() {
+        return historialPlacas;
+    }
+
+    /**
+     *
+     * @param historialPlacas
+     */
+    public void setHistorialPlacas(final List<Placa> historialPlacas) {
+        this.historialPlacas = historialPlacas;
     }
 
     /**

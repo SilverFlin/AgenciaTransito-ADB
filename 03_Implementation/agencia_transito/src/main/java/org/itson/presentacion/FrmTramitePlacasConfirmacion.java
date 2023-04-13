@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.itson.dominio.EstadoPlaca;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Placa;
 import org.itson.dominio.Vehiculo;
@@ -265,6 +266,7 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
         placa.setVehiculo(confirmacionPlacasDTO.getAutomovil());
         placa.setCosto(confirmacionPlacasDTO.getCosto());
         placa.setTramitante(confirmacionPlacasDTO.getPersona());
+        placa.setEstado(EstadoPlaca.ACTIVADA);
 
         return placa;
     }
