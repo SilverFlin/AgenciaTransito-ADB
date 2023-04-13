@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -45,8 +46,12 @@ public final class PersonasDAOImpl implements PersonasDAO {
                         "personaPorRFC",
                         Persona.class);
         query.setParameter("rfc", rfc);
-
-        Persona persona = (Persona) query.getSingleResult();
+        Persona persona = null;
+        try {
+            persona = (Persona) query.getSingleResult();
+        } catch (NoResultException e) {
+            // No hace falta hacer nada.
+        }
 
         return Optional.ofNullable(persona);
     }

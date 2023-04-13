@@ -25,7 +25,7 @@ import javax.persistence.OneToOne;
     @NamedQuery(
             name = "vehiculoPorMatricula",
             query = "SELECT v FROM Vehiculo v WHERE "
-                    + "v.placa.matricula = :matricula"
+            + "v.placa.matricula = :matricula"
     )
 })
 
@@ -48,14 +48,14 @@ public class Vehiculo implements Serializable {
     /**
      * Llave foránea, ManyToOne, requerido.
      */
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "idPersona", nullable = false)
     private Persona duenho;
 
     /**
      * Llave foránea,OneToOne, no es requerido.
      */
-    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "idPlaca", referencedColumnName = "id", nullable = true)
     private Placa placa;
 
@@ -123,7 +123,7 @@ public class Vehiculo implements Serializable {
         this.modelo = modelo;
         this.color = color;
     }
-    
+
     /**
      * Constructor que no incluye ID ni placa.
      *
@@ -149,7 +149,7 @@ public class Vehiculo implements Serializable {
         this.modelo = modelo;
         this.color = color;
     }
-    
+
     /**
      *
      * @return Llave primaria de la entidad.

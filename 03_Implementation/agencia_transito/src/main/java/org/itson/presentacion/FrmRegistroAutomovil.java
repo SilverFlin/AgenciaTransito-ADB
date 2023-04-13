@@ -3,13 +3,11 @@ package org.itson.presentacion;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.itson.daos.PersonasDAOImpl;
 import org.itson.daos.VehiculosDAOImpl;
 import org.itson.dominio.Automovil;
 import org.itson.dominio.Vehiculo;
 import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
-import org.itson.utils.Dialogs;
 import static org.itson.utils.Dialogs.mostrarMensajeError;
 import static org.itson.utils.Dialogs.mostrarMensajeExito;
 import org.itson.utils.FormUtils;
@@ -31,33 +29,15 @@ public class FrmRegistroAutomovil extends javax.swing.JFrame {
     private Persona duenho;
 
     /**
+     * Unit of Work, que contiene todos los daos.
+     */
+    private final UnitOfWork unitOfWork = new UnitOfWork();
+
+    /**
      * Constructor principal.
      */
     public FrmRegistroAutomovil() {
         initComponents();
-    }
-
-    private Optional<Persona> buscarPersona() {
-        PersonasDAOImpl personas = new PersonasDAOImpl();
-        return personas.getByRFC(this.txtRFC.getText());
-    }
-
-    private void imprimirDatosPersona() {
-        this.txtNombres.setText(this.duenho.getNombres());
-        this.txtApellidoPaterno.setText(this.duenho.getApellidoPaterno());
-        this.txtApellidoMaterno.setText(this.duenho.getApellidoMaterno());
-    }
-
-    private Automovil obtenerAutomovil() {
-        // TODO(Luis): Especificar variables
-        return new Automovil(
-                this.duenho,
-                this.txtSerie.getText(),
-                this.txtLinea.getText(),
-                this.txtMarca.getText(),
-                this.txtMarca.getText(),
-                this.txtColor.getText()
-        );
     }
 
     @SuppressWarnings("all")
@@ -275,33 +255,17 @@ public class FrmRegistroAutomovil extends javax.swing.JFrame {
 
     @SuppressWarnings("all")
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        FormUtils.regresar(this, new FrmRegistros());
+        this.regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     @SuppressWarnings("all")
     private void btnRegistrarAutomovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovilActionPerformed
-
-        Vehiculo automovil = this.obtenerAutomovil();
-        VehiculosDAOImpl vehiculos = new VehiculosDAOImpl();
-        try {
-            vehiculos.save(automovil);
-            mostrarMensajeExito(rootPane, "Automóvil registrado exitosamente.");
-            FormUtils.cargarForm(new FrmMenuPrincipal(), this);
-        } catch (PersistenciaException ex) {
-            LOG.log(Level.SEVERE, null, ex);
-            mostrarMensajeError(rootPane, "No se pudo registrar el automóvil.");
-        }
+        this.registrarAutomovil();
     }//GEN-LAST:event_btnRegistrarAutomovilActionPerformed
 
     @SuppressWarnings("all")
     private void btnCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosActionPerformed
-        Optional<Persona> optPersona = this.buscarPersona();
-        if (optPersona.isPresent()) {
-            this.duenho = optPersona.get();
-            this.imprimirDatosPersona();
-        } else {
-            Dialogs.mostrarMensajeError(rootPane, "No se ha encontrado a la persona.");
-        }
+        this.intentarCargarDatosPersona();
     }//GEN-LAST:event_btnCargarDatosActionPerformed
 
     //CHECKSTYLE:OFF
@@ -344,7 +308,68 @@ public class FrmRegistroAutomovil extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
 
-    private void agregar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private void intentarCargarDatosPersona() {
+        try {
+            Persona persona = this.buscarPersona();
+            this.duenho = persona;
+            this.llenarDatosPersona();
+        } catch (PersistenciaException e) {
+            mostrarMensajeError(rootPane, "No se encontró la persona.");
+        }
+    }
+
+    private void registrarAutomovil() {
+        Vehiculo automovil = this.obtenerAutomovil();
+        VehiculosDAOImpl vehiculos = new VehiculosDAOImpl();
+        try {
+            vehiculos.save(automovil);
+            mostrarMensajeExito(rootPane, "Automóvil registrado exitosamente.");
+            this.cargarMenuPrincipal();
+        } catch (PersistenciaException ex) {
+            LOG.log(Level.SEVERE, ex.getMessage());
+            mostrarMensajeError(rootPane, "No se pudo registrar el automóvil.");
+        }
+    }
+
+    private Persona buscarPersona() throws PersistenciaException {
+        String rfc = this.txtRFC.getText();
+        Optional<Persona> optPersona = unitOfWork.personasDAO().getByRFC(rfc);
+        if (optPersona.isEmpty()) {
+            throw new PersistenciaException("Persona no encontrada");
+        }
+
+        return optPersona.get();
+    }
+
+    private void llenarDatosPersona() {
+        this.txtNombres.setText(this.duenho.getNombres());
+        this.txtApellidoPaterno.setText(this.duenho.getApellidoPaterno());
+        this.txtApellidoMaterno.setText(this.duenho.getApellidoMaterno());
+    }
+
+    private Automovil obtenerAutomovil() {
+        String numeroSerie = this.txtSerie.getText();
+        String linea = this.txtLinea.getText();
+        String marca = this.txtMarca.getText();
+        String modelo = this.txtModelo.getText();
+        String color = this.txtColor.getText();
+
+        Automovil automovil = new Automovil();
+        automovil.setDuenho(this.duenho);
+        automovil.setNumeroSerie(numeroSerie);
+        automovil.setLinea(linea);
+        automovil.setMarca(marca);
+        automovil.setModelo(modelo);
+        automovil.setColor(color);
+
+        return automovil;
+    }
+
+    private void regresar() {
+        FormUtils.regresar(this, new FrmRegistros());
+    }
+
+    private void cargarMenuPrincipal() {
+        FormUtils.cargarForm(new FrmMenuPrincipal(), this);
     }
 }
