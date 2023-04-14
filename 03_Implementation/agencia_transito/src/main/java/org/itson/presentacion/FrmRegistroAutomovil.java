@@ -3,6 +3,7 @@ package org.itson.presentacion;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.itson.daos.VehiculosDAOImpl;
 import org.itson.dominio.Automovil;
 import org.itson.dominio.Vehiculo;
@@ -11,6 +12,7 @@ import org.itson.excepciones.PersistenciaException;
 import static org.itson.utils.Dialogs.mostrarMensajeError;
 import static org.itson.utils.Dialogs.mostrarMensajeExito;
 import org.itson.utils.FormUtils;
+import org.itson.utils.ValidacionesFormularios;
 
 /**
  *
@@ -260,7 +262,19 @@ public class FrmRegistroAutomovil extends javax.swing.JFrame {
 
     @SuppressWarnings("all")
     private void btnRegistrarAutomovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovilActionPerformed
-        this.registrarAutomovil();
+        if (!ValidacionesFormularios.validaMarcaLineaColor(this.txtMarca.getText())) {
+            JOptionPane.showMessageDialog(this, "La marca no es válida.");
+        } else if (!ValidacionesFormularios.validaMarcaLineaColor(this.txtLinea.getText())) {
+            JOptionPane.showMessageDialog(this, "La línea no es válida.");
+        } else if (!ValidacionesFormularios.validaModelo(this.txtModelo.getText())) {
+            JOptionPane.showMessageDialog(this, "El modelo no es válido.");
+        } else if (!ValidacionesFormularios.validaMarcaLineaColor(this.txtColor.getText())) {
+            JOptionPane.showMessageDialog(this, "El color no es válido.");
+        } else if (!ValidacionesFormularios.validaNumeroSerie(this.txtSerie.getText())) {
+            JOptionPane.showMessageDialog(this, "El número de serie no es válido.");
+        } else {
+            this.registrarAutomovil();
+        }
     }//GEN-LAST:event_btnRegistrarAutomovilActionPerformed
 
     @SuppressWarnings("all")
