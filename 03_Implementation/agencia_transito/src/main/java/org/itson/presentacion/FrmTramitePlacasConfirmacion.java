@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.itson.dominio.EstadoPlaca;
+import org.itson.dominio.Pago;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Placa;
 import org.itson.dominio.TipoPlaca;
@@ -319,6 +320,12 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
         placa.setCosto(confirmacionPlacasDTO.getCosto());
         placa.setTramitante(confirmacionPlacasDTO.getPersona());
         placa.setEstado(EstadoPlaca.ACTIVADA);
+        
+        Pago pago = new Pago();
+        pago.setFechaPago(fechaEmision);
+        pago.setMonto(this.confirmacionPlacasDTO.getCosto());
+        pago.setTramite(placa);
+        placa.setPago(pago);
 
         return placa;
     }
