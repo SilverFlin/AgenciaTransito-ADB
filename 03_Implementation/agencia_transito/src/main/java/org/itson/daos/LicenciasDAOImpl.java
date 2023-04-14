@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.itson.dominio.Licencia;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.LicenciasDAO;
+import org.itson.utils.ConfiguracionPaginado;
 import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
@@ -40,11 +41,23 @@ public final class LicenciasDAOImpl implements LicenciasDAO {
 
     @Override
     public List<Licencia> getAll() {
-        String codigoJPQL = "SELECT l FROM Licencia l ";
+        String queryJpql = "SELECT l FROM Licencia l ";
         TypedQuery<Licencia> query
-                = entityManager.createQuery(codigoJPQL, Licencia.class);
+                = entityManager.createQuery(queryJpql, Licencia.class);
 
         return query.getResultList();
+    }
+
+    @Override
+    public List<Licencia> getAll(final ConfiguracionPaginado paginado) {
+        String queryJpql = "SELECT l FROM Licencia l ";
+        TypedQuery<Licencia> typedQuery
+                = entityManager.createQuery(queryJpql, Licencia.class);
+
+        typedQuery.setFirstResult(paginado.getOffset());
+        typedQuery.setMaxResults(paginado.getLimite());
+
+        return typedQuery.getResultList();
     }
 
     @Override

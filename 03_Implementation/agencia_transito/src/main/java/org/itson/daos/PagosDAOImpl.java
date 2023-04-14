@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.itson.dominio.Pago;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.PagosDAO;
+import org.itson.utils.ConfiguracionPaginado;
 import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
@@ -40,11 +41,23 @@ public final class PagosDAOImpl implements PagosDAO {
 
     @Override
     public List<Pago> getAll() {
-        String codigoJPQL = "SELECT p FROM Pago p ";
-        TypedQuery<Pago> query
-                = entityManager.createQuery(codigoJPQL, Pago.class);
+        String queryJpql = "SELECT p FROM Pago p ";
+        TypedQuery<Pago> typedQuery
+                = entityManager.createQuery(queryJpql, Pago.class);
 
-        return query.getResultList();
+        return typedQuery.getResultList();
+    }
+
+    @Override
+    public List<Pago> getAll(final ConfiguracionPaginado paginado) {
+        String queryJpql = "SELECT p FROM Pago p ";
+        TypedQuery<Pago> typedQuery
+                = entityManager.createQuery(queryJpql, Pago.class);
+
+        typedQuery.setFirstResult(paginado.getOffset());
+        typedQuery.setMaxResults(paginado.getLimite());
+
+        return typedQuery.getResultList();
     }
 
     @Override

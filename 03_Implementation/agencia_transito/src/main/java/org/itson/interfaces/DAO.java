@@ -3,6 +3,7 @@ package org.itson.interfaces;
 import java.util.List;
 import java.util.Optional;
 import org.itson.excepciones.PersistenciaException;
+import org.itson.utils.ConfiguracionPaginado;
 
 /**
  *
@@ -25,6 +26,15 @@ public interface DAO<T> {
      * @return Lista de elemento T
      */
     List<T> getAll();
+
+    /**
+     * Consigue una lista con todos los elementos de la base de datos, dada una
+     * configuración de paginado.
+     *
+     * @param paginado
+     * @return Lista de elemento T.
+     */
+    List<T> getAll(ConfiguracionPaginado paginado);
 
     /**
      * Persiste el elemento en la base de datos.

@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import org.itson.dominio.Vehiculo;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.VehiculosDAO;
+import org.itson.utils.ConfiguracionPaginado;
 import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
@@ -59,11 +60,23 @@ public final class VehiculosDAOImpl implements VehiculosDAO {
 
     @Override
     public List<Vehiculo> getAll() {
+        String queryJPQL = "SELECT v FROM Vehiculo v ";
+        TypedQuery<Vehiculo> typedQuery
+                = entityManager.createQuery(queryJPQL, Vehiculo.class);
+
+        return typedQuery.getResultList();
+    }
+
+    @Override
+    public List<Vehiculo> getAll(final ConfiguracionPaginado paginado) {
         String codigoJPQL = "SELECT v FROM Vehiculo v ";
-        TypedQuery<Vehiculo> query
+        TypedQuery<Vehiculo> typedQuery
                 = entityManager.createQuery(codigoJPQL, Vehiculo.class);
 
-        return query.getResultList();
+        typedQuery.setFirstResult(paginado.getOffset());
+        typedQuery.setMaxResults(paginado.getLimite());
+
+        return typedQuery.getResultList();
     }
 
     @Override

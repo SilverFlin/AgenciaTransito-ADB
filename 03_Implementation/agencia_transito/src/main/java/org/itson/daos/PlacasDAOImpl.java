@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.itson.dominio.Placa;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.PlacasDAO;
+import org.itson.utils.ConfiguracionPaginado;
 import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
@@ -40,11 +41,23 @@ public final class PlacasDAOImpl implements PlacasDAO {
 
     @Override
     public List<Placa> getAll() {
-        String codigoJPQL = "SELECT p FROM Placa p ";
+        String queryJpql = "SELECT p FROM Placa p ";
         TypedQuery<Placa> query
-                = entityManager.createQuery(codigoJPQL, Placa.class);
+                = entityManager.createQuery(queryJpql, Placa.class);
 
         return query.getResultList();
+    }
+
+    @Override
+    public List<Placa> getAll(final ConfiguracionPaginado paginado) {
+        String queryJpql = "SELECT p FROM Placa p ";
+        TypedQuery<Placa> typedQuery
+                = entityManager.createQuery(queryJpql, Placa.class);
+
+        typedQuery.setFirstResult(paginado.getOffset());
+        typedQuery.setMaxResults(paginado.getLimite());
+
+        return typedQuery.getResultList();
     }
 
     @Override

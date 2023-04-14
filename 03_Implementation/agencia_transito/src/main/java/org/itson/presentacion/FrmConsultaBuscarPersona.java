@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import org.itson.dominio.Persona;
 import org.itson.utils.BotonEditor;
 import org.itson.utils.BotonRender;
+import org.itson.utils.ConfiguracionPaginado;
 import static org.itson.utils.Dialogs.mostrarMensajeError;
 import org.itson.utils.FormUtils;
 
@@ -26,7 +27,6 @@ public class FrmConsultaBuscarPersona extends JFrame {
      */
     private static final Logger LOG
             = Logger.getLogger(FrmConsultaBuscarPersona.class.getName());
-//    private final JFrame frmAnterior;
 
     /**
      * Unit of Work.
@@ -39,29 +39,18 @@ public class FrmConsultaBuscarPersona extends JFrame {
     private final DateFormat formateador = new SimpleDateFormat("dd/MM/yyy");
 
     /**
+     * Configuración del paginado para la tabla personas.
+     */
+    private ConfiguracionPaginado paginado;
+
+    /**
      * Constructor principal.
      */
     public FrmConsultaBuscarPersona() {
         this.unitOfWork = new UnitOfWork();
         initComponents();
+        this.configurarPaginado();
         this.configurarTabla();
-
-    }
-
-    private void cargarTablaPersonas(final List<Persona> listaPersonas) {
-        DefaultTableModel modeloTabla1
-                = (DefaultTableModel) this.tblPersonas.getModel();
-        modeloTabla1.setRowCount(0);
-        for (Persona persona : listaPersonas) {
-            Object[] fila = {
-                persona.getRfc(),
-                persona.getNombres(),
-                persona.getApellidoPaterno(),
-                persona.getApellidoMaterno(),
-                this.formatoFecha(persona.getFechaNacimiento())
-            };
-            modeloTabla1.addRow(fila);
-        }
 
     }
 
@@ -275,7 +264,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
-
+        this.avanzarPagina();
     }//GEN-LAST:event_btnAdelanteActionPerformed
     /**
      * Retrocede en la pagina de operaciones.
@@ -284,8 +273,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
-
-
+        this.retrocederPagina();
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
     /**
@@ -342,8 +330,33 @@ public class FrmConsultaBuscarPersona extends JFrame {
                 .getColumn(columnaBoton)
                 .setCellRenderer(botonRender);
 
-        List<Persona> listaPersonas = this.unitOfWork.personasDAO().getAll();
-        cargarTablaPersonas(listaPersonas);
+        cargarTablaPersonas();
+    }
+
+    private void cargarTablaPersonas() {
+        List<Persona> listaPersonas
+                = this.unitOfWork.personasDAO().getAll(paginado);
+
+        if (listaPersonas.isEmpty()) {
+            this.paginado.retrocederPag();
+            return;
+        }
+
+        DefaultTableModel modeloTabla1
+                = (DefaultTableModel) this.tblPersonas.getModel();
+        modeloTabla1.setRowCount(0);
+
+        for (Persona persona : listaPersonas) {
+            Object[] fila = {
+                persona.getRfc(),
+                persona.getNombres(),
+                persona.getApellidoPaterno(),
+                persona.getApellidoMaterno(),
+                this.formatoFecha(persona.getFechaNacimiento())
+            };
+            modeloTabla1.addRow(fila);
+        }
+
     }
 
     private void buscar() {
@@ -385,7 +398,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
             return;
         }
 
-        this.cargarTablaPersonas(listaPersonas);
+        this.cargarTablaPersonas();
     }
 
     private boolean hayFiltrosSeleccionados() {
@@ -396,5 +409,21 @@ public class FrmConsultaBuscarPersona extends JFrame {
 
     private String formatoFecha(final Calendar calendar) {
         return formateador.format(calendar.getTime());
+    }
+
+    private void configurarPaginado() {
+        final int limite = this.tblPersonas.getModel().getRowCount();
+        final int pagInicial = 0;
+        paginado = new ConfiguracionPaginado(limite, pagInicial);
+    }
+
+    private void retrocederPagina() {
+        this.paginado.retrocederPag();
+        this.cargarTablaPersonas();
+    }
+
+    private void avanzarPagina() {
+        this.paginado.avanzarPag();
+        this.cargarTablaPersonas();
     }
 }

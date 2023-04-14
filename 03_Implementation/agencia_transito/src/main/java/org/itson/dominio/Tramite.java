@@ -12,6 +12,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +23,13 @@ import javax.persistence.TemporalType;
  * @author Toled
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(
+            name = "tramitesPorIdPersona",
+            query = "SELECT t FROM Tramite t WHERE "
+            + "t.tramitante.id = :idPersona"
+    )
+})
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Tramite implements Serializable {
 

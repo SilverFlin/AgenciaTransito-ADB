@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 import org.itson.dominio.Tramite;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.TramitesDAO;
+import org.itson.utils.ConfiguracionPaginado;
 import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
@@ -52,6 +53,18 @@ public final class TramitesDAOImpl implements TramitesDAO {
     }
 
     @Override
+    public List<Tramite> getAll(final ConfiguracionPaginado paginado) {
+        String queryJPQL = "SELECT t FROM Tramite t ";
+        TypedQuery<Tramite> typedQuery
+                = entityManager.createQuery(queryJPQL, Tramite.class);
+
+        typedQuery.setFirstResult(paginado.getOffset());
+        typedQuery.setMaxResults(paginado.getLimite());
+
+        return typedQuery.getResultList();
+    }
+
+    @Override
     public List<Tramite> getAll(final ParametrosTramitesDTO filtros) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Tramite> criteria = filtros.getCriteria(builder);
@@ -61,8 +74,45 @@ public final class TramitesDAOImpl implements TramitesDAO {
 
         criteria = criteria.select(root).where(predicados);
         TypedQuery<Tramite> query = entityManager.createQuery(criteria);
-        
+
         return query.getResultList();
+    }
+
+    @Override
+    public List<Tramite> getAll(
+            final ParametrosTramitesDTO filtros,
+            final ConfiguracionPaginado paginado
+    ) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Tramite> criteria = filtros.getCriteria(builder);
+        Root<Tramite> root = filtros.getRoot(criteria);
+
+        Predicate[] predicados = filtros.getPredicados(builder, root);
+
+        criteria = criteria.select(root).where(predicados);
+        TypedQuery<Tramite> typedQuery = entityManager.createQuery(criteria);
+
+        typedQuery.setFirstResult(paginado.getOffset());
+        typedQuery.setMaxResults(paginado.getLimite());
+
+        return typedQuery.getResultList();
+    }
+
+    @Override
+    public List<Tramite> getAllByIdPersona(
+            final ConfiguracionPaginado paginado,
+            final String idPersona
+    ) {
+        TypedQuery<Tramite> typedQuery
+                = entityManager.createNamedQuery(
+                        "tramitesPorIdPersona",
+                        Tramite.class);
+        typedQuery.setParameter("idPersona", idPersona);
+
+        typedQuery.setFirstResult(paginado.getOffset());
+        typedQuery.setMaxResults(paginado.getLimite());
+
+        return typedQuery.getResultList();
     }
 
     @Override

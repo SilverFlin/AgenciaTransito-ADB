@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Tramite;
+import org.itson.utils.ConfiguracionPaginado;
 import org.itson.utils.FormUtils;
 import static org.itson.utils.Formateador.formatoDinero;
 
@@ -44,6 +45,10 @@ public class FrmTramitesPersona extends JFrame {
      * Formateador de fecha, con formato dd/MM/yyy.
      */
     private final DateFormat formateador = new SimpleDateFormat("dd/MM/yyy");
+    /**
+     * Configuración del paginado para la tabla de tramites.
+     */
+    private ConfiguracionPaginado paginado;
 
     /**
      * Constructor principal del Frame.
@@ -59,6 +64,7 @@ public class FrmTramitesPersona extends JFrame {
             this.tramitante = persona;
             this.unitOfWork = unitOfWork;
             initComponents();
+            this.configurarPaginado();
             this.actualizarListaTramites();
             this.cargarNombreTramitante();
             this.cargarTablaTramitesPersona();
@@ -67,23 +73,6 @@ public class FrmTramitesPersona extends JFrame {
             this.regresar();
         }
 
-    }
-
-    private void cargarTablaTramitesPersona() {
-
-        this.vaciarTabla();
-        this.actualizarListaTramites();
-        DefaultTableModel modeloTabla
-                = (DefaultTableModel) this.tblTramitesRealizados.getModel();
-
-        // TODO(Luis): remover id
-        for (Tramite tramite : this.listaTramites) {
-            String tipo = tramite.getClass().getSimpleName();
-            String costo = formatoDinero(tramite.getCosto());
-            String fecha = formatoFecha(tramite.getFechaInicio());
-            Object[] fila = {tipo, costo, fecha};
-            modeloTabla.addRow(fila);
-        }
     }
 
     @SuppressWarnings("all")
@@ -221,8 +210,7 @@ public class FrmTramitesPersona extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
-
-        // TODO
+        this.avanzarPagina();
     }//GEN-LAST:event_btnAdelanteActionPerformed
     /**
      * Retrocede en la pagina de operaciones
@@ -231,7 +219,7 @@ public class FrmTramitesPersona extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
-        // TODO
+        this.retrocederPagina();
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
     @SuppressWarnings("all")
@@ -260,6 +248,22 @@ public class FrmTramitesPersona extends JFrame {
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
 
+    private void cargarTablaTramitesPersona() {
+
+        this.vaciarTabla();
+        this.actualizarListaTramites();
+        DefaultTableModel modeloTabla
+                = (DefaultTableModel) this.tblTramitesRealizados.getModel();
+
+        for (Tramite tramite : this.listaTramites) {
+            String tipo = tramite.getClass().getSimpleName();
+            String costo = formatoDinero(tramite.getCosto());
+            String fecha = formatoFecha(tramite.getFechaInicio());
+            Object[] fila = {tipo, costo, fecha};
+            modeloTabla.addRow(fila);
+        }
+    }
+
     private void cargarNombreTramitante() {
         String nombres = this.tramitante.getNombres();
         String apellidoPaterno = this.tramitante.getApellidoPaterno();
@@ -280,16 +284,10 @@ public class FrmTramitesPersona extends JFrame {
     }
 
     private void actualizarListaTramites() {
-        Optional<Persona> optPersona
-                = unitOfWork
-                        .personasDAO()
-                        .get(this.tramitante.getId());
+        String idTramitante = this.tramitante.getId().toString();
 
-        if (optPersona.isPresent()) {
-            Persona persona = optPersona.get();
-            this.listaTramites = persona.getTramites();
-        }
-
+        this.listaTramites = unitOfWork.tramitesDAO()
+                .getAllByIdPersona(paginado, idTramitante);
     }
 
     private String formatoFecha(final Calendar calendar) {
@@ -298,6 +296,22 @@ public class FrmTramitesPersona extends JFrame {
 
     private void regresar() {
         FormUtils.regresar(this, new FrmConsultaBuscarPersona());
+    }
+
+    private void configurarPaginado() {
+        final int limite = this.tblTramitesRealizados.getModel().getRowCount();
+        final int pagInicial = 0;
+        paginado = new ConfiguracionPaginado(limite, pagInicial);
+    }
+
+    private void retrocederPagina() {
+        this.paginado.retrocederPag();
+//        this.cargarTablaPersonas();
+    }
+
+    private void avanzarPagina() {
+        this.paginado.avanzarPag();
+//        this.cargarTablaPersonas();
     }
 
 }

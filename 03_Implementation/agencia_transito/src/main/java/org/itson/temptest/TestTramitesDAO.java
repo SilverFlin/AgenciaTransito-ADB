@@ -10,6 +10,7 @@ import org.itson.daos.LicenciasDAOImpl;
 import org.itson.daos.PlacasDAOImpl;
 import org.itson.interfaces.DAO;
 import org.itson.daos.TramitesDAOImpl;
+import org.itson.dominio.EstadoPlaca;
 import org.itson.dominio.Licencia;
 import org.itson.dominio.Placa;
 import org.itson.dominio.TipoLicencia;
@@ -78,6 +79,7 @@ public final class TestTramitesDAO {
         placa.setTipo(TipoPlaca.VEHICULO_NUEVO);
         placa.setFechaRecepcion(new GregorianCalendar());
         placa.setTramitante(agregaPersonaFalsa());
+        placa.setEstado(EstadoPlaca.ACTIVADA);
         try {
             placa = placasDAO.save(placa);
         } catch (PersistenciaException ex) {

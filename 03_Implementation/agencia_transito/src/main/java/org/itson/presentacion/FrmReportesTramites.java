@@ -19,6 +19,7 @@ import org.itson.dominio.Licencia;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Placa;
 import org.itson.dominio.Tramite;
+import org.itson.utils.ConfiguracionPaginado;
 import org.itson.utils.Dialogs;
 import org.itson.utils.Fecha;
 import org.itson.utils.FormUtils;
@@ -32,8 +33,6 @@ import org.itson.utils.Periodo;
  */
 public class FrmReportesTramites extends JFrame {
 
-    // TODO(Luis): Remover variables del filtro.
-    // TODO(Luis): Usar Unit of Work.
     /**
      * Logger.
      */
@@ -53,14 +52,17 @@ public class FrmReportesTramites extends JFrame {
      * Formateador de fecha, con formato dd/MM/yyy.
      */
     private final DateFormat formateador = new SimpleDateFormat("dd/MM/yyy");
+    /**
+     * Configuración del paginado para la tabla personas.
+     */
+    private ConfiguracionPaginado paginado;
 
     /**
      * Constructor principal.
      */
     public FrmReportesTramites() {
         initComponents();
-        List<Tramite> listaTramites = unitOfWork.tramitesDAO().getAll();
-        cargarTablaTramites(listaTramites);
+        this.configurarPaginado();
     }
 
     @SuppressWarnings("all")
@@ -277,22 +279,7 @@ public class FrmReportesTramites extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnCrearPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPDFActionPerformed
-        List<Tramite> listaTramites = this.obtenerListaTramites();
-        if (listaTramites != null) {
-            List<ReporteTramiteDTO> reporteTramites = new ArrayList<>();
-            for (Tramite tramite : listaTramites) {
-                String nombreCompleto = this.getNombreCompleto(tramite.getTramitante());
-                ReporteTramiteDTO reporte = new ReporteTramiteDTO(tramite.getClass().getSimpleName(), nombreCompleto, Formateador.formatoDinero(tramite.getCosto()), formatoFecha(tramite.getFechaInicio()));
-                reporteTramites.add(reporte);
-            }
-            try {
-                JasperByCollectionBeanData.crearPDF(reporteTramites);
-            } catch (JRException ex) {
-                Logger.getLogger(FrmReportesTramites.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "La tabla está vacía.");
-        }
+        this.crearPdf();
     }//GEN-LAST:event_btnCrearPDFActionPerformed
 
     /**
@@ -302,7 +289,7 @@ public class FrmReportesTramites extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
-
+        this.avanzarPagina();
     }//GEN-LAST:event_btnAdelanteActionPerformed
 
     /**
@@ -312,7 +299,7 @@ public class FrmReportesTramites extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
-
+        this.retrocederPagina();
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
     @SuppressWarnings("all")
@@ -356,24 +343,44 @@ public class FrmReportesTramites extends JFrame {
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
 
-    private List<Tramite> obtenerListaTramites() {
+    private List<Tramite> obtenerListaTramitesPaginado() {
         if (!this.hayFiltroSeleccionado()) {
             String msgError = "No hay seleccionado ningún filtro.";
             Dialogs.mostrarMensajeError(rootPane, msgError);
             return null;
         }
         ParametrosTramitesDTO parametros = this.conseguirParametros();
-        List<Tramite> listaTramites
-                = unitOfWork.tramitesDAO().getAll(parametros);
-        return listaTramites;
+        return unitOfWork.tramitesDAO().getAll(parametros, paginado);
+    }
+
+    private List<Tramite> obtenerTodosTramites() {
+        if (!this.hayFiltroSeleccionado()) {
+            String msgError = "No hay seleccionado ningún filtro.";
+            Dialogs.mostrarMensajeError(rootPane, msgError);
+            return null;
+        }
+        ParametrosTramitesDTO parametros = this.conseguirParametros();
+        return unitOfWork.tramitesDAO().getAll(parametros);
     }
 
     private void buscar() {
-        List<Tramite> listaTramites = this.obtenerListaTramites();
+        List<Tramite> listaTramites = this.obtenerListaTramitesPaginado();
         cargarTablaTramites(listaTramites);
     }
 
     private void cargarTablaTramites(final List<Tramite> listaTramites) {
+
+        if (listaTramites == null) {
+            return;
+        }
+
+        if (listaTramites.isEmpty()) {
+            this.paginado.retrocederPag();
+            return;
+        }
+
+        System.out.println(listaTramites.size());
+
         DefaultTableModel modeloTabla
                 = (DefaultTableModel) this.tblTramites.getModel();
         this.limpiarTabla(modeloTabla);
@@ -468,4 +475,50 @@ public class FrmReportesTramites extends JFrame {
         return formateador.format(calendar.getTime());
     }
 
+    private void configurarPaginado() {
+        final int limite = this.tblTramites.getModel().getRowCount();
+        final int pagInicial = 0;
+        paginado = new ConfiguracionPaginado(limite, pagInicial);
+    }
+
+    private void retrocederPagina() {
+        this.paginado.retrocederPag();
+        this.cargarTablaTramites(obtenerListaTramitesPaginado());
+    }
+
+    private void avanzarPagina() {
+        this.paginado.avanzarPag();
+        this.cargarTablaTramites(obtenerListaTramitesPaginado());
+    }
+
+    private void crearPdf() {
+        List<Tramite> listaTramites = this.obtenerTodosTramites();
+        System.out.println(listaTramites.size());
+
+        if (listaTramites == null || listaTramites.isEmpty()) {
+            Dialogs.mostrarMensajeError(this, "La tabla está vacía.");
+        }
+
+        List<ReporteTramiteDTO> reporteTramites = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            ReporteTramiteDTO reporte = this.generarReporte(listaTramites.get(i));
+            reporteTramites.add(reporte);
+        }
+
+        try {
+            JasperByCollectionBeanData.crearPDF(reporteTramites);
+        } catch (JRException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private ReporteTramiteDTO generarReporte(final Tramite tramite) {
+        String nombreCompleto = this.getNombreCompleto(tramite.getTramitante());
+        String tipo = tramite.getClass().getSimpleName();
+        String costo = Formateador.formatoDinero(tramite.getCosto());
+        String fecha = formatoFecha(tramite.getFechaInicio());
+
+        return new ReporteTramiteDTO(tipo, nombreCompleto, costo, fecha);
+    }
 }

@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.presentacion.FrmMenuPrincipal;
+import org.itson.temptest.GeneradorRegistrosFalsos;
 import static org.itson.temptest.TestPersonasDAO.probarPersonasDAO;
 import static org.itson.temptest.TestTramitesDAO.probarTramitesDAO;
 import static org.itson.temptest.TestVehiculosDAO.probarVehiculosDAO;
@@ -29,7 +30,9 @@ final class Main {
      * @param args
      */
     public static void main(final String[] args) {
+//        GeneradorRegistrosFalsos.generarRegistros(50);
         iniciar();
+        
     }
 
     /**

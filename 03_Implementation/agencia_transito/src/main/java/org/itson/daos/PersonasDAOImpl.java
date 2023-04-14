@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.PersonasDAO;
+import org.itson.utils.ConfiguracionPaginado;
 import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
@@ -81,9 +82,22 @@ public final class PersonasDAOImpl implements PersonasDAO {
 
     @Override
     public List<Persona> getAll() {
-        TypedQuery<Persona> query
-                = entityManager.createQuery("SELECT p FROM Persona p", Persona.class);
-        return query.getResultList();
+        String queryJpql = "SELECT p FROM Persona p";
+        TypedQuery<Persona> typedQuery
+                = entityManager.createQuery(queryJpql, Persona.class);
+        return typedQuery.getResultList();
+    }
+
+    @Override
+    public List<Persona> getAll(final ConfiguracionPaginado paginado) {
+        String queryJpql = "SELECT p FROM Persona p";
+        TypedQuery<Persona> typedQuery
+                = entityManager.createQuery(queryJpql, Persona.class);
+
+        typedQuery.setFirstResult(paginado.getOffset());
+        typedQuery.setMaxResults(paginado.getLimite());
+
+        return typedQuery.getResultList();
     }
 
     @Override
