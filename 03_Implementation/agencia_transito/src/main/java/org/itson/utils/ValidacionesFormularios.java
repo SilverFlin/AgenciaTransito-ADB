@@ -1,5 +1,8 @@
 package org.itson.utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author Toled
@@ -55,5 +58,58 @@ public final class ValidacionesFormularios {
     ) throws UnsupportedOperationException {
         return isLongitudTextoValida(texto, 1, limiteSuperior);
     }
+    
+    /**
+     * Método que valida que el nombre contenga de 3 a 40 caracteres, siendo
+     * estos: letras y espacios.
+     *
+     * @param s Cadena de texto.
+     * @return coincidencia entre los validadores y la cadena de texto.
+     */
+    public static boolean validaMarcaLineaColor(String s) {
+        String patron = "(([a-z]|[A-Z])|([ '-]([a-z]|[A-Z]))){3,40}";
 
+        Pattern p = Pattern.compile(patron);
+
+        Matcher matcher = p.matcher(s);
+
+        return matcher.matches();
+    }
+
+    
+    /**
+     * Método que valida que los apellidos contengan de 3 a 40 caracteres,
+     * siendo estos: letras.
+     *
+     * @param s Cadena de texto.
+     * @return coincidencia entre los validadores y la cadena de texto.
+     */
+    public static boolean validaModelo(String s) {
+        String patron = "(([0-9])){4}";
+
+        Pattern p = Pattern.compile(patron);
+
+        Matcher matcher = p.matcher(s);
+
+        return matcher.matches();
+    }
+
+    /**
+     * Método que valida que el nombre contenga de 3 a 40 caracteres, siendo
+     * estos: letras y espacios.
+     *
+     * @param s Cadena de texto.
+     * @return coincidencia entre los validadores y la cadena de texto.
+     */
+    public static boolean validaNumeroSerie(String s) {
+        String patron = "(([0-9]|[A-Z])){6}";
+
+        Pattern p = Pattern.compile(patron);
+
+        Matcher matcher = p.matcher(s);
+
+        return matcher.matches();
+    }
+    
+    
 }
