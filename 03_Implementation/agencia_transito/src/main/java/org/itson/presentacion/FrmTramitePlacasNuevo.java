@@ -2,6 +2,7 @@ package org.itson.presentacion;
 
 import java.util.Optional;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.itson.daos.PersonasDAOImpl;
 import org.itson.dominio.Automovil;
 import org.itson.dominio.Licencia;
@@ -10,6 +11,7 @@ import org.itson.dominio.TipoPlaca;
 import static org.itson.utils.Dialogs.mostrarMensajeError;
 import org.itson.utils.FormUtils;
 import static org.itson.utils.FormUtils.cargarForm;
+import org.itson.utils.ValidacionesFormularios;
 
 /**
  *
@@ -292,7 +294,19 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
 
     @SuppressWarnings("all")
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        this.continuarTramite();
+        if (!ValidacionesFormularios.validaMarcaLineaColor(this.txtMarca.getText())) {
+            JOptionPane.showMessageDialog(this, "La marca no es válida.");
+        } else if (!ValidacionesFormularios.validaMarcaLineaColor(this.txtLinea.getText())) {
+            JOptionPane.showMessageDialog(this, "La línea no es válida.");
+        } else if (!ValidacionesFormularios.validaModelo(this.txtModelo.getText())) {
+            JOptionPane.showMessageDialog(this, "El modelo no es válido.");
+        } else if (!ValidacionesFormularios.validaMarcaLineaColor(this.txtColor.getText())) {
+            JOptionPane.showMessageDialog(this, "El color no es válido.");
+        } else if (!ValidacionesFormularios.validaNumeroSerie(this.txtSerie.getText())) {
+            JOptionPane.showMessageDialog(this, "El número de serie no es válido.");
+        } else {
+            this.continuarTramite();
+        }
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     @SuppressWarnings("all")
