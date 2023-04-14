@@ -36,7 +36,6 @@ public final class JasperByCollectionBeanData {
     }
 
     public static void crearPDF(List<ReporteTramiteDTO> listaTramites) throws JRException {
-        String outputFile = "src\\main\\resources\\pdfs" + "ReporteTramites_A4.pdf";
 
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(listaTramites);
 
