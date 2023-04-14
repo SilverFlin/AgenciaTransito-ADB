@@ -61,7 +61,7 @@ public final class TramitesDAOImpl implements TramitesDAO {
 
         criteria = criteria.select(root).where(predicados);
         TypedQuery<Tramite> query = entityManager.createQuery(criteria);
-
+        
         return query.getResultList();
     }
 

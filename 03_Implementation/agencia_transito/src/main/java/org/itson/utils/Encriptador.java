@@ -1,8 +1,18 @@
 package org.itson.utils;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import at.favre.lib.crypto.bcrypt.BCrypt.Result;
-import at.favre.lib.crypto.bcrypt.BCrypt.Verifyer;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import org.itson.excepciones.EncriptacionException;
 
 /**
  *
@@ -10,39 +20,73 @@ import at.favre.lib.crypto.bcrypt.BCrypt.Verifyer;
  */
 public final class Encriptador {
 
-    /**
-     * Valor de encriptación recomendado por BCrypt.
-     */
-    private static final int COST = 12;
+    private static final String ALGORITHM = "AES";
+    private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
+    private final String KEY = "0MMPLATRMMPLATR0";
 
-    private Encriptador() {
-        throw new IllegalStateException("Utility class");
+    /**
+     * Logger.
+     */
+    private static final Logger LOG
+            = Logger.getLogger(Encriptador.class.getName());
+
+    public Encriptador() {
+
     }
 
     /**
-     * Encripta un texto y regresa su hash generado.
      *
-     * @param txt
-     * @return El hash del texto encriptado.
+     * @param input
+     * @return
+     * @throws org.itson.excepciones.EncriptacionException
+     *
      */
-    public static String encriptar(final String txt) {
-        return BCrypt.withDefaults().hashToString(COST, txt.toCharArray());
+    public String encriptar(String input) throws EncriptacionException {
+
+        try {
+            SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
+            IvParameterSpec ivSpec = new IvParameterSpec(KEY.getBytes());
+
+            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+            cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
+
+            byte[] encryptedBytes = cipher.doFinal(input.getBytes());
+            return new String(Base64.getEncoder().encode(encryptedBytes));
+        } catch (NoSuchAlgorithmException
+                | NoSuchPaddingException
+                | InvalidKeyException
+                | InvalidAlgorithmParameterException
+                | IllegalBlockSizeException
+                | BadPaddingException e) {
+            LOG.log(Level.SEVERE, e.getMessage());
+            throw new EncriptacionException("Error al encriptar");
+        }
     }
 
     /**
-     * Compara un texto con un texto encriptado, regresando si coinciden.
      *
-     * @param intento
-     * @param hashedPassword
-     * @return verdadero si el intento coincide con el hash.
+     * @param hash
+     * @return
+     * @throws org.itson.excepciones.EncriptacionException
      */
-    public static boolean validar(
-            final String intento,
-            final String hashedPassword
-    ) {
-        Verifyer verifyer = BCrypt.verifyer();
-        Result result = verifyer.verify(intento.toCharArray(), hashedPassword);
+    public String desencriptar(String hash) throws EncriptacionException {
+        try {
+            SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
+            IvParameterSpec ivSpec = new IvParameterSpec(KEY.getBytes());
+            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+            cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
+            byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(hash.getBytes()));
+            return new String(decryptedBytes);
+        } catch (NoSuchAlgorithmException
+                | NoSuchPaddingException
+                | InvalidKeyException
+                | InvalidAlgorithmParameterException
+                | IllegalBlockSizeException
+                | BadPaddingException e) {
+            LOG.log(Level.SEVERE, e.getMessage());
+            throw new EncriptacionException("Error al encriptar");
+        }
 
-        return result.verified;
     }
+
 }

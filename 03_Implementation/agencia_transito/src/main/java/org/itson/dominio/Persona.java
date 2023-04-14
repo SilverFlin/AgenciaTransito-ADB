@@ -1,9 +1,11 @@
 package org.itson.dominio;
 
+import org.itson.utils.NombreConverter;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -71,12 +74,14 @@ public class Persona implements Serializable {
     /**
      * Columna nombres, con límite default, requerido.
      */
+    @Convert(converter = NombreConverter.class)
     @Column(name = "nombres", nullable = false, length = LONGITUD_DEFAULT)
     private String nombres;
-
+    
     /**
      * Columna apellidoPaterno, con límite default, requerido.
      */
+    @Convert(converter = NombreConverter.class)
     @Column(name = "apellidoPaterno", nullable = false,
             length = LONGITUD_DEFAULT)
     private String apellidoPaterno;
@@ -84,6 +89,7 @@ public class Persona implements Serializable {
     /**
      * Columna apellidoMaterno, con límite default, opcional.
      */
+    @Convert(converter = NombreConverter.class)
     @Column(name = "apellidoMaterno", nullable = true,
             length = LONGITUD_DEFAULT)
     private String apellidoMaterno;
@@ -146,7 +152,7 @@ public class Persona implements Serializable {
         this.vehiculos = vehiculos;
         this.tramites = tramites;
     }
-    
+
     /**
      * Constructor que no incluye ID, vehículos y trámites.
      *
@@ -168,7 +174,7 @@ public class Persona implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
     }
-    
+
     /**
      *
      * @return Llave primaria de la entidad.

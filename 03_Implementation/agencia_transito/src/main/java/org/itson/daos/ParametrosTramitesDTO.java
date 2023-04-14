@@ -163,7 +163,7 @@ public class ParametrosTramitesDTO<T extends Tramite> {
     ) {
         Expression<String> nombresTramitante
                 = root.get("tramitante").get("nombres");
-
+        
         String nombreConWildcards = "%" + this.getNombreTramitante() + "%";
 
         return builder.like(nombresTramitante, nombreConWildcards);

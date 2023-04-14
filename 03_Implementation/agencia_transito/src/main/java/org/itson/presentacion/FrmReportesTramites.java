@@ -439,7 +439,7 @@ public class FrmReportesTramites extends JFrame {
     }
 
     private boolean hayFiltroSeleccionado() {
-        return !this.rbtnPeriodo.isSelected() || !this.rbtnTipo.isSelected();
+        return !this.rbtnPeriodo.isSelected() || !this.rbtnNombre.isSelected();
     }
 
     private Class<? extends Tramite> getTipo() {
