@@ -2,6 +2,7 @@ package org.itson.dominio;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +43,7 @@ public class Pago implements Serializable {
     /**
      * Trámite relacionado, OneToOne.
      */
-    @OneToOne(mappedBy = "pago")
+    @OneToOne(mappedBy = "pago", cascade = {CascadeType.PERSIST})
     private Tramite tramite;
 
     /**
