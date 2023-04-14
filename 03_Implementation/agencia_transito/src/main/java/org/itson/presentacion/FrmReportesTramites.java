@@ -3,12 +3,16 @@ package org.itson.presentacion;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
 import org.itson.daos.ParametrosTramitesDTO;
 import org.itson.daos.TramitesDAOImpl;
 import org.itson.dominio.Licencia;
@@ -19,6 +23,7 @@ import org.itson.utils.Dialogs;
 import org.itson.utils.Fecha;
 import org.itson.utils.FormUtils;
 import org.itson.utils.Formateador;
+import org.itson.utils.JasperByCollectionBeanData;
 import org.itson.utils.Periodo;
 
 /**
@@ -54,6 +59,8 @@ public class FrmReportesTramites extends JFrame {
      */
     public FrmReportesTramites() {
         initComponents();
+        List<Tramite> listaTramites = unitOfWork.tramitesDAO().getAll();
+        cargarTablaTramites(listaTramites);
     }
 
     @SuppressWarnings("all")
@@ -270,7 +277,22 @@ public class FrmReportesTramites extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnCrearPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPDFActionPerformed
-
+        List<Tramite> listaTramites = this.obtenerListaTramites();
+        if (listaTramites != null) {
+            List<ReporteTramiteDTO> reporteTramites = new ArrayList<>();
+            for (Tramite tramite : listaTramites) {
+                String nombreCompleto = this.getNombreCompleto(tramite.getTramitante());
+                ReporteTramiteDTO reporte = new ReporteTramiteDTO(tramite.getClass().getSimpleName(), nombreCompleto, Formateador.formatoDinero(tramite.getCosto()), formatoFecha(tramite.getFechaInicio()));
+                reporteTramites.add(reporte);
+            }
+            try {
+                JasperByCollectionBeanData.crearPDF(reporteTramites);
+            } catch (JRException ex) {
+                Logger.getLogger(FrmReportesTramites.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "La tabla está vacía.");
+        }
     }//GEN-LAST:event_btnCrearPDFActionPerformed
 
     /**
@@ -334,15 +356,20 @@ public class FrmReportesTramites extends JFrame {
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
 
-    private void buscar() {
+    private List<Tramite> obtenerListaTramites() {
         if (!this.hayFiltroSeleccionado()) {
             String msgError = "No hay seleccionado ningún filtro.";
             Dialogs.mostrarMensajeError(rootPane, msgError);
-            return;
+            return null;
         }
         ParametrosTramitesDTO parametros = this.conseguirParametros();
         List<Tramite> listaTramites
                 = unitOfWork.tramitesDAO().getAll(parametros);
+        return listaTramites;
+    }
+
+    private void buscar() {
+        List<Tramite> listaTramites = this.obtenerListaTramites();
         cargarTablaTramites(listaTramites);
     }
 
