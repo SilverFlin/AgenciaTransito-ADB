@@ -262,13 +262,13 @@ public class FrmRegistroAutomovil extends javax.swing.JFrame {
 
     @SuppressWarnings("all")
     private void btnRegistrarAutomovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAutomovilActionPerformed
-        if (!ValidacionesFormularios.validaMarcaLineaColor(this.txtMarca.getText())) {
+        if (!ValidacionesFormularios.validaMarcaLinea(this.txtMarca.getText())) {
             JOptionPane.showMessageDialog(this, "La marca no es válida.");
-        } else if (!ValidacionesFormularios.validaMarcaLineaColor(this.txtLinea.getText())) {
+        } else if (!ValidacionesFormularios.validaMarcaLinea(this.txtLinea.getText())) {
             JOptionPane.showMessageDialog(this, "La línea no es válida.");
         } else if (!ValidacionesFormularios.validaModelo(this.txtModelo.getText())) {
             JOptionPane.showMessageDialog(this, "El modelo no es válido.");
-        } else if (!ValidacionesFormularios.validaMarcaLineaColor(this.txtColor.getText())) {
+        } else if (!ValidacionesFormularios.validaColor(this.txtColor.getText())) {
             JOptionPane.showMessageDialog(this, "El color no es válido.");
         } else if (!ValidacionesFormularios.validaNumeroSerie(this.txtSerie.getText())) {
             JOptionPane.showMessageDialog(this, "El número de serie no es válido.");
