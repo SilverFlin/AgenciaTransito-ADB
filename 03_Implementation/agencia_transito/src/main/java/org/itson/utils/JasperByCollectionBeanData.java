@@ -32,7 +32,7 @@ import org.itson.dominio.Tramite;
 public class JasperByCollectionBeanData {
     
     public JasperByCollectionBeanData(List<Tramite> listaTramites) throws JRException{
-        String outputFile = "C:\\Users\\march\\OneDrive\\Escritorio\\AgenciaTransito-ADB\\03_Implementation\\agencia_transito\\src\\main\\resources\\pdfs" + "ReporteTramites.pdf";
+        String outputFile = "\\src\\main\\resources\\pdfs" + "ReporteTramites.pdf";
         
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(listaTramites);
     
@@ -40,7 +40,7 @@ public class JasperByCollectionBeanData {
         parameters.put("Parameter1", itemsJRBean);
         
         try {
-            InputStream input = new FileInputStream(new File("C:\\Users\\march\\OneDrive\\Escritorio\\AgenciaTransito-ADB\\03_Implementation\\agencia_transito\\src\\main\\resources\\pdfs\\ReporteTramites_A4.jrxml"));
+            InputStream input = new FileInputStream(new File("\\src\\main\\resources\\pdfs\\ReporteTramites_A4.jrxml"));
             
             JasperDesign jasperDesign = JRXmlLoader.load(input);
             
