@@ -1,9 +1,10 @@
 package org.itson.presentacion;
 
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
-import org.itson.temptest.TestPersonasDAO;
 import org.itson.utils.Dialogs;
 import org.itson.utils.FormUtils;
 
@@ -26,15 +27,51 @@ public class FrmRegistros extends javax.swing.JFrame {
         initComponents();
     }
 
-    private void registrarPersonas(final int cantidad) {
-        for (int i = 0; i < cantidad; i++) {
-            try {
-                TestPersonasDAO.agregaPersonaFalsa();
-            } catch (PersistenciaException ex) {
-                LOG.log(Level.SEVERE, "Error al registrar personas");
-                return;
-            }
-        }
+    private void registrarPersonas() throws PersistenciaException {
+        UnitOfWork unit = new UnitOfWork();
+        
+        Persona p1 = new Persona("MAPM0305271M1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 5, 27));
+        Persona p2 = new Persona("TORL0311112T2", "Luis Angel", "Toledo", "Russo", new GregorianCalendar(2003, 11, 11));
+        Persona p3 = new Persona("RAEM0303035M3", "Magda", "Ramirez", "Escalante", new GregorianCalendar(2003, 3, 3));
+        Persona p4 = new Persona("DUQL0318119L2", "Luis Esteban", "Durán", "Quintanar", new GregorianCalendar(2003, 11, 18));
+        Persona p5 = new Persona("GOPG0308227G7", "Gustavo", "Gómez", "Padilla", new GregorianCalendar(2003, 8, 22));
+        Persona p6 = new Persona("PIGG0311217G7", "Grecia Zulema", "Picos", "Garcia", new GregorianCalendar(2003, 11, 21));
+        Persona p7 = new Persona("HEIR0308160R9", "Rosario", "Hernández", "Itto", new GregorianCalendar(2003, 8, 16));
+        Persona p8 = new Persona("ZAAD0306124H1", "Didier Neftali", "Zabalza", "Apodaca", new GregorianCalendar(2003, 6, 12));
+        Persona p9 = new Persona("MAPA0104192A3", "Areymi", "Marchena", "Pérez", new GregorianCalendar(2001, 4, 19));
+        Persona p10 = new Persona("BRLA0104192P1", "Abril", "Briceño", "Lopez", new GregorianCalendar(2001, 4, 19));
+        Persona p11 = new Persona("GAEF0307290K3", "Fabian", "Garnica", "Escudero", new GregorianCalendar(2003, 7, 29));
+        Persona p12 = new Persona("RISI0201029H5", "Ismael", "Rivera", "Soto", new GregorianCalendar(2002, 1, 2));
+        Persona p13 = new Persona("CUAS8803143O3", "Stephen", "Curry", "Adams", new GregorianCalendar(1988, 3, 14));
+        Persona p14 = new Persona("MERS9808087S7", "Shawn", "Mendes", "Rayment", new GregorianCalendar(1998, 8, 8));
+        Persona p15 = new Persona("CRFR7106178J4", "Roberto", "Cruz", "Fernández", new GregorianCalendar(1971, 6, 17));
+        Persona p16 = new Persona("MAPA1107279A1", "Amy Marsella", "Marchena", "Pérez", new GregorianCalendar(2011, 7, 27));
+        Persona p17 = new Persona("PEVL9212138H4", "Leonardo", "Pérez", "Valenzuela", new GregorianCalendar(1992, 12, 13));
+        Persona p18 = new Persona("PEVM8210218A5", "Marcela Arely", "Pérez", "Valenzuela", new GregorianCalendar(1982, 10, 21));
+        Persona p19 = new Persona("ROBL0309198L5", "Luis Angel", "Rosas", "Bocardo", new GregorianCalendar(2003, 9, 19));
+        Persona p20 = new Persona("VARH0111017H7", "Hazel", "Valerio", "Robles", new GregorianCalendar(2001, 11, 1));
+        
+        unit.personasDAO().save(p1);
+        unit.personasDAO().save(p2);
+        unit.personasDAO().save(p3);
+        unit.personasDAO().save(p4);
+        unit.personasDAO().save(p5);
+        unit.personasDAO().save(p6);
+        unit.personasDAO().save(p7);
+        unit.personasDAO().save(p8);
+        unit.personasDAO().save(p9);
+        unit.personasDAO().save(p10);
+        unit.personasDAO().save(p11);
+        unit.personasDAO().save(p12);
+        unit.personasDAO().save(p13);
+        unit.personasDAO().save(p14);
+        unit.personasDAO().save(p15);
+        unit.personasDAO().save(p16);
+        unit.personasDAO().save(p17);
+        unit.personasDAO().save(p18);
+        unit.personasDAO().save(p19);
+        unit.personasDAO().save(p20);
+        
     }
 
     @SuppressWarnings("all")
@@ -131,9 +168,14 @@ public class FrmRegistros extends javax.swing.JFrame {
 
     @SuppressWarnings("all")
     private void btnRegistrarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPersonasActionPerformed
-        int cantidadPersonasIngresar = 20;
-        registrarPersonas(cantidadPersonasIngresar);
-        Dialogs.mostrarMensajeExito(rootPane, "Se han registrado 20 personas exitosamente.");
+        try {
+            this.registrarPersonas();
+            Dialogs.mostrarMensajeExito(rootPane, "Se han registrado 20 personas exitosamente.");
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(FrmRegistros.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.mostrarMensajeExito(rootPane, "No se han podido registrar las 20 personas.");
+        }
+        
     }//GEN-LAST:event_btnRegistrarPersonasActionPerformed
 
     //CHECKSTYLE:OFF
