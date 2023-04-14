@@ -101,7 +101,7 @@ public final class TramitesDAOImpl implements TramitesDAO {
     @Override
     public List<Tramite> getAllByIdPersona(
             final ConfiguracionPaginado paginado,
-            final String idPersona
+            final Long idPersona
     ) {
         TypedQuery<Tramite> typedQuery
                 = entityManager.createNamedQuery(

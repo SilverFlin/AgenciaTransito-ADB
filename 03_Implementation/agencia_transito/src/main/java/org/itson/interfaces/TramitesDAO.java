@@ -40,5 +40,5 @@ public interface TramitesDAO extends DAO<Tramite> {
      * @return Lista de tramites que coincidieron.
      */
     List<Tramite> getAllByIdPersona(ConfiguracionPaginado paginado,
-            String idPersona);
+            Long idPersona);
 }
