@@ -66,8 +66,8 @@ public final class ValidacionesFormularios {
      * @param s Cadena de texto.
      * @return coincidencia entre los validadores y la cadena de texto.
      */
-    public static boolean validaMarcaLineaColor(String s) {
-        String patron = "(([a-z]|[A-Z])|([ '-]([a-z]|[A-Z]))){3,40}";
+    public static boolean validaMarcaLinea(String s) {
+        String patron = "(([a-z]|[A-Z]|[0-9])|([ '-]([a-z]|[A-Z]|[0-9]))){3,40}";
 
         Pattern p = Pattern.compile(patron);
 
@@ -76,6 +76,22 @@ public final class ValidacionesFormularios {
         return matcher.matches();
     }
 
+    /**
+     * Método que valida que el nombre contenga de 3 a 40 caracteres, siendo
+     * estos: letras y espacios.
+     *
+     * @param s Cadena de texto.
+     * @return coincidencia entre los validadores y la cadena de texto.
+     */
+    public static boolean validaColor(String s) {
+        String patron = "(([a-z]|[A-Z])|([ '-]([a-z]|[A-Z]))){3,40}";
+
+        Pattern p = Pattern.compile(patron);
+
+        Matcher matcher = p.matcher(s);
+
+        return matcher.matches();
+    }
     
     /**
      * Método que valida que los apellidos contengan de 3 a 40 caracteres,
