@@ -1,11 +1,14 @@
 package org.itson.dominio;
 
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,10 +42,25 @@ public class Placa extends Tramite {
     private TipoPlaca tipo;
 
     /**
-     * Vehículo que contiene la placa.
+     * Vehículo que contiene la placa activa.
      */
-    @OneToOne(mappedBy = "placa")
+    @OneToOne(mappedBy = "placa",
+            cascade = {CascadeType.MERGE})
     private Vehiculo vehiculo;
+
+    /**
+     * Estado de la placa, que puede estar activada o no.
+     */
+    @Column(name = "estado", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EstadoPlaca estado;
+
+    /**
+     * Vehiculo al que pertenenció la placa.
+     */
+    @ManyToOne
+    @JoinColumn(name = "idVehiculo", nullable = true)
+    private Vehiculo vehiculoPasado;
 
     /**
      * Constructor vacío.
@@ -51,7 +69,7 @@ public class Placa extends Tramite {
     }
 
     /**
-     * Constructor que no incluye ID.
+     * Constructor que no incluye ID, estado, ni vehiculo pasado.
      *
      * @param matricula
      * @param fechaInicio
@@ -142,6 +160,38 @@ public class Placa extends Tramite {
     }
 
     /**
+     *
+     * @return el estado de la placa.
+     */
+    public EstadoPlaca getEstado() {
+        return estado;
+    }
+
+    /**
+     *
+     * @param estado
+     */
+    public void setEstado(final EstadoPlaca estado) {
+        this.estado = estado;
+    }
+
+    /**
+     *
+     * @return vehiculo al que perteneció la placa.
+     */
+    public Vehiculo getVehiculoPasado() {
+        return vehiculoPasado;
+    }
+
+    /**
+     *
+     * @param vehiculoPasado
+     */
+    public void setVehiculoPasado(final Vehiculo vehiculoPasado) {
+        this.vehiculoPasado = vehiculoPasado;
+    }
+
+    /**
      * Agarra todos los parámetros de la padre, que no especifica la clase.
      *
      * @return los atributos de la clase.
@@ -152,7 +202,8 @@ public class Placa extends Tramite {
                 + super.toString()
                 + "matricula=" + matricula
                 + ", fechaRecepcion=" + fechaRecepcion
-                + ", tipo=" + tipo + '}';
+                + ", tipo=" + tipo
+                + ", estado=" + estado + '}';
     }
 
 }

@@ -72,7 +72,7 @@ public final class TramitesDAOImpl implements TramitesDAO {
     }
 
     @Override
-    public Tramite update(final Tramite t, final String[] params) {
+    public Tramite update(final Tramite t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

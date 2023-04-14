@@ -1,10 +1,12 @@
 package org.itson.presentacion;
 
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.itson.daos.LicenciasDAOImpl;
 import org.itson.dominio.Licencia;
+import org.itson.dominio.Pago;
 import org.itson.dominio.Persona;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.utils.Dialogs;
@@ -208,6 +210,11 @@ public class FrmTramiteLicenciaConfirmacion extends javax.swing.JFrame {
 
         LicenciasDAOImpl tramites = new LicenciasDAOImpl();
         try {
+            Pago pago = new Pago();
+            pago.setFechaPago(new GregorianCalendar());
+            pago.setMonto(this.costo);
+            pago.setTramite(this.licencia);
+            this.licencia.setPago(pago);
             tramites.save(this.licencia);
             Dialogs.mostrarMensajeExito(rootPane, "Licencia registrada exitosamente.");
             FormUtils.cargarForm(new FrmMenuPrincipal(), this);

@@ -1,12 +1,13 @@
 package org.itson.presentacion;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import org.itson.dominio.Persona;
+import org.itson.dominio.Placa;
 import org.itson.dominio.Vehiculo;
 import org.itson.utils.FormUtils;
 
@@ -65,12 +66,16 @@ public class FrmResumenVehiculo extends JFrame {
         DefaultTableModel modeloTabla
                 = (DefaultTableModel) this.tblHistorialPlacas.getModel();
 
-        // TODO(Luis): agarrar historial
-        List<String> matriculas = new ArrayList<>();
-        matriculas.add("AAA-111");
-        matriculas.add("BBB-222");
-        for (String matricula : matriculas) {
-            Object[] fila = {matricula};
+        Optional<Vehiculo> optVehiculo
+                = unitOfWork.vehiculosDAO()
+                        .get(this.confirmacionPlacasDTO
+                                .getAutomovil().getId());
+        if (optVehiculo.isEmpty()) {
+            return;
+        }
+        List<Placa> placas = optVehiculo.get().getHistorialPlacas();
+        for (Placa placa : placas) {
+            Object[] fila = {placa.getMatricula()};
             modeloTabla.addRow(fila);
         }
     }
@@ -265,6 +270,7 @@ public class FrmResumenVehiculo extends JFrame {
         }
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    @SuppressWarnings("all")
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         this.continuar();
     }//GEN-LAST:event_btnContinuarActionPerformed
@@ -329,10 +335,11 @@ public class FrmResumenVehiculo extends JFrame {
     }
 
     private void continuar() {
+        JFrame cargar = new FrmTramitePlacasConfirmacion(
+                this.confirmacionPlacasDTO,
+                this);
 
-        FormUtils.cargarForm(
-                new FrmTramitePlacasConfirmacion(this.confirmacionPlacasDTO),
-                frmAnterior);
+        FormUtils.cargarForm(cargar, this);
     }
 
 }

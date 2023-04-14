@@ -62,7 +62,7 @@ public final class PagosDAOImpl implements PagosDAO {
     }
 
     @Override
-    public Pago update(final Pago t, final String[] params) {
+    public Pago update(final Pago t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

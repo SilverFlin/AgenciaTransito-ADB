@@ -1,11 +1,17 @@
 package org.itson.presentacion;
 
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.itson.dominio.EstadoPlaca;
+import org.itson.dominio.Pago;
 import org.itson.dominio.Persona;
 import org.itson.dominio.Placa;
+import org.itson.dominio.TipoPlaca;
 import org.itson.dominio.Vehiculo;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.utils.Dialogs;
@@ -33,16 +39,23 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
      * Unit of Work, que contiene todos los daos.
      */
     private final UnitOfWork unitOfWork = new UnitOfWork();
+    /**
+     * JFrame anterior.
+     */
+    private final JFrame frmAnterior;
 
     /**
      * Constructor principal.
      *
      * @param confirmacionPlacasDTO
+     * @param frmAnterior
      */
     public FrmTramitePlacasConfirmacion(
-            final ConfirmacionPlacasDTO confirmacionPlacasDTO
+            final ConfirmacionPlacasDTO confirmacionPlacasDTO,
+            final JFrame frmAnterior
     ) {
         this.confirmacionPlacasDTO = confirmacionPlacasDTO;
+        this.frmAnterior = frmAnterior;
         initComponents();
         this.rellenarCampos();
 
@@ -251,26 +264,7 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
 
-    private Placa obtenerPlaca() {
-        GregorianCalendar fechaEmision = new GregorianCalendar();
-        GregorianCalendar fechaRecepcion
-                = this.calcularFechaRecepcion(fechaEmision);
-        String matriculaNueva = GeneradorMatricula.generar();
-
-        Placa placa = new Placa();
-        placa.setMatricula(matriculaNueva);
-        placa.setFechaInicio(fechaEmision);
-        placa.setFechaRecepcion(fechaRecepcion);
-        placa.setTipo(confirmacionPlacasDTO.getTipo());
-        placa.setVehiculo(confirmacionPlacasDTO.getAutomovil());
-        placa.setCosto(confirmacionPlacasDTO.getCosto());
-        placa.setTramitante(confirmacionPlacasDTO.getPersona());
-
-        return placa;
-    }
-
     private void rellenarCampos() {
-        Persona persona = this.confirmacionPlacasDTO.getPersona();
         Vehiculo automovil = this.confirmacionPlacasDTO.getAutomovil();
         Double costo = this.confirmacionPlacasDTO.getCosto();
 
@@ -296,6 +290,46 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
         return nombres + " " + apellidoPaterno + " " + apellidoMaterno;
     }
 
+    private void aceptar() {
+        // TODO(Luis): agregar a historial y desactivar
+        Placa placaNueva = this.obtenerPlaca();
+        TipoPlaca tipoPlaca = this.confirmacionPlacasDTO.getTipo();
+
+        if (tipoPlaca == TipoPlaca.VEHICULO_NUEVO) {
+            this.guardarAVehiculoNuevo(placaNueva);
+        } else if (tipoPlaca == TipoPlaca.VEHICULO_USADO) {
+            this.guardarAVehiculoUsado(placaNueva);
+        } else {
+            Dialogs.mostrarMensajeError(rootPane, "Algo salió mal.");
+        }
+
+    }
+
+    private Placa obtenerPlaca() {
+        GregorianCalendar fechaEmision = new GregorianCalendar();
+        GregorianCalendar fechaRecepcion
+                = this.calcularFechaRecepcion(fechaEmision);
+        String matriculaNueva = GeneradorMatricula.generar();
+
+        Placa placa = new Placa();
+        placa.setMatricula(matriculaNueva);
+        placa.setFechaInicio(fechaEmision);
+        placa.setFechaRecepcion(fechaRecepcion);
+        placa.setTipo(confirmacionPlacasDTO.getTipo());
+        placa.setVehiculo(confirmacionPlacasDTO.getAutomovil());
+        placa.setCosto(confirmacionPlacasDTO.getCosto());
+        placa.setTramitante(confirmacionPlacasDTO.getPersona());
+        placa.setEstado(EstadoPlaca.ACTIVADA);
+        
+        Pago pago = new Pago();
+        pago.setFechaPago(fechaEmision);
+        pago.setMonto(this.confirmacionPlacasDTO.getCosto());
+        pago.setTramite(placa);
+        placa.setPago(pago);
+
+        return placa;
+    }
+
     private GregorianCalendar calcularFechaRecepcion(
             final GregorianCalendar fechaEmision
     ) {
@@ -309,17 +343,41 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
         );
     }
 
-    private void aceptar() {
-        // TODO(Luis): agregar a historial y desactivar
-        Placa placa = this.obtenerPlaca();
+    private void guardarAVehiculoNuevo(final Placa placaNueva) {
+        Vehiculo vehiculo = this.confirmacionPlacasDTO.getAutomovil();
+        vehiculo.setPlaca(placaNueva);
+
         try {
-            unitOfWork.placasDAO().save(placa);
-
-            String msgExito = "Placas registradas exitosamente."
-                    + "Matricula: " + placa.getMatricula();
-            Dialogs.mostrarMensajeExito(rootPane, msgExito);
-
+            unitOfWork.vehiculosDAO().update(vehiculo);
+            this.mostrarMensajePlacasRegistradas(placaNueva);
             this.regresarMenuPrincipal();
+        } catch (PersistenciaException ex) {
+            LOG.log(Level.SEVERE, ex.getMessage());
+            Dialogs.mostrarMensajeError(rootPane, "Algo salió mal.");
+        }
+    }
+
+    private void guardarAVehiculoUsado(final Placa placaNueva) {
+        Vehiculo vehiculo = this.confirmacionPlacasDTO.getAutomovil();
+        Placa placaVieja = vehiculo.getPlaca();
+        placaVieja.setEstado(EstadoPlaca.DESACTIVADA);
+        placaVieja.setVehiculoPasado(vehiculo);
+
+        if (vehiculo.getHistorialPlacas() == null) {
+            vehiculo.setHistorialPlacas(new LinkedList<>());
+        }
+        List<Placa> historialPlacas = vehiculo.getHistorialPlacas();
+
+        try {
+            placaVieja = unitOfWork.placasDAO().update(placaVieja);
+            historialPlacas.add(placaVieja);
+            vehiculo.setHistorialPlacas(historialPlacas);
+
+            vehiculo.setPlaca(placaNueva);
+            unitOfWork.vehiculosDAO().update(vehiculo);
+            this.mostrarMensajePlacasRegistradas(placaNueva);
+            this.regresarMenuPrincipal();
+
         } catch (PersistenciaException ex) {
             LOG.log(Level.SEVERE, ex.getMessage());
             Dialogs.mostrarMensajeError(rootPane, "Algo salió mal.");
@@ -331,6 +389,13 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
     }
 
     private void regresar() {
-        FormUtils.regresar(this, new FrmTramitePlacasNuevo());
+        FormUtils.regresar(this, frmAnterior);
     }
+
+    private void mostrarMensajePlacasRegistradas(final Placa placaNueva) {
+        String msgExito = "Placas registradas exitosamente. \n"
+                + "Matricula: " + placaNueva.getMatricula();
+        Dialogs.mostrarMensajeExito(rootPane, msgExito);
+    }
+
 }

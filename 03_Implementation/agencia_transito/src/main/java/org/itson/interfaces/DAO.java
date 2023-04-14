@@ -36,13 +36,12 @@ public interface DAO<T> {
     T save(T t) throws PersistenciaException;
 
     /**
-     * Actualiza el elemento de la base de datos según los parametros dados.
+     * Actualiza el elemento de la base de datos.
      *
      * @param t
-     * @param params
      * @return El elemento actualizado.
      */
-    T update(T t, String[] params);
+    T update(T t) throws PersistenciaException;
 
     /**
      * Elimina el elemento de la base de datos según una ID dada.

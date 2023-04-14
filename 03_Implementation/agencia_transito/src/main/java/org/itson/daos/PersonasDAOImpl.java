@@ -101,7 +101,7 @@ public final class PersonasDAOImpl implements PersonasDAO {
     }
 
     @Override
-    public Persona update(final Persona t, final String[] params) {
+    public Persona update(final Persona t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
