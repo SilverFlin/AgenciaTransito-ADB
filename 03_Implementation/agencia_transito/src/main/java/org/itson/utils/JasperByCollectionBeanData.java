@@ -23,37 +23,40 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import org.itson.dominio.Tramite;
+import org.itson.presentacion.ReporteTramiteDTO;
 
 /**
  *
  * @author march
  */
-public class JasperByCollectionBeanData {
-    
-    public JasperByCollectionBeanData(List<Tramite> listaTramites) throws JRException{
-        String outputFile = "\\src\\main\\resources\\pdfs" + "ReporteTramites.pdf";
-        
+public final class JasperByCollectionBeanData {
+
+    private JasperByCollectionBeanData() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    public static void crearPDF(List<ReporteTramiteDTO> listaTramites) throws JRException {
+        String outputFile = "src\\main\\resources\\pdfs" + "ReporteTramites_A4.pdf";
+
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(listaTramites);
-    
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("Parameter1", itemsJRBean);
-        
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("CollectionBeanParam", itemsJRBean);
+
         try {
-            InputStream input = new FileInputStream(new File("\\src\\main\\resources\\pdfs\\ReporteTramites_A4.jrxml"));
-            
+            InputStream input = new FileInputStream(new File("src\\main\\resources\\pdfs\\ReporteTramites_A4.jrxml"));
+
             JasperDesign jasperDesign = JRXmlLoader.load(input);
-            
+
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-            
+
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
-            
-            JasperViewer.viewReport(jasperPrint);
-            
+
+            JasperViewer.viewReport(jasperPrint, false);
+
             System.out.println("Archivo generado...");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(JasperByCollectionBeanData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 }
