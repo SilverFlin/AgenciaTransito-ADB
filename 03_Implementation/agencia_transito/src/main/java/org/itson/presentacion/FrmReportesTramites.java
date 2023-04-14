@@ -152,7 +152,7 @@ public class FrmReportesTramites extends JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Tipo", "Nombres de persona", "Costo", "Fecha realización"
+                "Tipo", "Tramitante", "Costo", "Fecha expedición"
             }
         ) {
             Class[] types = new Class [] {
@@ -173,11 +173,6 @@ public class FrmReportesTramites extends JFrame {
         tblTramites.setColumnSelectionAllowed(true);
         panelTablaCuentas.setViewportView(tblTramites);
         tblTramites.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        if (tblTramites.getColumnModel().getColumnCount() > 0) {
-            tblTramites.getColumnModel().getColumn(5).setMinWidth(50);
-            tblTramites.getColumnModel().getColumn(5).setPreferredWidth(50);
-            tblTramites.getColumnModel().getColumn(5).setMaxWidth(50);
-        }
 
         Background.add(panelTablaCuentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 560, 190));
 
@@ -293,7 +288,7 @@ public class FrmReportesTramites extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnCrearPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPDFActionPerformed
-
+        
     }//GEN-LAST:event_btnCrearPDFActionPerformed
 
     /**
