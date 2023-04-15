@@ -79,7 +79,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
         rbtnAnhoNacimiento = new javax.swing.JRadioButton();
         rbtnRFC = new javax.swing.JRadioButton();
         rbtnNombre = new javax.swing.JRadioButton();
-        txtNombre1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 400));
@@ -237,10 +237,10 @@ public class FrmConsultaBuscarPersona extends JFrame {
         rbtnNombre.setBackground(new java.awt.Color(173, 139, 106));
         Background.add(rbtnNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 100, 30, -1));
 
-        txtNombre1.setForeground(new java.awt.Color(51, 51, 51));
-        txtNombre1.setToolTipText("");
-        txtNombre1.setBorder(null);
-        Background.add(txtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 140, 20));
+        txtNombre.setForeground(new java.awt.Color(51, 51, 51));
+        txtNombre.setToolTipText("");
+        txtNombre.setBorder(null);
+        Background.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 140, 20));
 
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 400));
 
@@ -264,7 +264,12 @@ public class FrmConsultaBuscarPersona extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
-        this.avanzarPagina();
+        if (this.hayFiltrosSeleccionados()) {
+            this.avanzarPaginaFiltros();
+        } else {
+            this.avanzarPagina();
+        }
+
     }//GEN-LAST:event_btnAdelanteActionPerformed
     /**
      * Retrocede en la pagina de operaciones.
@@ -273,7 +278,11 @@ public class FrmConsultaBuscarPersona extends JFrame {
      */
     @SuppressWarnings("all")
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
-        this.retrocederPagina();
+        if (this.hayFiltrosSeleccionados()) {
+            this.retrocederPaginaFiltros();
+        } else {
+            this.retrocederPagina();
+        }
     }//GEN-LAST:event_btnRetrocederActionPerformed
 
     /**
@@ -308,7 +317,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
     private javax.swing.JRadioButton rbtnRFC;
     private javax.swing.JTable tblPersonas;
     private javax.swing.JTextField txtAnhoNacimiento;
-    private javax.swing.JTextField txtNombre1;
+    private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
     //CHECKSTYLE:ON
@@ -329,14 +338,37 @@ public class FrmConsultaBuscarPersona extends JFrame {
         tblPersonas.getColumnModel()
                 .getColumn(columnaBoton)
                 .setCellRenderer(botonRender);
+        List<Persona> listaPersonas
+                = this.unitOfWork.personasDAO().getAll(paginado);
+        cargarTablaPersonas(listaPersonas);
+    }
 
-        cargarTablaPersonas();
+    private void cargarTablaPersonas(List<Persona> listaPersonas) {
+        if (listaPersonas.isEmpty()) {
+            this.paginado.retrocederPag();
+            return;
+        }
+
+        DefaultTableModel modeloTabla1
+                = (DefaultTableModel) this.tblPersonas.getModel();
+        modeloTabla1.setRowCount(0);
+
+        for (Persona persona : listaPersonas) {
+            Object[] fila = {
+                persona.getRfc(),
+                persona.getNombres(),
+                persona.getApellidoPaterno(),
+                persona.getApellidoMaterno(),
+                this.formatoFecha(persona.getFechaNacimiento())
+            };
+            modeloTabla1.addRow(fila);
+        }
+
     }
 
     private void cargarTablaPersonas() {
         List<Persona> listaPersonas
                 = this.unitOfWork.personasDAO().getAll(paginado);
-
         if (listaPersonas.isEmpty()) {
             this.paginado.retrocederPag();
             return;
@@ -369,36 +401,58 @@ public class FrmConsultaBuscarPersona extends JFrame {
         }
 
         if (this.rbtnRFC.isSelected()) {
-            String rfc = this.txtRFC.getText();
-            Optional<Persona> optPersona
-                    = this.unitOfWork.personasDAO().getByRFC(rfc);
-            if (optPersona.isPresent()) {
-                listaPersonas.add(optPersona.get());
+            if (!this.txtRFC.getText().equalsIgnoreCase("")) {
+                String rfc = this.txtRFC.getText();
+                Optional<Persona> optPersona
+                        = this.unitOfWork.personasDAO().getByRFC(rfc);
+                if (optPersona.isPresent()) {
+                    listaPersonas.add(optPersona.get());
+                }
+
+                if (listaPersonas.isEmpty()) {
+                    mostrarMensajeError(rootPane, "No se encontraron registros.");
+                    return;
+                }
+            } else {
+                mostrarMensajeError(rootPane, "Ingrese un RFC.");
             }
         }
 
         if (this.rbtnNombre.isSelected()) {
-            String nombre = this.txtNombre1.getText();
-            List<Persona> personasConsultadas
-                    = this.unitOfWork.personasDAO().getByNombre(nombre);
+            if (!this.txtNombre.getText().equalsIgnoreCase("")) {
+                String nombre = this.txtNombre.getText();
+                List<Persona> personasConsultadas
+                        = this.unitOfWork.personasDAO().getByNombre(nombre, this.paginado);
 
-            listaPersonas.addAll(personasConsultadas);
+                listaPersonas.addAll(personasConsultadas);
+
+                if (listaPersonas.isEmpty()) {
+                    mostrarMensajeError(rootPane, "No se encontraron registros.");
+                    return;
+                }
+            } else {
+                mostrarMensajeError(rootPane, "Ingrese un nombre.");
+            }
         }
 
         if (this.rbtnAnhoNacimiento.isSelected()) {
-            Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
-            List<Persona> personasConsultadas
-                    = this.unitOfWork.personasDAO().getByAnho(anho);
+            if (!this.txtAnhoNacimiento.getText().equalsIgnoreCase("")) {
+                Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
+                List<Persona> personasConsultadas
+                        = this.unitOfWork.personasDAO().getByAnho(anho, this.paginado);
 
-            listaPersonas.addAll(personasConsultadas);
+                listaPersonas.addAll(personasConsultadas);
+
+                if (listaPersonas.isEmpty()) {
+                    mostrarMensajeError(rootPane, "No se encontraron registros.");
+                    return;
+                }
+            } else {
+                mostrarMensajeError(rootPane, "Ingrese un año de nacimiento.");
+            }
         }
 
-        if (listaPersonas.isEmpty()) {
-            mostrarMensajeError(rootPane, "No se encontraron registros.");
-            return;
-        }
-
-        this.cargarTablaPersonas();
+        this.cargarTablaPersonas(listaPersonas);
     }
 
     private boolean hayFiltrosSeleccionados() {
@@ -418,6 +472,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
     }
 
     private void retrocederPagina() {
+
         this.paginado.retrocederPag();
         this.cargarTablaPersonas();
     }
@@ -425,5 +480,69 @@ public class FrmConsultaBuscarPersona extends JFrame {
     private void avanzarPagina() {
         this.paginado.avanzarPag();
         this.cargarTablaPersonas();
+    }
+
+    private void retrocederPaginaFiltros() {
+        List<Persona> listaPersonas = new ArrayList<>();
+        this.paginado.retrocederPag();
+
+        if (this.rbtnRFC.isSelected()) {
+            String rfc = this.txtRFC.getText();
+            Optional<Persona> optPersona
+                    = this.unitOfWork.personasDAO().getByRFC(rfc);
+            if (optPersona.isPresent()) {
+                listaPersonas.add(optPersona.get());
+            }
+        }
+
+        if (this.rbtnNombre.isSelected()) {
+            String nombre = this.txtNombre.getText();
+            List<Persona> personasConsultadas
+                    = this.unitOfWork.personasDAO().getByNombre(nombre, this.paginado);
+
+            listaPersonas.addAll(personasConsultadas);
+        }
+
+        if (this.rbtnAnhoNacimiento.isSelected()) {
+            Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
+            List<Persona> personasConsultadas
+                    = this.unitOfWork.personasDAO().getByAnho(anho, this.paginado);
+
+            listaPersonas.addAll(personasConsultadas);
+        }
+
+        this.cargarTablaPersonas(listaPersonas);
+    }
+
+    private void avanzarPaginaFiltros() {
+        List<Persona> listaPersonas = new ArrayList<>();
+        this.paginado.avanzarPag();
+
+        if (this.rbtnRFC.isSelected()) {
+            String rfc = this.txtRFC.getText();
+            Optional<Persona> optPersona
+                    = this.unitOfWork.personasDAO().getByRFC(rfc);
+            if (optPersona.isPresent()) {
+                listaPersonas.add(optPersona.get());
+            }
+        }
+
+        if (this.rbtnNombre.isSelected()) {
+            String nombre = this.txtNombre.getText();
+            List<Persona> personasConsultadas
+                    = this.unitOfWork.personasDAO().getByNombre(nombre, this.paginado);
+
+            listaPersonas.addAll(personasConsultadas);
+        }
+
+        if (this.rbtnAnhoNacimiento.isSelected()) {
+            Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
+            List<Persona> personasConsultadas
+                    = this.unitOfWork.personasDAO().getByAnho(anho, this.paginado);
+
+            listaPersonas.addAll(personasConsultadas);
+        }
+
+        this.cargarTablaPersonas(listaPersonas);
     }
 }
