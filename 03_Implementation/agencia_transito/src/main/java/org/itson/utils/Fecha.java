@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class Fecha {
 
@@ -17,7 +17,7 @@ public class Fecha {
     /**
      * Crea la fecha a partir de una instancia de GregorianCalendar.
      *
-     * @param fecha
+     * @param fecha Fecha que se desea instanciar.
      */
     public Fecha(final GregorianCalendar fecha) {
         this.gregorianCalendar = fecha;
@@ -28,16 +28,17 @@ public class Fecha {
      * hacer el ajuste en mes, ya que GregorianCalendar inicia del 0 en los
      * meses.
      *
-     * @param anho
-     * @param mes
-     * @param dia
+     * @param anho Año de la fecha.
+     * @param mes Mes de la fecha.
+     * @param dia Día de la fecha.
      */
     public Fecha(final int anho, final int mes, final int dia) {
         this.gregorianCalendar = new GregorianCalendar(anho, mes - 1, dia);
     }
 
     /**
-     *
+     * Método que regresa el año.
+     * 
      * @return El año.
      */
     public int getAnho() {
@@ -45,7 +46,8 @@ public class Fecha {
     }
 
     /**
-     *
+     * Método que regresa el mes.
+     * 
      * @return El mes ya ajustado.
      */
     public int getMes() {
@@ -53,7 +55,8 @@ public class Fecha {
     }
 
     /**
-     *
+     * Método que regresa el día.
+     * 
      * @return El día del mes (1-31).
      */
     public int getDia() {
@@ -61,7 +64,8 @@ public class Fecha {
     }
 
     /**
-     *
+     * Método que establece el año.
+     * 
      * @param anho
      */
     public void setAnho(final int anho) {
@@ -69,7 +73,8 @@ public class Fecha {
     }
 
     /**
-     *
+     * Método que establece el mes.
+     * 
      * @param mes
      */
     public void setMes(final int mes) {
@@ -77,7 +82,8 @@ public class Fecha {
     }
 
     /**
-     *
+     * Método que establece el día.
+     * 
      * @param dia
      */
     public void setDia(final int dia) {

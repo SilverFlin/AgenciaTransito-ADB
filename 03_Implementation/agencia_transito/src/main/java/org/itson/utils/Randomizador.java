@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public final class Randomizador {
 
@@ -28,8 +28,10 @@ public final class Randomizador {
     }
 
     /**
+     * Método que regresa una cadena de números aleatorios en tipo String con
+     * caractéres dependiendo de la cantidad ingresada.
      *
-     * @param digCount
+     * @param digCount Cantidad de caractéres deseados.
      * @return Numero aleatorio generado en string.
      */
     public static String getRandomStringNumber(final int digCount) {
@@ -42,8 +44,10 @@ public final class Randomizador {
     }
 
     /**
+     * Método que regresa un número aleatorio entre el 0 y la cantidad que sea
+     * ingresada.
      *
-     * @param max
+     * @param max El máximo número posible.
      * @return Integer aleatorio entre 0 y max.
      */
     public static Integer getRandomNumber(final int max) {
@@ -51,9 +55,11 @@ public final class Randomizador {
     }
 
     /**
+     * Método que crea una cadena de letras aleatorias dependiendo de la
+     * cantidad ingresada.
      *
-     * @param charCount
-     * @return Letras aleatorias generadas
+     * @param charCount Cantidad de letras que deseas.
+     * @return Letras aleatorias generadas.
      */
     public static String getRandomLetras(final int charCount) {
         StringBuilder sb = new StringBuilder(charCount);

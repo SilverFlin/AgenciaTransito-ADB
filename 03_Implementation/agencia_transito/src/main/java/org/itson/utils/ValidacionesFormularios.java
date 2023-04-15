@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public final class ValidacionesFormularios {
 
@@ -60,8 +60,8 @@ public final class ValidacionesFormularios {
     }
     
     /**
-     * Método que valida que el nombre contenga de 3 a 40 caracteres, siendo
-     * estos: letras y espacios.
+     * Método que valida que el la marca y línea contenga de 3 a 40 caracteres, siendo
+     * estos: letras, números y espacios.
      *
      * @param s Cadena de texto.
      * @return coincidencia entre los validadores y la cadena de texto.
@@ -77,7 +77,7 @@ public final class ValidacionesFormularios {
     }
 
     /**
-     * Método que valida que el nombre contenga de 3 a 40 caracteres, siendo
+     * Método que valida que el color contenga de 3 a 40 caracteres, siendo
      * estos: letras y espacios.
      *
      * @param s Cadena de texto.
@@ -94,8 +94,8 @@ public final class ValidacionesFormularios {
     }
     
     /**
-     * Método que valida que los apellidos contengan de 3 a 40 caracteres,
-     * siendo estos: letras.
+     * Método que valida que el modelo contenga 4 caracteres,
+     * siendo estos: números.
      *
      * @param s Cadena de texto.
      * @return coincidencia entre los validadores y la cadena de texto.
@@ -111,8 +111,8 @@ public final class ValidacionesFormularios {
     }
 
     /**
-     * Método que valida que el nombre contenga de 3 a 40 caracteres, siendo
-     * estos: letras y espacios.
+     * Método que valida que el número de serie contenga 6 caracteres, siendo
+     * estos: números y letras.
      *
      * @param s Cadena de texto.
      * @return coincidencia entre los validadores y la cadena de texto.

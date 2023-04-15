@@ -16,7 +16,7 @@ import org.itson.excepciones.EncriptacionException;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public final class Encriptador {
 

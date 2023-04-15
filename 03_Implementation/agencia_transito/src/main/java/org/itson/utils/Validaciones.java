@@ -2,7 +2,7 @@ package org.itson.utils;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public final class Validaciones {
 

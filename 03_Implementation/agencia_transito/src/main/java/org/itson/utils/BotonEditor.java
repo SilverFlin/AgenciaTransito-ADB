@@ -17,7 +17,7 @@ import static org.itson.utils.FormUtils.cargarForm;
 
 /**
  *
- * @author march
+ * @author Luis Toledo & Misael Marchena
  */
 public class BotonEditor extends AbstractCellEditor implements TableCellEditor {
 
@@ -29,9 +29,9 @@ public class BotonEditor extends AbstractCellEditor implements TableCellEditor {
     /**
      * Constructor principal.
      *
-     * @param frame
-     * @param unit
-     * @param tabla
+     * @param frame Frame donde se encuentra la tabla.
+     * @param unit Objeto para utilizar DAOS.
+     * @param tabla Tabla donde se pondrá el botón.
      */
     public BotonEditor(
             final JFrame frame,
@@ -67,14 +67,14 @@ public class BotonEditor extends AbstractCellEditor implements TableCellEditor {
     }
 
     /**
-     * Regresa el boton generado, hace falta cambiar.
+     * Regresa el boton generado.
      *
-     * @param table
-     * @param value
-     * @param isSelected
-     * @param row
-     * @param column
-     * @return
+     * @param table Tabla donde se pondrá el botón.
+     * @param value Valor del objeto.
+     * @param isSelected Atributo para saber si fue seleccionado.
+     * @param row Fila donde se pondrá.
+     * @param column Columna donde se pondrá.
+     * @return Botón generado.
      */
     @Override
     public Component getTableCellEditorComponent(

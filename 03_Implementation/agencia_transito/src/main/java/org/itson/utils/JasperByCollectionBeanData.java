@@ -27,14 +27,19 @@ import org.itson.presentacion.ReporteTramiteDTO;
 
 /**
  *
- * @author march
+ * @author Luis Toledo & Misael Marchena
  */
 public final class JasperByCollectionBeanData {
 
     private JasperByCollectionBeanData() {
         throw new IllegalStateException("Utility class");
     }
-
+    /**
+     * Método que abre una ventana con la tabla en un archivo de tipo PDF.
+     * 
+     * @param listaTramites Trámites que se quieren visualizar en el PDF.
+     * @throws JRException Excepción que aparece cuando no se logra realizar el procedimiento.
+     */
     public static void crearPDF(List<ReporteTramiteDTO> listaTramites) throws JRException {
 
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(listaTramites);

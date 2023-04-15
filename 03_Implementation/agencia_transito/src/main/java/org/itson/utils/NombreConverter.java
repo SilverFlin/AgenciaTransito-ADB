@@ -1,15 +1,12 @@
 package org.itson.utils;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import org.itson.excepciones.EncriptacionException;
-import org.itson.utils.Encriptador;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 @Converter
 public class NombreConverter implements AttributeConverter<String, String> {

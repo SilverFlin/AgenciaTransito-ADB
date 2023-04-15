@@ -2,7 +2,7 @@ package org.itson.utils;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class Periodo {
 
@@ -18,8 +18,8 @@ public class Periodo {
     /**
      * Constructor único.
      *
-     * @param fechaInicio
-     * @param fechaFin
+     * @param fechaInicio Fecha de inicio a inicializar.
+     * @param fechaFin Fecha final a inicializar
      */
     public Periodo(final Fecha fechaInicio, final Fecha fechaFin) {
         if (fechaInicio.getCalendar().after(fechaFin.getCalendar())) {
@@ -32,6 +32,7 @@ public class Periodo {
     }
 
     /**
+     * Método que regresa la fecha de inicio.
      *
      * @return Fecha Inicio del periodo.
      */
@@ -40,6 +41,7 @@ public class Periodo {
     }
 
     /**
+     * Método que regresa la fecha final.
      *
      * @return Fecha Fin del periodo.
      */

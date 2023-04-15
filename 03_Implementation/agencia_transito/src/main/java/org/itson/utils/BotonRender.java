@@ -6,23 +6,29 @@ package org.itson.utils;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 /**
  *
- * @author march
+ * @author Luis Toledo & Misael Marchena
  */
 public class BotonRender implements TableCellRenderer {
 
+    /**
+     * Botón que se pondrá en la tabla.
+     */
     private JButton boton;
 
+    /**
+     * Método constructor que inicializa el botón, establece el texto, color y
+     * color de fondo.
+     */
     public BotonRender() {
         boton = new JButton();
         boton.setText("Trámites");
-        boton.setBackground(new Color(102,10,10));
+        boton.setBackground(new Color(102, 10, 10));
         boton.setForeground(Color.WHITE);
     }
 

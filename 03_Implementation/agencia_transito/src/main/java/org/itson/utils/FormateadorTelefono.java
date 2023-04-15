@@ -2,7 +2,7 @@ package org.itson.utils;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class FormateadorTelefono {
 
@@ -28,8 +28,9 @@ public class FormateadorTelefono {
     private static final int TAMANHO_GRUPO = 4;
 
     /**
-     *
-     * @param rawTelefono
+     *  Método que aplica un formato a la cadena ingresada.
+     * 
+     * @param rawTelefono Cadena de teléfono al que se desea poner formato.
      */
     public FormateadorTelefono(
             final String rawTelefono
