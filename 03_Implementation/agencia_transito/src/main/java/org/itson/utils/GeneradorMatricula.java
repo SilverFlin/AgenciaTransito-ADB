@@ -4,10 +4,10 @@ package org.itson.utils;
  *
  * @author Luis Toledo n Misael Marchena
  */
-public class GeneradorMatricula {
+public final class GeneradorMatricula {
 
     /**
-     * Separador utilizado en la matricula
+     * Separador utilizado en la matricula.
      */
     private static final char SEPARADOR = '-';
 

@@ -156,7 +156,7 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     * Establece el dueño del vehículo
+     * Establece el dueño del vehículo.
      *
      * @param duenho dueño del vehículo
      */

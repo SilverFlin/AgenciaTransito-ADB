@@ -97,7 +97,7 @@ public class Placa extends Tramite {
 
     /**
      * Regresa la matrícula de la placa.
-     * 
+     *
      * @return matrícula con formato AAA-999.
      */
     public String getMatricula() {
@@ -106,7 +106,7 @@ public class Placa extends Tramite {
 
     /**
      * Establece la matrícula de la placa.
-     * 
+     *
      * @param matricula Matrícula a establecer.
      */
     public void setMatricula(final String matricula) {
@@ -115,7 +115,7 @@ public class Placa extends Tramite {
 
     /**
      * Regresa la matrícula de la placa.
-     * 
+     *
      * @return fecha de recepción de la placa.
      */
     public Calendar getFechaRecepcion() {
@@ -124,7 +124,7 @@ public class Placa extends Tramite {
 
     /**
      * Establece la fecha de recepción de la placa.
-     * 
+     *
      * @param fechaRecepcion Fecha de recepción a establecer.
      */
     public void setFechaRecepcion(final Calendar fechaRecepcion) {
@@ -133,7 +133,7 @@ public class Placa extends Tramite {
 
     /**
      * Regresa la matrícula de la placa.
-     * 
+     *
      * @return Tipo de la placa.
      */
     public TipoPlaca getTipo() {
@@ -142,7 +142,7 @@ public class Placa extends Tramite {
 
     /**
      * Establece el tipo de la placa.
-     * 
+     *
      * @param tipo Tipo a establecer.
      */
     public void setTipo(final TipoPlaca tipo) {
@@ -151,7 +151,7 @@ public class Placa extends Tramite {
 
     /**
      * Regresa la matrícula de la placa.
-     * 
+     *
      * @return Vehículo a la que la placa pertenece.
      */
     public Vehiculo getVehiculo() {
@@ -160,7 +160,7 @@ public class Placa extends Tramite {
 
     /**
      * Establece vehículo de la placa.
-     * 
+     *
      * @param vehiculo Vehículo a establecer.
      */
     public void setVehiculo(final Vehiculo vehiculo) {
@@ -169,7 +169,7 @@ public class Placa extends Tramite {
 
     /**
      * Regresa la matrícula de la placa.
-     * 
+     *
      * @return el estado de la placa.
      */
     public EstadoPlaca getEstado() {
@@ -178,7 +178,7 @@ public class Placa extends Tramite {
 
     /**
      * Establece el estado de la placa.
-     * 
+     *
      * @param estado Estado de la placa a establecer.
      */
     public void setEstado(final EstadoPlaca estado) {
@@ -187,7 +187,7 @@ public class Placa extends Tramite {
 
     /**
      * Regresa la matrícula de la placa.
-     * 
+     *
      * @return Vehiculo al que perteneció la placa.
      */
     public Vehiculo getVehiculoPasado() {
@@ -196,7 +196,7 @@ public class Placa extends Tramite {
 
     /**
      * Establece el vehículo pasado de la placa.
-     * 
+     *
      * @param vehiculoPasado vehiculo pasado.
      */
     public void setVehiculoPasado(final Vehiculo vehiculoPasado) {

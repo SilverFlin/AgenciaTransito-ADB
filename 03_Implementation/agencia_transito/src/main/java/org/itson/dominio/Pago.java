@@ -71,7 +71,7 @@ public class Pago implements Serializable {
 
     /**
      * Regresa el ID del pago.
-     * 
+     *
      * @return Llave primaria de la entidad.
      */
     public Long getId() {
@@ -80,7 +80,7 @@ public class Pago implements Serializable {
 
     /**
      * Establece el trámite que se pagará.
-     * 
+     *
      * @param id ID que se establecerá.
      */
     public void setId(final Long id) {
@@ -89,7 +89,7 @@ public class Pago implements Serializable {
 
     /**
      * Regresa la fecha en que se crea del pago.
-     * 
+     *
      * @return Fecha de pago.
      */
     public Calendar getFechaPago() {
@@ -98,7 +98,7 @@ public class Pago implements Serializable {
 
     /**
      * Establece la fecha en que se creó.
-     * 
+     *
      * @param fechaPago Fecha de creación que se establecerá.
      */
     public void setFechaPago(final Calendar fechaPago) {
@@ -107,7 +107,7 @@ public class Pago implements Serializable {
 
     /**
      * Regresa el monto del pago.
-     * 
+     *
      * @return Monto del pago.
      */
     public Double getMonto() {
@@ -116,7 +116,7 @@ public class Pago implements Serializable {
 
     /**
      * Establece el monto que se pagará.
-     * 
+     *
      * @param monto Monto que se establecerá.
      */
     public void setMonto(final Double monto) {
@@ -125,7 +125,7 @@ public class Pago implements Serializable {
 
     /**
      * Regresa el trámite que se pagará.
-     * 
+     *
      * @return Trámite relacionado.
      */
     public Tramite getTramite() {
@@ -134,7 +134,7 @@ public class Pago implements Serializable {
 
     /**
      * Establece el trámite que se pagará.
-     * 
+     *
      * @param tramite Trámite que se establecerá.
      */
     public void setTramite(final Tramite tramite) {

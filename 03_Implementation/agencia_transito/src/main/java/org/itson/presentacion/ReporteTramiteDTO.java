@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.presentacion;
 
 /**
@@ -10,9 +6,21 @@ package org.itson.presentacion;
  */
 public class ReporteTramiteDTO {
 
+    /**
+     * Tipo del trámite.
+     */
     private String tipo;
+    /**
+     * Tramitante.
+     */
     private String tramitante;
+    /**
+     * Costo del tramite.
+     */
     private String costo;
+    /**
+     * Fecha de inicio del trámite.
+     */
     private String fechaInicio;
 
     /**
@@ -23,7 +31,12 @@ public class ReporteTramiteDTO {
      * @param costo Costo del trámite.
      * @param fechaExpedicion Fecha de expedición del trámite.
      */
-    public ReporteTramiteDTO(String tipo, String tramitante, String costo, String fechaExpedicion) {
+    public ReporteTramiteDTO(
+            final String tipo,
+            final String tramitante,
+            final String costo,
+            final String fechaExpedicion
+    ) {
         this.tipo = tipo;
         this.tramitante = tramitante;
         this.costo = costo;
@@ -44,7 +57,7 @@ public class ReporteTramiteDTO {
      *
      * @param tipo Tipo de trámite a establecer.
      */
-    public void setTipo(String tipo) {
+    public void setTipo(final String tipo) {
         this.tipo = tipo;
     }
 
@@ -62,7 +75,7 @@ public class ReporteTramiteDTO {
      *
      * @param tramitante Tramitante a establecer.
      */
-    public void setTramitante(String tramitante) {
+    public void setTramitante(final String tramitante) {
         this.tramitante = tramitante;
     }
 
@@ -80,7 +93,7 @@ public class ReporteTramiteDTO {
      *
      * @param costo Costo a establecer.
      */
-    public void setCosto(String costo) {
+    public void setCosto(final String costo) {
         this.costo = costo;
     }
 
@@ -98,7 +111,7 @@ public class ReporteTramiteDTO {
      *
      * @param fechaInicio Fecha de expedición a establecer.
      */
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(final String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 

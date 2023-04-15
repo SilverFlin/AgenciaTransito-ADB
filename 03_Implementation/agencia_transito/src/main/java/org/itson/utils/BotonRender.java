@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.utils;
 
 import java.awt.Color;
@@ -28,12 +24,32 @@ public class BotonRender implements TableCellRenderer {
     public BotonRender() {
         boton = new JButton();
         boton.setText("Trámites");
-        boton.setBackground(new Color(102, 10, 10));
+        final int r = 102;
+        final int g = 10;
+        final int b = 10;
+        boton.setBackground(new Color(r, g, b));
         boton.setForeground(Color.WHITE);
     }
 
+    /**
+     * Regresa el botón generado.
+     *
+     * @param table
+     * @param value
+     * @param isSelected
+     * @param hasFocus
+     * @param row
+     * @param column
+     * @return
+     */
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(
+            final JTable table,
+            final Object value,
+            final boolean isSelected,
+            final boolean hasFocus,
+            final int row,
+            final int column) {
         return boton;
     }
 

@@ -31,7 +31,6 @@ final class Main {
     public static void main(final String[] args) {
 //        GeneradorRegistrosFalsos.generarRegistros(50);
         iniciar();
-        
     }
 
     /**

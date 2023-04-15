@@ -26,7 +26,7 @@ public class FrmRegistros extends javax.swing.JFrame {
     public FrmRegistros() {
         initComponents();
     }
-
+    @SuppressWarnings("all")
     private void registrarPersonas() throws PersistenciaException {
         UnitOfWork unit = new UnitOfWork();
         

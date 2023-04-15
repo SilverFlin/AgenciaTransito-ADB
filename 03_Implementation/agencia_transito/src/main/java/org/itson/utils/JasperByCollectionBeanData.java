@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.utils;
 
 import java.io.File;
@@ -31,36 +27,54 @@ import org.itson.presentacion.ReporteTramiteDTO;
  */
 public final class JasperByCollectionBeanData {
 
+    /**
+     * Logger.
+     */
+    private static final Logger LOG
+            = Logger.getLogger(JasperByCollectionBeanData.class.getName());
+
     private JasperByCollectionBeanData() {
         throw new IllegalStateException("Utility class");
     }
+
     /**
      * Método que abre una ventana con la tabla en un archivo de tipo PDF.
-     * 
+     *
      * @param listaTramites Trámites que se quieren visualizar en el PDF.
-     * @throws JRException Excepción que aparece cuando no se logra realizar el procedimiento.
+     * @throws JRException Excepción que aparece cuando no se logra realizar el
+     * procedimiento.
      */
-    public static void crearPDF(List<ReporteTramiteDTO> listaTramites) throws JRException {
+    public static void crearPDF(
+            final List<ReporteTramiteDTO> listaTramites
+    ) throws JRException {
 
-        JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(listaTramites);
+        JRBeanCollectionDataSource itemsJRBean
+                = new JRBeanCollectionDataSource(listaTramites);
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("CollectionBeanParam", itemsJRBean);
 
         try {
-            InputStream input = new FileInputStream(new File("src\\main\\resources\\pdfs\\ReporteTramites_A4.jrxml"));
+            String rutaInput
+                    = "src\\main\\resources\\pdfs\\ReporteTramites_A4.jrxml";
+            InputStream input = new FileInputStream(new File(rutaInput));
 
             JasperDesign jasperDesign = JRXmlLoader.load(input);
 
-            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            JasperReport jasperReport
+                    = JasperCompileManager.compileReport(jasperDesign);
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+            JasperPrint jasperPrint
+                    = JasperFillManager.fillReport(
+                            jasperReport,
+                            parameters,
+                            new JREmptyDataSource()
+                    );
 
             JasperViewer.viewReport(jasperPrint, false);
 
-            System.out.println("Archivo generado...");
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(JasperByCollectionBeanData.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         }
     }
 }

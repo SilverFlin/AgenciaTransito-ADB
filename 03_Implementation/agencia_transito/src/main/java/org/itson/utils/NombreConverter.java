@@ -18,7 +18,7 @@ public class NombreConverter implements AttributeConverter<String, String> {
      * @return El hash generado a partir del nombre
      */
     @Override
-    public String convertToDatabaseColumn(String nombre) {
+    public String convertToDatabaseColumn(final String nombre) {
         try {
             return new Encriptador().encriptar(nombre);
         } catch (EncriptacionException ex) {
@@ -33,7 +33,7 @@ public class NombreConverter implements AttributeConverter<String, String> {
      * @return El valor desencriptado.
      */
     @Override
-    public String convertToEntityAttribute(String hash) {
+    public String convertToEntityAttribute(final String hash) {
         try {
             return new Encriptador().desencriptar(hash);
         } catch (EncriptacionException ex) {

@@ -47,7 +47,7 @@ public class FrmTramiteLicenciaConfirmacion extends javax.swing.JFrame {
      * Constructor principal.
      *
      * @param licencia licencia a guardar.
-     * @param costo costo de la licencia. 
+     * @param costo costo de la licencia.
      * @param duracion duración de la licencia.
      * @param persona tramitante.
      */

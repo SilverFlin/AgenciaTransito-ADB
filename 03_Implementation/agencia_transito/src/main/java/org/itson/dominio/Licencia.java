@@ -69,7 +69,7 @@ public class Licencia extends Tramite {
 
     /**
      * Regresa la fecha de caducidad.
-     * 
+     *
      * @return fecha en la que la licencia caduca.
      */
     public Calendar getFechaCaducidad() {
@@ -78,7 +78,7 @@ public class Licencia extends Tramite {
 
     /**
      * Establece la fecha de caducidad.
-     * 
+     *
      * @param fechaCaducidad Fecha de caducidad a establecer.
      */
     public void setFechaCaducidad(final Calendar fechaCaducidad) {
@@ -87,7 +87,7 @@ public class Licencia extends Tramite {
 
     /**
      * Regresa los años de vigencia.
-     * 
+     *
      * @return los años a los que la licencia se tramitó.
      */
     public Integer getAnhosVigencia() {
@@ -96,7 +96,7 @@ public class Licencia extends Tramite {
 
     /**
      * Establece los años de vigencia.
-     * 
+     *
      * @param anhosVigencia Años de vigencia a establecer.
      */
     public void setAnhosVigencia(final Integer anhosVigencia) {
@@ -105,7 +105,7 @@ public class Licencia extends Tramite {
 
     /**
      * Regresa el tipo de la licencia.
-     * 
+     *
      * @return Tipo de la licencia.
      */
     public TipoLicencia getTipo() {
@@ -114,7 +114,7 @@ public class Licencia extends Tramite {
 
     /**
      * Establece el tipo de la licencia.
-     * 
+     *
      * @param tipo Tipo que se establecerá.
      */
     public void setTipo(final TipoLicencia tipo) {

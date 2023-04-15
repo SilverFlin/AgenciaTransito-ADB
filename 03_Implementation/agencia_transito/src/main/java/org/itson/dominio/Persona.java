@@ -76,7 +76,7 @@ public class Persona implements Serializable {
     @Convert(converter = NombreConverter.class)
     @Column(name = "nombres", nullable = false, length = LONGITUD_DEFAULT)
     private String nombres;
-    
+
     /**
      * Columna apellidoPaterno, con límite default, requerido.
      */
@@ -125,37 +125,6 @@ public class Persona implements Serializable {
     }
 
     /**
-     * Constructor que no incluye ID.
-     *
-     * @param rfc RFC de la persona.
-     * @param nombres Nombres de la persona.
-     * @param apellidoPaterno Apellido paterno de la persona.
-     * @param apellidoMaterno Apellido materno de la persona.
-     * @param fechaNacimiento Fecha de nacimiento de la persona.
-     * @param telefono Teléfono de la persona.
-     * @param vehiculos Vehiculos de la persona.
-     * @param tramites Tramites de la persona.
-     */
-    public Persona(
-            final String rfc,
-            final String nombres,
-            final String apellidoPaterno,
-            final String apellidoMaterno,
-            final Calendar fechaNacimiento,
-            final String telefono,
-            final List<Vehiculo> vehiculos,
-            final List<Tramite> tramites) {
-        this.rfc = rfc;
-        this.nombres = nombres;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.fechaNacimiento = fechaNacimiento;
-        this.telefono = telefono;
-        this.vehiculos = vehiculos;
-        this.tramites = tramites;
-    }
-
-    /**
      * Constructor que no incluye ID, vehículos y trámites.
      *
      * @param rfc RFC de la persona.
@@ -182,7 +151,7 @@ public class Persona implements Serializable {
 
     /**
      * Regresa el ID de la persona.
-     * 
+     *
      * @return Llave primaria de la entidad.
      */
     public Long getId() {
@@ -199,7 +168,7 @@ public class Persona implements Serializable {
 
     /**
      * Regresa el ID de la persona.
-     * 
+     *
      * @return RFC de la persona.
      */
     public String getRfc() {
@@ -216,7 +185,7 @@ public class Persona implements Serializable {
 
     /**
      * Regresa el ID de la persona.
-     * 
+     *
      * @return Nombres de la persona.
      */
     public String getNombres() {
@@ -233,7 +202,7 @@ public class Persona implements Serializable {
 
     /**
      * Regresa el ID de la persona.
-     * 
+     *
      * @return Apellido Paterno de la persona.
      */
     public String getApellidoPaterno() {
@@ -250,7 +219,7 @@ public class Persona implements Serializable {
 
     /**
      * Regresa el ID de la persona.
-     * 
+     *
      * @return Apellido Materno de la personal, si lo hay.
      */
     public String getApellidoMaterno() {
@@ -267,7 +236,7 @@ public class Persona implements Serializable {
 
     /**
      * Regresa el ID de la persona.
-     * 
+     *
      * @return Fecha de nacimiento de la persona.
      */
     public Calendar getFechaNacimiento() {
@@ -284,7 +253,7 @@ public class Persona implements Serializable {
 
     /**
      * Regresa el ID de la persona.
-     * 
+     *
      * @return Lista de vehículos asociados, si los hay.
      */
     public List<Vehiculo> getVehiculos() {
@@ -301,7 +270,7 @@ public class Persona implements Serializable {
 
     /**
      * Regresa el ID de la persona.
-     * 
+     *
      * @return Lista de trámites asociados, si los hay.
      */
     public List<Tramite> getTramites() {
@@ -318,7 +287,7 @@ public class Persona implements Serializable {
 
     /**
      * Regresa el ID de la persona.
-     * 
+     *
      * @return Teléfono con formato
      */
     public String getTelefono() {

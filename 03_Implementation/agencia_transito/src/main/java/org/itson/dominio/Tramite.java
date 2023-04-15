@@ -93,7 +93,7 @@ public class Tramite implements Serializable {
 
     /**
      * Regresa el id del trámite.
-     * 
+     *
      * @return Llave primaria de la entidad.
      */
     public Long getId() {
@@ -102,7 +102,7 @@ public class Tramite implements Serializable {
 
     /**
      * Establece el ID del trámite.
-     * 
+     *
      * @param id ID a establecer.
      */
     public void setId(final Long id) {
@@ -111,7 +111,7 @@ public class Tramite implements Serializable {
 
     /**
      * Regresa la fecha de realización del trámite.
-     * 
+     *
      * @return fecha inicio del tramite.
      */
     public Calendar getFechaInicio() {
@@ -120,7 +120,7 @@ public class Tramite implements Serializable {
 
     /**
      * Establece la fecha de realización del trámite.
-     * 
+     *
      * @param fechaInicio Fecha de realización a establecer.
      */
     public void setFechaInicio(final Calendar fechaInicio) {
@@ -129,7 +129,7 @@ public class Tramite implements Serializable {
 
     /**
      * Regresa el costo del trámite.
-     * 
+     *
      * @return Costo del tramite.
      */
     public Double getCosto() {
@@ -138,7 +138,7 @@ public class Tramite implements Serializable {
 
     /**
      * Establece el costo del trámite.
-     * 
+     *
      * @param costo Costo a establecer.
      */
     public void setCosto(final Double costo) {
@@ -147,7 +147,7 @@ public class Tramite implements Serializable {
 
     /**
      * Regresa la Persona que hizo el trámite.
-     * 
+     *
      * @return Clase Persona, que representa al tramitante.
      */
     public Persona getTramitante() {
@@ -156,7 +156,7 @@ public class Tramite implements Serializable {
 
     /**
      * Establece el tramitante del trámite.
-     * 
+     *
      * @param tramitante Tramitante a establecer.
      */
     public void setTramitante(final Persona tramitante) {
@@ -165,7 +165,7 @@ public class Tramite implements Serializable {
 
     /**
      * Regresa el Pago donde se pondrá el trámite.
-     * 
+     *
      * @return Pago relacionado al tramite, si lo hay.
      */
     public Pago getPago() {
@@ -174,7 +174,7 @@ public class Tramite implements Serializable {
 
     /**
      * Establece el Pago del trámite.
-     * 
+     *
      * @param pago Pago a establecer.
      */
     public void setPago(final Pago pago) {

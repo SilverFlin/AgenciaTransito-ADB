@@ -296,7 +296,6 @@ public class FrmConsultaBuscarPersona extends JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     //CHECKSTYLE:OFF
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.ButtonGroup botones;
@@ -321,9 +320,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
-    
-//CHECKSTYLE:ON
-
+    //CHECKSTYLE:ON
     private void configurarTabla() {
         botones.add(rbtnRFC);
         botones.add(rbtnNombre);
@@ -345,7 +342,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
         cargarTablaPersonas(listaPersonas);
     }
 
-    private void cargarTablaPersonas(List<Persona> listaPersonas) {
+    private void cargarTablaPersonas(final List<Persona> listaPersonas) {
         if (listaPersonas.isEmpty()) {
             this.paginado.retrocederPag();
             return;
@@ -412,7 +409,8 @@ public class FrmConsultaBuscarPersona extends JFrame {
                 }
 
                 if (listaPersonas.isEmpty()) {
-                    mostrarMensajeError(rootPane, "No se encontraron registros.");
+                    String msgError = "No se encontraron registros.";
+                    mostrarMensajeError(rootPane, msgError);
                     return;
                 }
             } else {
@@ -424,12 +422,14 @@ public class FrmConsultaBuscarPersona extends JFrame {
             if (!this.txtNombre.getText().equalsIgnoreCase("")) {
                 String nombre = this.txtNombre.getText();
                 List<Persona> personasConsultadas
-                        = this.unitOfWork.personasDAO().getByNombre(nombre, this.paginado);
+                        = this.unitOfWork.personasDAO()
+                                .getByNombre(nombre, this.paginado);
 
                 listaPersonas.addAll(personasConsultadas);
 
                 if (listaPersonas.isEmpty()) {
-                    mostrarMensajeError(rootPane, "No se encontraron registros.");
+                    String msError = "No se encontraron registros.";
+                    mostrarMensajeError(rootPane, msError);
                     return;
                 }
             } else {
@@ -439,18 +439,22 @@ public class FrmConsultaBuscarPersona extends JFrame {
 
         if (this.rbtnAnhoNacimiento.isSelected()) {
             if (!this.txtAnhoNacimiento.getText().equalsIgnoreCase("")) {
-                Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
+                Integer anho
+                        = Integer.valueOf(this.txtAnhoNacimiento.getText());
                 List<Persona> personasConsultadas
-                        = this.unitOfWork.personasDAO().getByAnho(anho, this.paginado);
+                        = this.unitOfWork.personasDAO()
+                                .getByAnho(anho, this.paginado);
 
                 listaPersonas.addAll(personasConsultadas);
 
                 if (listaPersonas.isEmpty()) {
-                    mostrarMensajeError(rootPane, "No se encontraron registros.");
+                    String msgError = "No se encontraron registros.";
+                    mostrarMensajeError(rootPane, msgError);
                     return;
                 }
             } else {
-                mostrarMensajeError(rootPane, "Ingrese un año de nacimiento.");
+                String msgError = "Ingrese un año de nacimiento.";
+                mostrarMensajeError(rootPane, msgError);
             }
         }
 
@@ -500,7 +504,8 @@ public class FrmConsultaBuscarPersona extends JFrame {
         if (this.rbtnNombre.isSelected()) {
             String nombre = this.txtNombre.getText();
             List<Persona> personasConsultadas
-                    = this.unitOfWork.personasDAO().getByNombre(nombre, this.paginado);
+                    = this.unitOfWork.personasDAO()
+                            .getByNombre(nombre, this.paginado);
 
             listaPersonas.addAll(personasConsultadas);
         }
@@ -508,7 +513,8 @@ public class FrmConsultaBuscarPersona extends JFrame {
         if (this.rbtnAnhoNacimiento.isSelected()) {
             Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
             List<Persona> personasConsultadas
-                    = this.unitOfWork.personasDAO().getByAnho(anho, this.paginado);
+                    = this.unitOfWork.personasDAO()
+                            .getByAnho(anho, this.paginado);
 
             listaPersonas.addAll(personasConsultadas);
         }
@@ -532,7 +538,8 @@ public class FrmConsultaBuscarPersona extends JFrame {
         if (this.rbtnNombre.isSelected()) {
             String nombre = this.txtNombre.getText();
             List<Persona> personasConsultadas
-                    = this.unitOfWork.personasDAO().getByNombre(nombre, this.paginado);
+                    = this.unitOfWork.personasDAO()
+                            .getByNombre(nombre, this.paginado);
 
             listaPersonas.addAll(personasConsultadas);
         }
@@ -540,7 +547,8 @@ public class FrmConsultaBuscarPersona extends JFrame {
         if (this.rbtnAnhoNacimiento.isSelected()) {
             Integer anho = Integer.valueOf(this.txtAnhoNacimiento.getText());
             List<Persona> personasConsultadas
-                    = this.unitOfWork.personasDAO().getByAnho(anho, this.paginado);
+                    = this.unitOfWork.personasDAO()
+                            .getByAnho(anho, this.paginado);
 
             listaPersonas.addAll(personasConsultadas);
         }

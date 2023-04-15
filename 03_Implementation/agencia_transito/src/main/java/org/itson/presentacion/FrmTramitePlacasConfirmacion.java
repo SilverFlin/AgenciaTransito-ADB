@@ -320,7 +320,7 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
         placa.setCosto(confirmacionPlacasDTO.getCosto());
         placa.setTramitante(confirmacionPlacasDTO.getPersona());
         placa.setEstado(EstadoPlaca.ACTIVADA);
-        
+
         Pago pago = new Pago();
         pago.setFechaPago(fechaEmision);
         pago.setMonto(this.confirmacionPlacasDTO.getCosto());

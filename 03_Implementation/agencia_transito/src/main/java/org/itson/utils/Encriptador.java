@@ -20,9 +20,18 @@ import org.itson.excepciones.EncriptacionException;
  */
 public final class Encriptador {
 
+    /**
+     * Tipo de algoritmo.
+     */
     private static final String ALGORITHM = "AES";
+    /**
+     * Transformación del algoritmo.
+     */
     private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
-    private final String KEY = "0MMPLATRMMPLATR0";
+    /**
+     * Llave secreta.
+     */
+    private final String key = "0MMPLATRMMPLATR0";
 
     /**
      * Logger.
@@ -31,7 +40,7 @@ public final class Encriptador {
             = Logger.getLogger(Encriptador.class.getName());
 
     /**
-     * Constructor por defecto
+     * Constructor por defecto.
      */
     public Encriptador() {
         // No hace falta inicializar nada.
@@ -45,11 +54,12 @@ public final class Encriptador {
      * Exception.
      *
      */
-    public String encriptar(String input) throws EncriptacionException {
+    public String encriptar(final String input) throws EncriptacionException {
 
         try {
-            SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
-            IvParameterSpec ivSpec = new IvParameterSpec(KEY.getBytes());
+            SecretKeySpec keySpec
+                    = new SecretKeySpec(key.getBytes(), ALGORITHM);
+            IvParameterSpec ivSpec = new IvParameterSpec(key.getBytes());
 
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
@@ -74,13 +84,17 @@ public final class Encriptador {
      * @throws org.itson.excepciones.EncriptacionException Encriptacion
      * Exception.
      */
-    public String desencriptar(String hash) throws EncriptacionException {
+    public String desencriptar(final String hash) throws EncriptacionException {
         try {
-            SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
-            IvParameterSpec ivSpec = new IvParameterSpec(KEY.getBytes());
+            SecretKeySpec keySpec
+                    = new SecretKeySpec(key.getBytes(), ALGORITHM);
+            IvParameterSpec ivSpec = new IvParameterSpec(key.getBytes());
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
             cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
-            byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(hash.getBytes()));
+            byte[] decryptedBytes
+                    = cipher.doFinal(
+                            Base64.getDecoder().decode(hash.getBytes())
+                    );
             return new String(decryptedBytes);
         } catch (NoSuchAlgorithmException
                 | NoSuchPaddingException

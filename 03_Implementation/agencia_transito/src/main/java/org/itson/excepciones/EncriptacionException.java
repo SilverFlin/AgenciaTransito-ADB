@@ -27,7 +27,7 @@ public class EncriptacionException extends Exception {
      * @param message Mensaje de la excepción
      * @param cause Causa de la excepción
      */
-    public EncriptacionException(final String message, Throwable cause) {
+    public EncriptacionException(final String message, final Throwable cause) {
         super(message, cause);
     }
 

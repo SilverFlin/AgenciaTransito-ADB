@@ -66,8 +66,9 @@ public final class ValidacionesFormularios {
      * @param s Cadena de texto.
      * @return coincidencia entre los validadores y la cadena de texto.
      */
-    public static boolean validaMarcaLinea(String s) {
-        String patron = "(([a-z]|[A-Z]|[0-9])|([ '-]([a-z]|[A-Z]|[0-9]))){3,40}";
+    public static boolean validaMarcaLinea(final String s) {
+        String patron
+                = "(([a-z]|[A-Z]|[0-9])|([ '-]([a-z]|[A-Z]|[0-9]))){3,40}";
 
         Pattern p = Pattern.compile(patron);
 
@@ -83,7 +84,7 @@ public final class ValidacionesFormularios {
      * @param s Cadena de texto.
      * @return coincidencia entre los validadores y la cadena de texto.
      */
-    public static boolean validaColor(String s) {
+    public static boolean validaColor(final String s) {
         String patron = "(([a-z]|[A-Z])|([ '-]([a-z]|[A-Z]))){3,40}";
 
         Pattern p = Pattern.compile(patron);
@@ -100,7 +101,7 @@ public final class ValidacionesFormularios {
      * @param s Cadena de texto.
      * @return coincidencia entre los validadores y la cadena de texto.
      */
-    public static boolean validaModelo(String s) {
+    public static boolean validaModelo(final String s) {
         String patron = "(([0-9])){4}";
 
         Pattern p = Pattern.compile(patron);
@@ -117,7 +118,7 @@ public final class ValidacionesFormularios {
      * @param s Cadena de texto.
      * @return coincidencia entre los validadores y la cadena de texto.
      */
-    public static boolean validaNumeroSerie(String s) {
+    public static boolean validaNumeroSerie(final String s) {
         String patron = "(([0-9]|[A-Z])){6}";
 
         Pattern p = Pattern.compile(patron);
