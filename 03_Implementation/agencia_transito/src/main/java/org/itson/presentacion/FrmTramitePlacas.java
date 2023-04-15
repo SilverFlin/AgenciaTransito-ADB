@@ -12,7 +12,7 @@ import static org.itson.utils.FormUtils.pedirInputUsuario;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class FrmTramitePlacas extends javax.swing.JFrame {
 

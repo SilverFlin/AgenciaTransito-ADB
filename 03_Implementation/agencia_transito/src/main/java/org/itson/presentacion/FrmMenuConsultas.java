@@ -6,7 +6,7 @@ import org.itson.utils.FormUtils;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class FrmMenuConsultas extends javax.swing.JFrame {
 

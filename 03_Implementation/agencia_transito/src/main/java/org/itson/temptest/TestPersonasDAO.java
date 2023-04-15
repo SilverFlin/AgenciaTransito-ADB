@@ -14,7 +14,7 @@ import static org.itson.utils.Randomizador.getRandomStringNumber;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class TestPersonasDAO {
 
@@ -32,7 +32,8 @@ public final class TestPersonasDAO {
     /**
      * Prueba el agregar y consultar de PersonasDAO.
      *
-     * @throws org.itson.excepciones.PersistenciaException
+     * @throws org.itson.excepciones.PersistenciaException Persistencia
+     * Exception.
      */
     public static void probarPersonasDAO() throws PersistenciaException {
         LOGGER.log(Level.INFO, "Agregar Persona falsa:");
@@ -47,7 +48,8 @@ public final class TestPersonasDAO {
      * Persiste una persona falsa con fines de pruebas y la regresa.
      *
      * @return La persona guardada.
-     * @throws org.itson.excepciones.PersistenciaException
+     * @throws org.itson.excepciones.PersistenciaException Persistencia
+     * Exception.
      */
     public static Persona agregaPersonaFalsa() throws PersistenciaException {
         Persona persona = crearPersonaFalsa();

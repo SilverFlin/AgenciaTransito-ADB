@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class Dialogs {
 
@@ -16,8 +16,8 @@ public final class Dialogs {
     /**
      * Carga un dialog de error en el componante proporcionado.
      *
-     * @param componente
-     * @param msg
+     * @param componente Componente donde se va a mostrar el dialog.
+     * @param msg Contenido del dialog.
      */
     public static void mostrarMensajeError(
             final Component componente,
@@ -34,8 +34,8 @@ public final class Dialogs {
     /**
      * Carga un dialog de éxito en el componante proporcionado.
      *
-     * @param componente
-     * @param msg
+     * @param componente Componente donde se va a mostrar el dialog.
+     * @param msg Contenido del dialog.
      */
     public static void mostrarMensajeExito(
             final Component componente,
@@ -54,9 +54,9 @@ public final class Dialogs {
      *
      * Yes: 0 | No: 1 | Cancel: 2 | Close: -1
      *
-     * @param componente
-     * @param msg
-     * @param titulo
+     * @param componente Componente donde se va a mostrar el dialog.
+     * @param msg Contenido del dialog.
+     * @param titulo Titulo del dialog.
      * @return valor de la selección.
      */
     public static int mostrarMensajeYesNoOption(

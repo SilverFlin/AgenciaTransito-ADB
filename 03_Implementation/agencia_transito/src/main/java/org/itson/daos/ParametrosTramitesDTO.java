@@ -14,7 +14,8 @@ import org.itson.utils.Periodo;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
+ * @param <T> Tipo del trámite
  */
 public class ParametrosTramitesDTO<T extends Tramite> {
 
@@ -37,9 +38,9 @@ public class ParametrosTramitesDTO<T extends Tramite> {
     /**
      * Constructor con todos los filtros.
      *
-     * @param periodo
-     * @param tipoTramite
-     * @param nombreTramitante
+     * @param periodo periodo del filtro.
+     * @param tipoTramite tipo del tramite.
+     * @param nombreTramitante nombre parcial del tramitante.
      */
     public ParametrosTramitesDTO(
             final Periodo periodo,
@@ -54,7 +55,7 @@ public class ParametrosTramitesDTO<T extends Tramite> {
     /**
      * Constructor vacío.
      *
-     * @param tipoTramite
+     * @param tipoTramite tipo tramitante
      */
     public ParametrosTramitesDTO(final Class<T> tipoTramite) {
         this.tipoTramite = tipoTramite;
@@ -70,7 +71,7 @@ public class ParametrosTramitesDTO<T extends Tramite> {
 
     /**
      *
-     * @param periodo
+     * @param periodo periodo del filtro.
      */
     public void setPeriodo(final Periodo periodo) {
         this.periodo = periodo;
@@ -86,7 +87,7 @@ public class ParametrosTramitesDTO<T extends Tramite> {
 
     /**
      *
-     * @param tipoTramite
+     * @param tipoTramite tipo tramitante.
      */
     public void setTipoTramite(final Class<T> tipoTramite) {
         this.tipoTramite = tipoTramite;
@@ -102,7 +103,7 @@ public class ParametrosTramitesDTO<T extends Tramite> {
 
     /**
      *
-     * @param nombreTramitante
+     * @param nombreTramitante nombre del tramitante.
      */
     public void setNombreTramitante(final String nombreTramitante) {
         this.nombreTramitante = nombreTramitante;
@@ -110,8 +111,8 @@ public class ParametrosTramitesDTO<T extends Tramite> {
 
     /**
      *
-     * @param builder
-     * @param root
+     * @param builder Builder del CriteriaQuery
+     * @param root Root de la consulta
      * @return Lista de los predicados segun los filtros presentes.
      */
     public Predicate[] getPredicados(
@@ -135,7 +136,7 @@ public class ParametrosTramitesDTO<T extends Tramite> {
 
     /**
      *
-     * @param builder
+     * @param builder Builder del CriteriaQuery
      * @return CriteriaQuery segun el tipo de tramite.
      */
     public CriteriaQuery<T> getCriteria(final CriteriaBuilder builder) {
@@ -144,7 +145,7 @@ public class ParametrosTramitesDTO<T extends Tramite> {
 
     /**
      *
-     * @param criteria
+     * @param criteria criteria query.
      * @return Root segun el tipo de tramite.
      */
     public Root<T> getRoot(final CriteriaQuery<T> criteria) {
@@ -162,7 +163,7 @@ public class ParametrosTramitesDTO<T extends Tramite> {
     ) {
         Expression<String> nombresTramitante
                 = root.get("tramitante").get("nombres");
-        
+
         String nombreConWildcards = "%" + this.getNombreTramitante() + "%";
 
         return builder.like(nombresTramitante, nombreConWildcards);

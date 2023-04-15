@@ -17,7 +17,7 @@ import static org.itson.utils.FormUtils.cargarForm;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class BotonEditor extends AbstractCellEditor implements TableCellEditor {
 

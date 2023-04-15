@@ -16,7 +16,7 @@ import org.itson.excepciones.EncriptacionException;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class Encriptador {
 
@@ -30,15 +30,19 @@ public final class Encriptador {
     private static final Logger LOG
             = Logger.getLogger(Encriptador.class.getName());
 
+    /**
+     * Constructor por defecto
+     */
     public Encriptador() {
-
+        // No hace falta inicializar nada.
     }
 
     /**
      *
-     * @param input
-     * @return
-     * @throws org.itson.excepciones.EncriptacionException
+     * @param input Mensaje a encriptar.
+     * @return El hash.
+     * @throws org.itson.excepciones.EncriptacionException Encriptacion
+     * Exception.
      *
      */
     public String encriptar(String input) throws EncriptacionException {
@@ -65,9 +69,10 @@ public final class Encriptador {
 
     /**
      *
-     * @param hash
-     * @return
-     * @throws org.itson.excepciones.EncriptacionException
+     * @param hash El hash a desencriptar.
+     * @return El hash desencriptado.
+     * @throws org.itson.excepciones.EncriptacionException Encriptacion
+     * Exception.
      */
     public String desencriptar(String hash) throws EncriptacionException {
         try {

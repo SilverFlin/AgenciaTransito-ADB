@@ -15,7 +15,7 @@ import static org.itson.utils.Randomizador.getRandomStringNumber;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class TestVehiculosDAO {
 

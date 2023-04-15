@@ -7,14 +7,14 @@ import org.itson.utils.ConfiguracionPaginado;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public interface PersonasDAO extends DAO<Persona> {
 
     /**
      * Consigue la persona de la base de datos según su RFC.
      *
-     * @param rfc
+     * @param rfc rfc de la persona
      * @return La persona si se encontró.
      */
     Optional<Persona> getByRFC(String rfc);

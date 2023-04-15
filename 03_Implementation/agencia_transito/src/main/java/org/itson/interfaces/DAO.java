@@ -7,14 +7,15 @@ import org.itson.utils.ConfiguracionPaginado;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
+ * @param <T> Tipo de la entidad.
  */
 public interface DAO<T> {
 
     /**
      * Consigue el elemento de la base de datos según su ID.
      *
-     * @param id
+     * @param id Id de la enditad.
      * @return Un objecto opcional, del tipo del elemento.
      */
     Optional<T> get(long id);
@@ -30,7 +31,7 @@ public interface DAO<T> {
      * Consigue una lista con todos los elementos de la base de datos, dada una
      * configuración de paginado.
      *
-     * @param paginado
+     * @param paginado configuración del paginado.
      * @return Lista de elemento T.
      */
     List<T> getAll(ConfiguracionPaginado paginado);
@@ -38,24 +39,26 @@ public interface DAO<T> {
     /**
      * Persiste el elemento en la base de datos.
      *
-     * @param t
+     * @param t La entidad.
      * @return El elemento guardado
-     * @throws PersistenciaException
+     * @throws PersistenciaException Persistencia Exception.
      */
     T save(T t) throws PersistenciaException;
 
     /**
      * Actualiza el elemento de la base de datos.
      *
-     * @param t
+     * @param t La entidad.
      * @return El elemento actualizado.
+     * @throws org.itson.excepciones.PersistenciaException Persistencia
+     * Exception.
      */
     T update(T t) throws PersistenciaException;
 
     /**
      * Elimina el elemento de la base de datos según una ID dada.
      *
-     * @param t
+     * @param t La entidad.
      * @return El elemento eliminado.
      */
     T delete(T t);

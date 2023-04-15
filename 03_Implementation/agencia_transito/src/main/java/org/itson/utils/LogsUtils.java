@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class LogsUtils {
 
@@ -22,8 +22,8 @@ public final class LogsUtils {
 
     /**
      *
-     * @param <T>
-     * @param lista
+     * @param <T> Tipo del elemento a imprimir.
+     * @param lista lista.
      */
     public static <T> void imprimirLista(final List<T> lista) {
         for (Object obj : lista) {

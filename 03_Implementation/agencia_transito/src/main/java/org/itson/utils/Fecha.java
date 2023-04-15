@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class Fecha {
 
@@ -38,7 +38,7 @@ public class Fecha {
 
     /**
      * Método que regresa el año.
-     * 
+     *
      * @return El año.
      */
     public int getAnho() {
@@ -47,7 +47,7 @@ public class Fecha {
 
     /**
      * Método que regresa el mes.
-     * 
+     *
      * @return El mes ya ajustado.
      */
     public int getMes() {
@@ -56,7 +56,7 @@ public class Fecha {
 
     /**
      * Método que regresa el día.
-     * 
+     *
      * @return El día del mes (1-31).
      */
     public int getDia() {
@@ -65,8 +65,8 @@ public class Fecha {
 
     /**
      * Método que establece el año.
-     * 
-     * @param anho
+     *
+     * @param anho el año de la fecha.
      */
     public void setAnho(final int anho) {
         gregorianCalendar.set(Calendar.YEAR, anho);
@@ -74,8 +74,8 @@ public class Fecha {
 
     /**
      * Método que establece el mes.
-     * 
-     * @param mes
+     *
+     * @param mes el mes de la fecha.
      */
     public void setMes(final int mes) {
         gregorianCalendar.set(Calendar.MONTH, mes - 1);
@@ -83,8 +83,8 @@ public class Fecha {
 
     /**
      * Método que establece el día.
-     * 
-     * @param dia
+     *
+     * @param dia el día de la fecha.
      */
     public void setDia(final int dia) {
         gregorianCalendar.set(Calendar.DAY_OF_MONTH, dia);

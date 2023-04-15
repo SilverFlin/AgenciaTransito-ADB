@@ -15,7 +15,7 @@ import org.itson.utils.ValidacionesFormularios;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
 

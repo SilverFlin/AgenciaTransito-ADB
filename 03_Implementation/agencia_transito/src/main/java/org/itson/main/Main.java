@@ -10,7 +10,7 @@ import static org.itson.temptest.TestVehiculosDAO.probarVehiculosDAO;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 final class Main {
 

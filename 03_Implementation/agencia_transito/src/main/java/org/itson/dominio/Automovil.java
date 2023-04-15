@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 @Entity
 @DiscriminatorValue("automovil")
@@ -20,12 +20,12 @@ public class Automovil extends Vehiculo {
     /**
      * Constructor que no incluye ID, placa, ni historial de placa.
      *
-     * @param duenho
-     * @param numeroSerie
-     * @param linea
-     * @param marca
-     * @param modelo
-     * @param color
+     * @param duenho Persona
+     * @param numeroSerie String
+     * @param linea  String
+     * @param marca String
+     * @param modelo String
+     * @param color String
      */
     public Automovil(
             final Persona duenho,

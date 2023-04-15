@@ -4,7 +4,7 @@ import org.itson.dominio.Licencia;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public interface LicenciasDAO extends DAO<Licencia> {
 //    boolean validarLicenciaPersona(Long id);

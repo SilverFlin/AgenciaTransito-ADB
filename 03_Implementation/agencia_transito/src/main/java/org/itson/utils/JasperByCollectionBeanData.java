@@ -27,7 +27,7 @@ import org.itson.presentacion.ReporteTramiteDTO;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class JasperByCollectionBeanData {
 

@@ -13,7 +13,7 @@ import org.itson.utils.FormUtils;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class FrmResumenVehiculo extends JFrame {
 
@@ -40,8 +40,8 @@ public class FrmResumenVehiculo extends JFrame {
     /**
      * Constructor principal del Frame.
      *
-     * @param frmAnterior
-     * @param confirmacionPlacasDTO
+     * @param frmAnterior frm anterior.
+     * @param confirmacionPlacasDTO DTO de confirmación placas.
      */
     public FrmResumenVehiculo(
             final JFrame frmAnterior,

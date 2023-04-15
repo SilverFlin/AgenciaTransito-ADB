@@ -6,7 +6,7 @@ import org.itson.dominio.Vehiculo;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class ConfirmacionPlacasDTO {
 
@@ -64,8 +64,8 @@ public class ConfirmacionPlacasDTO {
 
     /**
      * Establece el automóvil.
-     * 
-     * @param automovil
+     *
+     * @param automovil Automovil
      */
     public void setAutomovil(final Vehiculo automovil) {
         this.automovil = automovil;
@@ -82,8 +82,8 @@ public class ConfirmacionPlacasDTO {
 
     /**
      * Establece la persona.
-     * 
-     * @param persona
+     *
+     * @param persona Persona
      */
     public void setPersona(final Persona persona) {
         this.persona = persona;
@@ -100,8 +100,8 @@ public class ConfirmacionPlacasDTO {
 
     /**
      * Establece el costo.
-     * 
-     * @param costo
+     *
+     * @param costo costo de las placas.
      */
     public void setCosto(final double costo) {
         this.costo = costo;
@@ -118,8 +118,8 @@ public class ConfirmacionPlacasDTO {
 
     /**
      * Establece el tipo.
-     * 
-     * @param tipo
+     *
+     * @param tipo tipo de la placa.
      */
     public void setTipo(final TipoPlaca tipo) {
         this.tipo = tipo;

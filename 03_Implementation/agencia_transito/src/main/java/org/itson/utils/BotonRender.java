@@ -12,7 +12,7 @@ import javax.swing.table.TableCellRenderer;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class BotonRender implements TableCellRenderer {
 

@@ -18,7 +18,7 @@ import org.itson.utils.FormUtils;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class FrmConsultaBuscarPersona extends JFrame {
 
@@ -296,6 +296,7 @@ public class FrmConsultaBuscarPersona extends JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     //CHECKSTYLE:OFF
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.ButtonGroup botones;
@@ -320,7 +321,8 @@ public class FrmConsultaBuscarPersona extends JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
-    //CHECKSTYLE:ON
+    
+//CHECKSTYLE:ON
 
     private void configurarTabla() {
         botones.add(rbtnRFC);

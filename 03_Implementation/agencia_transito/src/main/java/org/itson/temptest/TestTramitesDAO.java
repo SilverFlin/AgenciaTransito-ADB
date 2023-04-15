@@ -27,7 +27,7 @@ import org.itson.utils.Randomizador;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class TestTramitesDAO {
 
@@ -45,7 +45,8 @@ public final class TestTramitesDAO {
     /**
      * Prueba el agregar y consultar de TramitesDAO.
      *
-     * @throws org.itson.excepciones.PersistenciaException
+     * @throws org.itson.excepciones.PersistenciaException Persistencia
+     * Exception.
      */
     public static void probarTramitesDAO() throws PersistenciaException {
         LOGGER.log(Level.INFO, "\nConsultar Tramites");
@@ -65,7 +66,8 @@ public final class TestTramitesDAO {
      * Crea una placa y la persiste.
      *
      * @return La placa persistida.
-     * @throws PersistenciaException
+     * @throws PersistenciaException Persistencia
+     * Exception.
      */
     public static Placa ingresarPlacaFalso() throws PersistenciaException {
         PlacasDAO placasDAO = new PlacasDAOImpl();
@@ -93,7 +95,7 @@ public final class TestTramitesDAO {
      * Crea una licencia y la persiste.
      *
      * @return La licencia persistida.
-     * @throws PersistenciaException
+     * @throws PersistenciaException Persistencia Exception
      */
     public static Licencia ingresarLicenciaFalsa()
             throws PersistenciaException {

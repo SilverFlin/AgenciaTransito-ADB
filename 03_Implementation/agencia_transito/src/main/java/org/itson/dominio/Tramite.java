@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 @Entity
 @NamedQueries({
@@ -196,7 +196,7 @@ public class Tramite implements Serializable {
     /**
      * equals por defecto.
      *
-     * @param object
+     * @param object Object
      * @return Si las entidades son iguales.
      */
     @Override

@@ -20,7 +20,7 @@ import org.itson.utils.GeneradorMatricula;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
 
@@ -47,8 +47,8 @@ public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
     /**
      * Constructor principal.
      *
-     * @param confirmacionPlacasDTO
-     * @param frmAnterior
+     * @param confirmacionPlacasDTO DTO de confirmación placa.
+     * @param frmAnterior frame anterior.
      */
     public FrmTramitePlacasConfirmacion(
             final ConfirmacionPlacasDTO confirmacionPlacasDTO,

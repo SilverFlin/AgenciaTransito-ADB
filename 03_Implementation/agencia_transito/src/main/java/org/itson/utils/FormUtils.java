@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class FormUtils {
 
@@ -18,7 +18,7 @@ public final class FormUtils {
     /**
      * Agarra el item seleccionado y lo regresa en String.
      *
-     * @param cbox
+     * @param cbox la combobox
      * @return Texto del item seleccionado.
      */
     public static String getItemComboBox(final JComboBox<String> cbox) {
@@ -27,9 +27,9 @@ public final class FormUtils {
 
     /**
      *
-     * @param componente
-     * @param titulo
-     * @param texto
+     * @param componente componente donde se pondrá el dialog.
+     * @param titulo titulo del dialog.
+     * @param texto contenido del dialog.
      * @return Input ingresado
      */
     public static String pedirInputUsuario(
@@ -37,7 +37,7 @@ public final class FormUtils {
             final String titulo,
             final String texto
     ) {
-        return (String) JOptionPane
+        return JOptionPane
                 .showInputDialog(
                         componente,
                         texto,
@@ -49,10 +49,10 @@ public final class FormUtils {
     /**
      * Carga un form y oculta el actual.
      *
-     * @param <T>
-     * @param cargar
-     * @param actual
-     * @throws InstantiationError
+     * @param <T> subclase del JFrame actual.
+     * @param cargar el frame a cargar.
+     * @param actual el frame actual.
+     * @throws InstantiationError InstantiationError.
      */
     public static <T extends JFrame> void cargarForm(
             final T cargar,
@@ -70,8 +70,8 @@ public final class FormUtils {
     /**
      * Regresa un a un form anterior, ocultando el actual.
      *
-     * @param frmAnterior
-     * @param actual
+     * @param frmAnterior frame anterior.
+     * @param actual frame actual.
      */
     public static void regresar(
             final JFrame actual,
