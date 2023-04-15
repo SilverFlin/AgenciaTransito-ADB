@@ -5,7 +5,7 @@ import org.itson.utils.FormUtils;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class FrmReportes extends javax.swing.JFrame {
 

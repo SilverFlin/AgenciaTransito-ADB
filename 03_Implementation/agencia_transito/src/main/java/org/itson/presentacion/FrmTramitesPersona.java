@@ -16,7 +16,7 @@ import static org.itson.utils.Formateador.formatoDinero;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class FrmTramitesPersona extends JFrame {
 

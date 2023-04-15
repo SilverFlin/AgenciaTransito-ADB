@@ -10,7 +10,7 @@ import org.itson.utils.FormUtils;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class FrmRegistros extends javax.swing.JFrame {
 
@@ -30,26 +30,26 @@ public class FrmRegistros extends javax.swing.JFrame {
     private void registrarPersonas() throws PersistenciaException {
         UnitOfWork unit = new UnitOfWork();
         
-        Persona p1 = new Persona("MAPM0305271M1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 5, 27));
-        Persona p2 = new Persona("TORL0311112T2", "Luis Angel", "Toledo", "Russo", new GregorianCalendar(2003, 11, 11));
-        Persona p3 = new Persona("RAEM0303035M3", "Magda", "Ramirez", "Escalante", new GregorianCalendar(2003, 3, 3));
-        Persona p4 = new Persona("DUQL0318119L2", "Luis Esteban", "Durán", "Quintanar", new GregorianCalendar(2003, 11, 18));
-        Persona p5 = new Persona("GOPG0308227G7", "Gustavo", "Gómez", "Padilla", new GregorianCalendar(2003, 8, 22));
-        Persona p6 = new Persona("PIGG0311217G7", "Grecia Zulema", "Picos", "Garcia", new GregorianCalendar(2003, 11, 21));
-        Persona p7 = new Persona("HEIR0308160R9", "Rosario", "Hernández", "Itto", new GregorianCalendar(2003, 8, 16));
-        Persona p8 = new Persona("ZAAD0306124H1", "Didier Neftali", "Zabalza", "Apodaca", new GregorianCalendar(2003, 6, 12));
-        Persona p9 = new Persona("MAPA0104192A3", "Areymi", "Marchena", "Pérez", new GregorianCalendar(2001, 4, 19));
-        Persona p10 = new Persona("BRLA0104192P1", "Abril", "Briceño", "Lopez", new GregorianCalendar(2001, 4, 19));
-        Persona p11 = new Persona("GAEF0307290K3", "Fabian", "Garnica", "Escudero", new GregorianCalendar(2003, 7, 29));
-        Persona p12 = new Persona("RISI0201029H5", "Ismael", "Rivera", "Soto", new GregorianCalendar(2002, 1, 2));
-        Persona p13 = new Persona("CUAS8803143O3", "Stephen", "Curry", "Adams", new GregorianCalendar(1988, 3, 14));
-        Persona p14 = new Persona("MERS9808087S7", "Shawn", "Mendes", "Rayment", new GregorianCalendar(1998, 8, 8));
-        Persona p15 = new Persona("CRFR7106178J4", "Roberto", "Cruz", "Fernández", new GregorianCalendar(1971, 6, 17));
-        Persona p16 = new Persona("MAPA1107279A1", "Amy Marsella", "Marchena", "Pérez", new GregorianCalendar(2011, 7, 27));
-        Persona p17 = new Persona("PEVL9212138H4", "Leonardo", "Pérez", "Valenzuela", new GregorianCalendar(1992, 12, 13));
-        Persona p18 = new Persona("PEVM8210218A5", "Marcela Arely", "Pérez", "Valenzuela", new GregorianCalendar(1982, 10, 21));
-        Persona p19 = new Persona("ROBL0309198L5", "Luis Angel", "Rosas", "Bocardo", new GregorianCalendar(2003, 9, 19));
-        Persona p20 = new Persona("VARH0111017H7", "Hazel", "Valerio", "Robles", new GregorianCalendar(2001, 11, 1));
+        Persona p1 = new Persona("MAPM0305271M1", "Misael", "Marchena", "Pérez", new GregorianCalendar(2003, 4, 27), "6442322888");
+        Persona p2 = new Persona("TORL0311112T2", "Luis Angel", "Toledo", "Russo", new GregorianCalendar(2003, 10, 11), "6444276282");
+        Persona p3 = new Persona("RAEM0303035M3", "Magda", "Ramirez", "Escalante", new GregorianCalendar(2003, 2, 3), "6441627364");
+        Persona p4 = new Persona("DUQL0318119L2", "Luis Esteban", "Durán", "Quintanar", new GregorianCalendar(2003, 10, 18), "6441625374");
+        Persona p5 = new Persona("GOPG0308227G7", "Gustavo", "Gómez", "Padilla", new GregorianCalendar(2003, 7, 22), "6444726332");
+        Persona p6 = new Persona("PIGG0311217G7", "Grecia Zulema", "Picos", "Garcia", new GregorianCalendar(2003, 10, 21), "6441253652");
+        Persona p7 = new Persona("HEIR0308160R9", "Rosario", "Hernández", "Itto", new GregorianCalendar(2003, 7, 16), "6442298602");
+        Persona p8 = new Persona("ZAAD0306124H1", "Didier Neftali", "Zabalza", "Apodaca", new GregorianCalendar(2003, 5, 12), "6442287364");
+        Persona p9 = new Persona("MAPA0104192A3", "Areymi", "Marchena", "Pérez", new GregorianCalendar(2001, 3, 19), "6441320985");
+        Persona p10 = new Persona("BRLA0104192P1", "Abril", "Briceño", "Lopez", new GregorianCalendar(2001, 3, 19), "6442534671");
+        Persona p11 = new Persona("GAEF0307290K3", "Fabian", "Garnica", "Escudero", new GregorianCalendar(2003, 6, 29), "6441982784");
+        Persona p12 = new Persona("RISI0201029H5", "Ismael", "Rivera", "Soto", new GregorianCalendar(2002, 2, 2), "6444928746");
+        Persona p13 = new Persona("CUAS8803143O3", "Stephen", "Curry", "Adams", new GregorianCalendar(1988, 2, 14), "6441625381");
+        Persona p14 = new Persona("MERS9808087S7", "Shawn", "Mendes", "Rayment", new GregorianCalendar(1998, 7, 8), "6442987391");
+        Persona p15 = new Persona("CRFR7106178J4", "Roberto", "Cruz", "Fernández", new GregorianCalendar(1971, 5, 17), "6441627301");
+        Persona p16 = new Persona("MAPA1107279A1", "Amy Marsella", "Marchena", "Pérez", new GregorianCalendar(2011, 6, 27), "6444280581");
+        Persona p17 = new Persona("PEVL9212138H4", "Leonardo", "Pérez", "Valenzuela", new GregorianCalendar(1992, 11, 13), "6441627018");
+        Persona p18 = new Persona("PEVM8210218A5", "Marcela Arely", "Pérez", "Valenzuela", new GregorianCalendar(1982, 9, 21), "6442873917");
+        Persona p19 = new Persona("ROBL0309198L5", "Luis Angel", "Rosas", "Bocardo", new GregorianCalendar(2003, 8, 19), "6442251672");
+        Persona p20 = new Persona("VARH0111017H7", "Hazel", "Valerio", "Robles", new GregorianCalendar(2001, 10, 1), "6441289371");
         
         unit.personasDAO().save(p1);
         unit.personasDAO().save(p2);

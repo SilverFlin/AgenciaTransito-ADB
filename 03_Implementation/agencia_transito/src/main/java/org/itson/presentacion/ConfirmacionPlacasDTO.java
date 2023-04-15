@@ -6,7 +6,7 @@ import org.itson.dominio.Vehiculo;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class ConfirmacionPlacasDTO {
 
@@ -36,10 +36,10 @@ public class ConfirmacionPlacasDTO {
     /**
      * Constructor con todos lo necesario.
      *
-     * @param automovil
-     * @param persona
-     * @param costo
-     * @param tipo
+     * @param automovil Automóvil de la placa.
+     * @param persona Dueño del automóvil con la placa.
+     * @param costo Costo de la placa.
+     * @param tipo Tipo de la placa.
      */
     public ConfirmacionPlacasDTO(
             final Vehiculo automovil,
@@ -54,6 +54,7 @@ public class ConfirmacionPlacasDTO {
     }
 
     /**
+     * Regresa un objeto de tipo Vehiculo del automóvil.
      *
      * @return automovil.
      */
@@ -62,7 +63,8 @@ public class ConfirmacionPlacasDTO {
     }
 
     /**
-     *
+     * Establece el automóvil.
+     * 
      * @param automovil
      */
     public void setAutomovil(final Vehiculo automovil) {
@@ -70,6 +72,7 @@ public class ConfirmacionPlacasDTO {
     }
 
     /**
+     * Regresa un objeto de tipo Persona.
      *
      * @return tramitante
      */
@@ -78,7 +81,8 @@ public class ConfirmacionPlacasDTO {
     }
 
     /**
-     *
+     * Establece la persona.
+     * 
      * @param persona
      */
     public void setPersona(final Persona persona) {
@@ -86,6 +90,7 @@ public class ConfirmacionPlacasDTO {
     }
 
     /**
+     * Regresa el costo.
      *
      * @return costo, en MXN.
      */
@@ -94,7 +99,8 @@ public class ConfirmacionPlacasDTO {
     }
 
     /**
-     *
+     * Establece el costo.
+     * 
      * @param costo
      */
     public void setCosto(final double costo) {
@@ -102,6 +108,7 @@ public class ConfirmacionPlacasDTO {
     }
 
     /**
+     * Regresa el tipo de placa.
      *
      * @return tipo de placa.
      */
@@ -110,7 +117,8 @@ public class ConfirmacionPlacasDTO {
     }
 
     /**
-     *
+     * Establece el tipo.
+     * 
      * @param tipo
      */
     public void setTipo(final TipoPlaca tipo) {

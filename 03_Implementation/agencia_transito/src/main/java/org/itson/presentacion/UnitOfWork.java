@@ -15,7 +15,7 @@ import org.itson.interfaces.VehiculosDAO;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class UnitOfWork {
 

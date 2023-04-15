@@ -16,7 +16,7 @@ import org.itson.utils.ValidacionesFormularios;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class FrmRegistroAutomovil extends javax.swing.JFrame {
 

@@ -4,18 +4,26 @@
  */
 package org.itson.presentacion;
 
-import java.util.Calendar;
 
 /**
  *
- * @author march
+ * @author Luis Toledo & Misael Marchena
  */
 public class ReporteTramiteDTO {
+
     private String tipo;
     private String tramitante;
     private String costo;
     private String fechaInicio;
 
+    /**
+     * Método constructor que inicializa los atributos de la clase.
+     *
+     * @param tipo Tipo del trámite.
+     * @param tramitante Persona que lo tramitó.
+     * @param costo Costo del trámite.
+     * @param fechaExpedicion Fecha de expedición del trámite.
+     */
     public ReporteTramiteDTO(String tipo, String tramitante, String costo, String fechaExpedicion) {
         this.tipo = tipo;
         this.tramitante = tramitante;

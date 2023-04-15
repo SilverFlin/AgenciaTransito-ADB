@@ -12,7 +12,7 @@ import org.itson.utils.FormUtils;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class FrmTramiteLicencia extends javax.swing.JFrame {
 

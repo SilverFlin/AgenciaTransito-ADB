@@ -1,6 +1,6 @@
 /**
  * Este modulo contiene todos los forms del sistema.
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 package org.itson.presentacion;

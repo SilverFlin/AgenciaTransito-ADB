@@ -20,7 +20,7 @@ import org.itson.utils.GeneradorMatricula;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class FrmTramitePlacasConfirmacion extends javax.swing.JFrame {
 

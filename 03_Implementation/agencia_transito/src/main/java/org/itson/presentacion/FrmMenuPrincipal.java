@@ -6,7 +6,7 @@ import org.itson.utils.FormUtils;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class FrmMenuPrincipal extends javax.swing.JFrame {
 
