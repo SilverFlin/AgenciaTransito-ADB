@@ -3,6 +3,7 @@ package org.itson.interfaces;
 import java.util.List;
 import java.util.Optional;
 import org.itson.dominio.Persona;
+import org.itson.utils.ConfiguracionPaginado;
 
 /**
  *
@@ -22,17 +23,19 @@ public interface PersonasDAO extends DAO<Persona> {
      * Consigue las personas de la base de datos que coincidan con el nombre.
      *
      * @param nombre
+     * @param paginado
      * @return Lista de personas que coincidieron.
      */
-    List<Persona> getByNombre(String nombre);
+    List<Persona> getByNombre(String nombre, ConfiguracionPaginado paginado);
 
     /**
      * Consigue las personas de la base de datos que coincidan con el año de
      * nacimiento.
      *
      * @param anho
+     * @param paginado
      * @return Lista de personas que coincidieron.
      */
-    List<Persona> getByAnho(int anho);
+    List<Persona> getByAnho(int anho, ConfiguracionPaginado paginado);
 
 }
