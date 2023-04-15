@@ -6,7 +6,7 @@ import org.itson.excepciones.PersistenciaException;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public final class GeneradorRegistrosFalsos {
 

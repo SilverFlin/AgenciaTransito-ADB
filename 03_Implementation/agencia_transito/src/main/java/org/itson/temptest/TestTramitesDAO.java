@@ -27,7 +27,7 @@ import org.itson.utils.Randomizador;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public final class TestTramitesDAO {
 
