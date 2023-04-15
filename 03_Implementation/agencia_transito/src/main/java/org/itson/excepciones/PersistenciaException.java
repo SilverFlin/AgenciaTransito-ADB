@@ -2,7 +2,7 @@ package org.itson.excepciones;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public class PersistenciaException extends Exception {
 

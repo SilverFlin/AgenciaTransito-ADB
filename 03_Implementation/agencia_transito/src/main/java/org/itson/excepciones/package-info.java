@@ -1,6 +1,6 @@
 /**
  * Este módulo contiene excepciones necesarias para el sistema.
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 package org.itson.excepciones;
