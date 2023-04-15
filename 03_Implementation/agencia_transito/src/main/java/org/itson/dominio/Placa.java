@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 @Entity
 @DiscriminatorValue("licencia")
@@ -197,7 +197,7 @@ public class Placa extends Tramite {
     /**
      * Establece el vehículo pasado de la placa.
      * 
-     * @param vehiculoPasado 
+     * @param vehiculoPasado vehiculo pasado.
      */
     public void setVehiculoPasado(final Vehiculo vehiculoPasado) {
         this.vehiculoPasado = vehiculoPasado;

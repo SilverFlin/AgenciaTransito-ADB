@@ -15,7 +15,7 @@ import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class LicenciasDAOImpl implements LicenciasDAO {
 
@@ -85,17 +85,4 @@ public final class LicenciasDAOImpl implements LicenciasDAO {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-//    @Override
-//    public boolean validarLicenciaPersona(final Long id) {
-//        String codigoJPQL = "SELECT lic FROM Licencia "
-//                + "lic WHERE lic.tramitante LIKE :id";
-//        TypedQuery<Licencia> query
-//                = entityManager.createQuery(codigoJPQL, Licencia.class);
-//        String idStr = id.toString();
-//        query.setParameter("id", idStr);
-//        Licencia licencia = query.getSingleResult();
-//        
-//
-//        return licencia != null;
-//    }
 }

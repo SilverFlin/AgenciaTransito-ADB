@@ -16,7 +16,7 @@ import static org.itson.utils.Formateador.formatoDinero;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class FrmTramitesPersona extends JFrame {
 
@@ -52,8 +52,8 @@ public class FrmTramitesPersona extends JFrame {
     /**
      * Constructor principal del Frame.
      *
-     * @param persona
-     * @param unitOfWork
+     * @param persona tramitante.
+     * @param unitOfWork unit of work.
      */
     public FrmTramitesPersona(
             final Persona persona,

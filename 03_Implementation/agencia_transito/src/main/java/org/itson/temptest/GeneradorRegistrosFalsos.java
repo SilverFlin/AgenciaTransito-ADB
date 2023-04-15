@@ -6,7 +6,7 @@ import org.itson.excepciones.PersistenciaException;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class GeneradorRegistrosFalsos {
 
@@ -25,7 +25,7 @@ public final class GeneradorRegistrosFalsos {
      * divide en los registros diferentes a ingresar, i.e. licencias y placas:
      * n/2 registros serán licencias y el resto placas.
      *
-     * @param cantidad
+     * @param cantidad cantidad de registros.
      */
     public static void generarRegistros(final int cantidad) {
 

@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class FrmHistorialPlacas extends JFrame {
 

@@ -27,7 +27,7 @@ import org.itson.utils.Periodo;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class FrmReportesTramites extends JFrame {
 

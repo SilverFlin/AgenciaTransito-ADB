@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 @Entity
 @NamedQueries({
@@ -191,7 +191,7 @@ public class Persona implements Serializable {
 
     /**
      *
-     * @param id
+     * @param id id de la persona.
      */
     public void setId(final Long id) {
         this.id = id;
@@ -208,7 +208,7 @@ public class Persona implements Serializable {
 
     /**
      *
-     * @param rfc
+     * @param rfc rfc de la persona.
      */
     public void setRfc(final String rfc) {
         this.rfc = rfc;
@@ -225,7 +225,7 @@ public class Persona implements Serializable {
 
     /**
      *
-     * @param nombres
+     * @param nombres nombres de la persona.
      */
     public void setNombres(final String nombres) {
         this.nombres = nombres;
@@ -242,7 +242,7 @@ public class Persona implements Serializable {
 
     /**
      *
-     * @param apellidoPaterno
+     * @param apellidoPaterno apellido paterno de la persona
      */
     public void setApellidoPaterno(final String apellidoPaterno) {
         this.apellidoPaterno = apellidoPaterno;
@@ -259,7 +259,7 @@ public class Persona implements Serializable {
 
     /**
      *
-     * @param apellidoMaterno
+     * @param apellidoMaterno apellido materno de la persona.
      */
     public void setApellidoMaterno(final String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
@@ -276,7 +276,7 @@ public class Persona implements Serializable {
 
     /**
      *
-     * @param fechaNacimiento
+     * @param fechaNacimiento fecha de nacimiento de la persona.
      */
     public void setFechaNacimiento(final Calendar fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
@@ -293,7 +293,7 @@ public class Persona implements Serializable {
 
     /**
      *
-     * @param vehiculos
+     * @param vehiculos vehículos asociados.
      */
     public void setVehiculos(final List<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
@@ -310,7 +310,7 @@ public class Persona implements Serializable {
 
     /**
      *
-     * @param tramites
+     * @param tramites tramites asociados.
      */
     public void setTramites(final List<Tramite> tramites) {
         this.tramites = tramites;
@@ -327,7 +327,7 @@ public class Persona implements Serializable {
 
     /**
      *
-     * @param telefono
+     * @param telefono teléfono de la persona.
      */
     public void setTelefono(final String telefono) {
         this.telefono = telefono;
@@ -348,7 +348,7 @@ public class Persona implements Serializable {
     /**
      * equals por defecto.
      *
-     * @param object
+     * @param object Object
      * @return Si las entidades son iguales.
      */
     @Override

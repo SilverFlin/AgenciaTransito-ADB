@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class ValidacionesFormularios {
 
@@ -16,11 +16,11 @@ public final class ValidacionesFormularios {
     /**
      * Valida si un texto no sobrepasa un límite dado un rango.
      *
-     * @param texto
-     * @param limiteInferior
-     * @param limiteSuperior
+     * @param texto texto a validar
+     * @param limiteInferior limite inferior
+     * @param limiteSuperior limite superior
      * @return Verdadero si el texto no sobrepasa.
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException UnsupportedOperationException
      */
     public static boolean isLongitudTextoValida(
             final String texto,
@@ -47,10 +47,10 @@ public final class ValidacionesFormularios {
     /**
      * Valida si un texto no sobrepasa un límite.
      *
-     * @param texto
-     * @param limiteSuperior
+     * @param texto texto a evaluar
+     * @param limiteSuperior limite superior
      * @return Verdadero si el texto no sobrepasa.
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException UnsupportedOperationException
      */
     public static boolean isLongitudTextoValida(
             final String texto,
@@ -58,10 +58,10 @@ public final class ValidacionesFormularios {
     ) throws UnsupportedOperationException {
         return isLongitudTextoValida(texto, 1, limiteSuperior);
     }
-    
+
     /**
-     * Método que valida que el la marca y línea contenga de 3 a 40 caracteres, siendo
-     * estos: letras, números y espacios.
+     * Método que valida que el la marca y línea contenga de 3 a 40 caracteres,
+     * siendo estos: letras, números y espacios.
      *
      * @param s Cadena de texto.
      * @return coincidencia entre los validadores y la cadena de texto.
@@ -92,10 +92,10 @@ public final class ValidacionesFormularios {
 
         return matcher.matches();
     }
-    
+
     /**
-     * Método que valida que el modelo contenga 4 caracteres,
-     * siendo estos: números.
+     * Método que valida que el modelo contenga 4 caracteres, siendo estos:
+     * números.
      *
      * @param s Cadena de texto.
      * @return coincidencia entre los validadores y la cadena de texto.
@@ -126,6 +126,5 @@ public final class ValidacionesFormularios {
 
         return matcher.matches();
     }
-    
-    
+
 }

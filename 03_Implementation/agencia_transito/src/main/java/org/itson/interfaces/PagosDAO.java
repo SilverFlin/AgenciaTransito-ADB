@@ -4,7 +4,7 @@ import org.itson.dominio.Pago;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public interface PagosDAO extends DAO<Pago> {
 

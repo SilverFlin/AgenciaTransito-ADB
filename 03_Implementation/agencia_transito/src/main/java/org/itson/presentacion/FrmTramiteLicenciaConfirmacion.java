@@ -14,7 +14,7 @@ import org.itson.utils.FormUtils;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public class FrmTramiteLicenciaConfirmacion extends javax.swing.JFrame {
 
@@ -46,10 +46,10 @@ public class FrmTramiteLicenciaConfirmacion extends javax.swing.JFrame {
     /**
      * Constructor principal.
      *
-     * @param licencia
-     * @param costo
-     * @param duracion
-     * @param persona
+     * @param licencia licencia a guardar.
+     * @param costo costo de la licencia. 
+     * @param duracion duración de la licencia.
+     * @param persona tramitante.
      */
     public FrmTramiteLicenciaConfirmacion(
             final Licencia licencia,

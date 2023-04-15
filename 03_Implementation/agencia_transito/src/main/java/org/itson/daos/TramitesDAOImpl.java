@@ -19,7 +19,7 @@ import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class TramitesDAOImpl implements TramitesDAO {
 

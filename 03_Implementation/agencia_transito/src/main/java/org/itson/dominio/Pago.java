@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 @Entity
 public class Pago implements Serializable {
@@ -156,7 +156,7 @@ public class Pago implements Serializable {
     /**
      * equals por defecto.
      *
-     * @param object
+     * @param object Object
      * @return Si las entidades son iguales.
      */
     @Override

@@ -2,7 +2,7 @@ package org.itson.utils;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 public final class Validaciones {
 
@@ -13,7 +13,7 @@ public final class Validaciones {
     /**
      * Valida si un texto contiene solo números.
      *
-     * @param str
+     * @param str numero a evaluar
      * @return Verdadero si el texto es numérico.
      */
     public static boolean isNumeric(final String str) {

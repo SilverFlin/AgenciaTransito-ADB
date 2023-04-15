@@ -6,7 +6,7 @@ import org.itson.excepciones.EncriptacionException;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 @Converter
 public class NombreConverter implements AttributeConverter<String, String> {
@@ -14,7 +14,7 @@ public class NombreConverter implements AttributeConverter<String, String> {
     /**
      * Encripta el nombre y regresa el hash generado.
      *
-     * @param nombre
+     * @param nombre nombre a convertir.
      * @return El hash generado a partir del nombre
      */
     @Override
@@ -29,13 +29,12 @@ public class NombreConverter implements AttributeConverter<String, String> {
     /**
      * Desencripta el hash y regresa el valor desencriptado.
      *
-     * @param hash
+     * @param hash hash a regresar a su estado normal.
      * @return El valor desencriptado.
      */
     @Override
     public String convertToEntityAttribute(String hash) {
         try {
-            System.out.println(new Encriptador().desencriptar(hash));
             return new Encriptador().desencriptar(hash);
         } catch (EncriptacionException ex) {
             throw new RuntimeException("Error al desencriptar");

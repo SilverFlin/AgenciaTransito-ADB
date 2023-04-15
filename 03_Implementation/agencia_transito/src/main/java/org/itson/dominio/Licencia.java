@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Luis Toledo & Misael Marchena
+ * @author Luis Toledo n Misael Marchena
  */
 @Entity
 @DiscriminatorValue("licencia")
