@@ -376,7 +376,12 @@ public class FrmReportesTramites extends JFrame {
                 = (DefaultTableModel) this.tblTramites.getModel();
         this.limpiarTabla(modeloTabla);
         List<Tramite> listaTramites = this.obtenerListaTramitesPaginado();
-        cargarTablaTramites(listaTramites);
+        if (this.rbtnNombre.isSelected() && this.txtNombre.getText().equalsIgnoreCase("")) {
+            String msgError = "Ingrese un nombre.";
+            Dialogs.mostrarMensajeError(rootPane, msgError);
+        } else {
+            cargarTablaTramites(listaTramites);
+        }
     }
 
     private void cargarTablaTramites(final List<Tramite> listaTramites) {
