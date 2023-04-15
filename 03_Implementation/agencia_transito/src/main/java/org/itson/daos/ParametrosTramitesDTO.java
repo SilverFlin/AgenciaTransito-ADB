@@ -14,8 +14,7 @@ import org.itson.utils.Periodo;
 
 /**
  *
- * @author Toled
- * @param <T>
+ * @author Luis Toledo & Misael Marchena
  */
 public class ParametrosTramitesDTO<T extends Tramite> {
 

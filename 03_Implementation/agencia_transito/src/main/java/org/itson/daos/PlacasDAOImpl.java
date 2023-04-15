@@ -15,7 +15,7 @@ import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public final class PlacasDAOImpl implements PlacasDAO {
 
