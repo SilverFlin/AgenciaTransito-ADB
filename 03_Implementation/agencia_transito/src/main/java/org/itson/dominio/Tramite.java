@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 @Entity
 @NamedQueries({
@@ -77,9 +77,9 @@ public class Tramite implements Serializable {
     /**
      * Constructor que no incluye ID.
      *
-     * @param costo
-     * @param tramitante
-     * @param fechaInicio
+     * @param costo Costo del Trámite.
+     * @param tramitante Persona que lo tramitó.
+     * @param fechaInicio Fecha en la que se realizó.
      */
     public Tramite(
             final Double costo,
@@ -92,7 +92,8 @@ public class Tramite implements Serializable {
     }
 
     /**
-     *
+     * Regresa el id del trámite.
+     * 
      * @return Llave primaria de la entidad.
      */
     public Long getId() {
@@ -100,15 +101,17 @@ public class Tramite implements Serializable {
     }
 
     /**
-     *
-     * @param id
+     * Establece el ID del trámite.
+     * 
+     * @param id ID a establecer.
      */
     public void setId(final Long id) {
         this.id = id;
     }
 
     /**
-     *
+     * Regresa la fecha de realización del trámite.
+     * 
      * @return fecha inicio del tramite.
      */
     public Calendar getFechaInicio() {
@@ -116,15 +119,17 @@ public class Tramite implements Serializable {
     }
 
     /**
-     *
-     * @param fechaInicio
+     * Establece la fecha de realización del trámite.
+     * 
+     * @param fechaInicio Fecha de realización a establecer.
      */
     public void setFechaInicio(final Calendar fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
     /**
-     *
+     * Regresa el costo del trámite.
+     * 
      * @return Costo del tramite.
      */
     public Double getCosto() {
@@ -132,15 +137,17 @@ public class Tramite implements Serializable {
     }
 
     /**
-     *
-     * @param costo
+     * Establece el costo del trámite.
+     * 
+     * @param costo Costo a establecer.
      */
     public void setCosto(final Double costo) {
         this.costo = costo;
     }
 
     /**
-     *
+     * Regresa la Persona que hizo el trámite.
+     * 
      * @return Clase Persona, que representa al tramitante.
      */
     public Persona getTramitante() {
@@ -148,15 +155,17 @@ public class Tramite implements Serializable {
     }
 
     /**
-     *
-     * @param tramitante
+     * Establece el tramitante del trámite.
+     * 
+     * @param tramitante Tramitante a establecer.
      */
     public void setTramitante(final Persona tramitante) {
         this.tramitante = tramitante;
     }
 
     /**
-     *
+     * Regresa el Pago donde se pondrá el trámite.
+     * 
      * @return Pago relacionado al tramite, si lo hay.
      */
     public Pago getPago() {
@@ -164,8 +173,9 @@ public class Tramite implements Serializable {
     }
 
     /**
-     *
-     * @param pago
+     * Establece el Pago del trámite.
+     * 
+     * @param pago Pago a establecer.
      */
     public void setPago(final Pago pago) {
         this.pago = pago;

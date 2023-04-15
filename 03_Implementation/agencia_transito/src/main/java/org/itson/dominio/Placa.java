@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 @Entity
 @DiscriminatorValue("licencia")
@@ -71,13 +71,13 @@ public class Placa extends Tramite {
     /**
      * Constructor que no incluye ID, estado, ni vehiculo pasado.
      *
-     * @param matricula
-     * @param fechaInicio
-     * @param fechaRecepcion
-     * @param tipo
-     * @param vehiculo
-     * @param costo
-     * @param tramitante
+     * @param matricula Matrícula de la placa.
+     * @param fechaInicio Fecha de realización de la placa.
+     * @param fechaRecepcion Fecha de recepción de la placa.
+     * @param tipo Tipo de la placa.
+     * @param vehiculo Vehículo con la placa.
+     * @param costo Costo de la placa.
+     * @param tramitante Tramitante de la placa.
      */
     public Placa(
             final String matricula,
@@ -96,7 +96,8 @@ public class Placa extends Tramite {
     }
 
     /**
-     *
+     * Regresa la matrícula de la placa.
+     * 
      * @return matrícula con formato AAA-999.
      */
     public String getMatricula() {
@@ -104,15 +105,17 @@ public class Placa extends Tramite {
     }
 
     /**
-     *
-     * @param matricula
+     * Establece la matrícula de la placa.
+     * 
+     * @param matricula Matrícula a establecer.
      */
     public void setMatricula(final String matricula) {
         this.matricula = matricula;
     }
 
     /**
-     *
+     * Regresa la matrícula de la placa.
+     * 
      * @return fecha de recepción de la placa.
      */
     public Calendar getFechaRecepcion() {
@@ -120,15 +123,17 @@ public class Placa extends Tramite {
     }
 
     /**
-     *
-     * @param fechaRecepcion
+     * Establece la fecha de recepción de la placa.
+     * 
+     * @param fechaRecepcion Fecha de recepción a establecer.
      */
     public void setFechaRecepcion(final Calendar fechaRecepcion) {
         this.fechaRecepcion = fechaRecepcion;
     }
 
     /**
-     *
+     * Regresa la matrícula de la placa.
+     * 
      * @return Tipo de la placa.
      */
     public TipoPlaca getTipo() {
@@ -136,15 +141,17 @@ public class Placa extends Tramite {
     }
 
     /**
-     *
-     * @param tipo
+     * Establece el tipo de la placa.
+     * 
+     * @param tipo Tipo a establecer.
      */
     public void setTipo(final TipoPlaca tipo) {
         this.tipo = tipo;
     }
 
     /**
-     *
+     * Regresa la matrícula de la placa.
+     * 
      * @return Vehículo a la que la placa pertenece.
      */
     public Vehiculo getVehiculo() {
@@ -152,15 +159,17 @@ public class Placa extends Tramite {
     }
 
     /**
-     *
-     * @param vehiculo
+     * Establece vehículo de la placa.
+     * 
+     * @param vehiculo Vehículo a establecer.
      */
     public void setVehiculo(final Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
 
     /**
-     *
+     * Regresa la matrícula de la placa.
+     * 
      * @return el estado de la placa.
      */
     public EstadoPlaca getEstado() {
@@ -168,24 +177,27 @@ public class Placa extends Tramite {
     }
 
     /**
-     *
-     * @param estado
+     * Establece el estado de la placa.
+     * 
+     * @param estado Estado de la placa a establecer.
      */
     public void setEstado(final EstadoPlaca estado) {
         this.estado = estado;
     }
 
     /**
-     *
-     * @return vehiculo al que perteneció la placa.
+     * Regresa la matrícula de la placa.
+     * 
+     * @return Vehiculo al que perteneció la placa.
      */
     public Vehiculo getVehiculoPasado() {
         return vehiculoPasado;
     }
 
     /**
-     *
-     * @param vehiculoPasado
+     * Establece el vehículo pasado de la placa.
+     * 
+     * @param vehiculoPasado 
      */
     public void setVehiculoPasado(final Vehiculo vehiculoPasado) {
         this.vehiculoPasado = vehiculoPasado;

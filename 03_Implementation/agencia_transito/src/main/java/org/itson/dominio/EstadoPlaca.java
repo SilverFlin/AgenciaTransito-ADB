@@ -2,7 +2,7 @@ package org.itson.dominio;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public enum EstadoPlaca {
     /**

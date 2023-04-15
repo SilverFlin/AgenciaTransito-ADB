@@ -19,7 +19,7 @@ import javax.persistence.OneToOne;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -31,7 +31,6 @@ import javax.persistence.OneToOne;
     )
 })
 
-//
 public class Vehiculo implements Serializable {
 
     /**
@@ -106,12 +105,12 @@ public class Vehiculo implements Serializable {
     /**
      * Constructor que no incluye ID, placa, ni historial de placa.
      *
-     * @param duenho
-     * @param numeroSerie
-     * @param linea
-     * @param marca
-     * @param modelo
-     * @param color
+     * @param duenho Dueño del vehículo.
+     * @param numeroSerie Número de serie.
+     * @param linea Línea.
+     * @param marca Marca.
+     * @param modelo Modelo.
+     * @param color Color.
      */
     public Vehiculo(
             final Persona duenho,
@@ -130,7 +129,8 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     *
+     * Regresa el id del vehículo.
+     * 
      * @return Llave primaria de la entidad.
      */
     public Long getId() {
@@ -146,7 +146,8 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     *
+     * Regresa el id del vehículo.
+     * 
      * @return Clase Persona que representa al dueño del vehículo.
      */
     public Persona getDuenho() {
@@ -162,7 +163,8 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     *
+     * Regresa el id del vehículo.
+     * 
      * @return Clase Placa asociada al vehículo.
      */
     public Placa getPlaca() {
@@ -170,15 +172,17 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     *
-     * @param placa
+     * Establece la placa del vehículo.
+     * 
+     * @param placa Placa que se establecerá.
      */
     public void setPlaca(final Placa placa) {
         this.placa = placa;
     }
 
     /**
-     *
+     * Regresa el número de serie del vehículo.
+     * 
      * @return Número serie.
      */
     public String getNumeroSerie() {
@@ -186,15 +190,17 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     *
-     * @param numeroSerie
+     * Establece el número de serie del vehículo.
+     * 
+     * @param numeroSerie Número de serie a establecer.
      */
     public void setNumeroSerie(final String numeroSerie) {
         this.numeroSerie = numeroSerie;
     }
 
     /**
-     *
+     * Regresa la línea del vehículo.
+     * 
      * @return Linea del vehículo, e.g. Aveo.
      */
     public String getLinea() {
@@ -202,15 +208,17 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     *
-     * @param linea
+     * Establece la línea del vehículo.
+     * 
+     * @param linea Línea a establecer.
      */
     public void setLinea(final String linea) {
         this.linea = linea;
     }
 
     /**
-     *
+     * Regresa la marca del vehículo.
+     * 
      * @return Marca del vehículo, e.g. Chevrolet.
      */
     public String getMarca() {
@@ -218,15 +226,17 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     *
-     * @param marca
+     * Establece la marca del vehículo.
+     * 
+     * @param marca Marca a establecer.
      */
     public void setMarca(final String marca) {
         this.marca = marca;
     }
 
     /**
-     *
+     * Regresa el modelo del vehículo.
+     * 
      * @return Modelo del vehiculo, e.g. 2019
      */
     public String getModelo() {
@@ -234,15 +244,17 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     *
-     * @param modelo
+     * Establece el modelo del vehículo.
+     * 
+     * @param modelo Modelo a establecer.
      */
     public void setModelo(final String modelo) {
         this.modelo = modelo;
     }
 
     /**
-     *
+     * Regresa el color del vehículo.
+     * 
      * @return Color del vehículo, e.g. Rojo.
      */
     public String getColor() {
@@ -250,15 +262,17 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     *
-     * @param color
+     * Establece el color del vehículo.
+     * 
+     * @param color Color a establecer.
      */
     public void setColor(final String color) {
         this.color = color;
     }
 
     /**
-     *
+     * Regresa el historial de placas del vehículo.
+     * 
      * @return el historial de placas, si las hay, o nulo.
      */
     public List<Placa> getHistorialPlacas() {
@@ -266,8 +280,9 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     *
-     * @param historialPlacas
+     * Establece el historial de placas del vehículo.
+     * 
+     * @param historialPlacas Historial de placas a establecer.
      */
     public void setHistorialPlacas(final List<Placa> historialPlacas) {
         this.historialPlacas = historialPlacas;

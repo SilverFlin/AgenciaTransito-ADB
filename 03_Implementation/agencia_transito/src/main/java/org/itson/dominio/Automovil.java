@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 @Entity
 @DiscriminatorValue("automovil")

@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 @Entity
 @DiscriminatorValue("licencia")
@@ -46,12 +46,12 @@ public class Licencia extends Tramite {
     /**
      * Constructor que no incluye ID ni pago.
      *
-     * @param fechaInicio
-     * @param fechaCaducidad
-     * @param anhosVigencia
-     * @param tipo
-     * @param costo
-     * @param tramitante
+     * @param fechaInicio Fecha en que se creó la licencia.
+     * @param fechaCaducidad Fecha de caducidad de la licencia.
+     * @param anhosVigencia Años de vigencia de la licencia.
+     * @param tipo Tipo de la licencia.
+     * @param costo Costo de la licencia.
+     * @param tramitante Tramitante de la licencia.
      */
     public Licencia(
             final Calendar fechaInicio,
@@ -68,7 +68,8 @@ public class Licencia extends Tramite {
     }
 
     /**
-     *
+     * Regresa la fecha de caducidad.
+     * 
      * @return fecha en la que la licencia caduca.
      */
     public Calendar getFechaCaducidad() {
@@ -76,15 +77,17 @@ public class Licencia extends Tramite {
     }
 
     /**
-     *
-     * @param fechaCaducidad
+     * Establece la fecha de caducidad.
+     * 
+     * @param fechaCaducidad Fecha de caducidad a establecer.
      */
     public void setFechaCaducidad(final Calendar fechaCaducidad) {
         this.fechaCaducidad = fechaCaducidad;
     }
 
     /**
-     *
+     * Regresa los años de vigencia.
+     * 
      * @return los años a los que la licencia se tramitó.
      */
     public Integer getAnhosVigencia() {
@@ -92,15 +95,17 @@ public class Licencia extends Tramite {
     }
 
     /**
-     *
-     * @param anhosVigencia
+     * Establece los años de vigencia.
+     * 
+     * @param anhosVigencia Años de vigencia a establecer.
      */
     public void setAnhosVigencia(final Integer anhosVigencia) {
         this.anhosVigencia = anhosVigencia;
     }
 
     /**
-     *
+     * Regresa el tipo de la licencia.
+     * 
      * @return Tipo de la licencia.
      */
     public TipoLicencia getTipo() {
@@ -108,8 +113,9 @@ public class Licencia extends Tramite {
     }
 
     /**
-     *
-     * @param tipo
+     * Establece el tipo de la licencia.
+     * 
+     * @param tipo Tipo que se establecerá.
      */
     public void setTipo(final TipoLicencia tipo) {
         this.tipo = tipo;
