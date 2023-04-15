@@ -11,7 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+	<style name="Table_TH" mode="Opaque" backcolor="#941919">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -20,7 +20,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+	<style name="Table_CH" mode="Opaque" backcolor="#D4B596">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -61,7 +61,7 @@
 		<band height="272" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<componentElement>
-				<reportElement x="199" y="6" width="410" height="123" uuid="e2e5fecc-0bfa-43fc-a13b-c5e0f5ed154f">
+				<reportElement mode="Transparent" x="199" y="6" width="410" height="123" uuid="e2e5fecc-0bfa-43fc-a13b-c5e0f5ed154f">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -75,7 +75,7 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [4]"/>
 						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="410" height="30" uuid="c78b5a32-410b-4a75-b755-137819d1b510"/>
+								<reportElement x="0" y="0" width="410" height="30" forecolor="#FFFCFC" uuid="c78b5a32-410b-4a75-b755-137819d1b510"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="16" isBold="true" isItalic="true"/>
 								</textElement>
@@ -86,7 +86,7 @@
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 							<jr:columnHeader style="Table_CH" height="40" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="90" height="40" uuid="8a1c2d98-a7c6-43cb-99f2-4d43d6f15f30"/>
+									<reportElement x="0" y="0" width="90" height="40" forecolor="#FFFFFF" uuid="8a1c2d98-a7c6-43cb-99f2-4d43d6f15f30"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font isBold="true"/>
 									</textElement>
@@ -105,7 +105,7 @@
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 							<jr:columnHeader style="Table_CH" height="40" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="130" height="40" uuid="6dc50634-425f-4f5b-8cd2-aed4c619f740"/>
+									<reportElement x="0" y="0" width="130" height="40" forecolor="#FFFFFF" uuid="6dc50634-425f-4f5b-8cd2-aed4c619f740"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font isBold="true"/>
 									</textElement>
@@ -124,7 +124,7 @@
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 							<jr:columnHeader style="Table_CH" height="40" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="70" height="40" uuid="d8511925-4204-4c69-bb2e-5550b9a2337b"/>
+									<reportElement x="0" y="0" width="70" height="40" forecolor="#FFFFFF" uuid="d8511925-4204-4c69-bb2e-5550b9a2337b"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font isBold="true"/>
 									</textElement>
@@ -143,7 +143,7 @@
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 							<jr:columnHeader style="Table_CH" height="40" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="120" height="40" uuid="08842e8a-1848-4b9b-8950-a3998b6a6b9c"/>
+									<reportElement x="0" y="0" width="120" height="40" forecolor="#FFFFFF" uuid="08842e8a-1848-4b9b-8950-a3998b6a6b9c"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font isBold="true"/>
 									</textElement>
