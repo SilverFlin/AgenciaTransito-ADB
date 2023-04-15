@@ -58,25 +58,31 @@ public final class PersonasDAOImpl implements PersonasDAO {
     }
 
     @Override
-    public List<Persona> getByNombre(final String nombre) {
+    public List<Persona> getByNombre(final String nombre, final ConfiguracionPaginado paginado) {
         TypedQuery<Persona> query
                 = entityManager.createNamedQuery(
                         "personasPorNombre",
                         Persona.class);
         query.setParameter("nombre", "%" + nombre + "%");
-
+        
+        query.setFirstResult(paginado.getOffset());
+        query.setMaxResults(paginado.getLimite());
+        
         return query.getResultList();
 
     }
 
     @Override
-    public List<Persona> getByAnho(final int anho) {
+    public List<Persona> getByAnho(final int anho, final ConfiguracionPaginado paginado) {
         TypedQuery<Persona> query
                 = entityManager.createNamedQuery(
                         "personasPorAnho",
                         Persona.class);
         query.setParameter("anho", anho);
-
+        
+        query.setFirstResult(paginado.getOffset());
+        query.setMaxResults(paginado.getLimite());
+        
         return query.getResultList();
     }
 
