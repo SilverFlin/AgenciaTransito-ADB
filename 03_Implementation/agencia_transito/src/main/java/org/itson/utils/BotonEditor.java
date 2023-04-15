@@ -7,14 +7,13 @@ import java.util.Optional;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
 import org.itson.dominio.Persona;
-import org.itson.presentacion.FrmConsultaBuscarPersona;
 import org.itson.presentacion.FrmTramitesPersona;
 import org.itson.presentacion.UnitOfWork;
+import static org.itson.utils.FormUtils.cargarForm;
 
 /**
  *
@@ -31,20 +30,29 @@ public class BotonEditor extends AbstractCellEditor implements TableCellEditor {
      * Constructor principal.
      *
      * @param frame
+     * @param unit
+     * @param tabla
      */
-    public BotonEditor(final JFrame frame, UnitOfWork unit, JTable tabla) {
+    public BotonEditor(
+            final JFrame frame,
+            final UnitOfWork unit,
+            final JTable tabla
+    ) {
         boton = new JButton();
         boton.setFocusPainted(false);
         boton.setText("Trámites");
-        boton.setBackground(new Color(102,10,10));
+        final int r = 102;
+        final int g = 10;
+        final int b = 10;
+        boton.setBackground(new Color(r, g, b));
         boton.setForeground(Color.WHITE);
         boton.addActionListener((ActionEvent e) -> {
             int fila = tabla.convertRowIndexToModel(tabla.getEditingRow());
             TableModel model = tabla.getModel();
             String rfc = model.getValueAt(fila, 0).toString();
             Optional<Persona> persona = unit.personasDAO().getByRFC(rfc);
-            new FrmTramitesPersona(persona.get(), unit).setVisible(true);
-            frame.dispose();
+            System.out.println(rfc);
+            cargarForm(new FrmTramitesPersona(persona.get(), unit), frame);
         });
     }
 

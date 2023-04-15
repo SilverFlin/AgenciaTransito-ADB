@@ -1,6 +1,5 @@
 package org.itson.presentacion;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import org.itson.daos.ParametrosTramitesDTO;
@@ -350,7 +348,12 @@ public class FrmReportesTramites extends JFrame {
             return null;
         }
         ParametrosTramitesDTO parametros = this.conseguirParametros();
-        return unitOfWork.tramitesDAO().getAll(parametros, paginado);
+        if (parametros != null) {
+            return unitOfWork.tramitesDAO().getAll(parametros, paginado);
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 
     private List<Tramite> obtenerTodosTramites() {
@@ -359,11 +362,19 @@ public class FrmReportesTramites extends JFrame {
             Dialogs.mostrarMensajeError(rootPane, msgError);
             return null;
         }
+
         ParametrosTramitesDTO parametros = this.conseguirParametros();
-        return unitOfWork.tramitesDAO().getAll(parametros);
+        if (parametros != null) {
+            return unitOfWork.tramitesDAO().getAll(parametros);
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     private void buscar() {
+        DefaultTableModel modeloTabla
+                = (DefaultTableModel) this.tblTramites.getModel();
+        this.limpiarTabla(modeloTabla);
         List<Tramite> listaTramites = this.obtenerListaTramitesPaginado();
         cargarTablaTramites(listaTramites);
     }
@@ -378,8 +389,6 @@ public class FrmReportesTramites extends JFrame {
             this.paginado.retrocederPag();
             return;
         }
-
-        System.out.println(listaTramites.size());
 
         DefaultTableModel modeloTabla
                 = (DefaultTableModel) this.tblTramites.getModel();
@@ -426,13 +435,13 @@ public class FrmReportesTramites extends JFrame {
             if (calendarFin == null || calendarInicio == null) {
                 String msgError = "Selecciona el periodo";
                 Dialogs.mostrarMensajeError(rootPane, msgError);
-                throw new IllegalArgumentException();
+                return null;
             }
 
             if (calendarInicio.after(calendarFin)) {
                 String msgError = "Fecha fin debe ir después de fecha inicio";
                 Dialogs.mostrarMensajeError(rootPane, msgError);
-                throw new IllegalArgumentException();
+                return null;
             }
 
             Fecha fechaInicio = new Fecha((GregorianCalendar) calendarInicio);
@@ -446,7 +455,9 @@ public class FrmReportesTramites extends JFrame {
     }
 
     private boolean hayFiltroSeleccionado() {
-        return !this.rbtnPeriodo.isSelected() || !this.rbtnNombre.isSelected();
+        return this.rbtnTipo.isSelected()
+                || this.rbtnPeriodo.isSelected()
+                || this.rbtnNombre.isSelected();
     }
 
     private Class<? extends Tramite> getTipo() {
@@ -464,7 +475,7 @@ public class FrmReportesTramites extends JFrame {
         modeloTabla.setRowCount(0);
     }
 
-    private String getNombreCompleto(Persona tramitante) {
+    private String getNombreCompleto(final Persona tramitante) {
         return tramitante.getNombres() + " "
                 + tramitante.getApellidoPaterno() + " "
                 + (tramitante.getApellidoMaterno() == null
@@ -500,8 +511,9 @@ public class FrmReportesTramites extends JFrame {
         }
 
         List<ReporteTramiteDTO> reporteTramites = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            ReporteTramiteDTO reporte = this.generarReporte(listaTramites.get(i));
+
+        for (Tramite tramite : listaTramites) {
+            ReporteTramiteDTO reporte = this.generarReporte(tramite);
             reporteTramites.add(reporte);
         }
 

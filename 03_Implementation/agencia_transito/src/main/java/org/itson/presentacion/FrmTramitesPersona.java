@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -70,6 +69,7 @@ public class FrmTramitesPersona extends JFrame {
             this.cargarTablaTramitesPersona();
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error al cargar Frame");
+            System.out.println(e.getMessage());
             this.regresar();
         }
 
@@ -254,6 +254,10 @@ public class FrmTramitesPersona extends JFrame {
         this.actualizarListaTramites();
         DefaultTableModel modeloTabla
                 = (DefaultTableModel) this.tblTramitesRealizados.getModel();
+        if (listaTramites.isEmpty()) {
+            this.paginado.retrocederPag();
+            return;
+        }
 
         for (Tramite tramite : this.listaTramites) {
             String tipo = tramite.getClass().getSimpleName();
@@ -284,7 +288,7 @@ public class FrmTramitesPersona extends JFrame {
     }
 
     private void actualizarListaTramites() {
-        String idTramitante = this.tramitante.getId().toString();
+        Long idTramitante = this.tramitante.getId();
 
         this.listaTramites = unitOfWork.tramitesDAO()
                 .getAllByIdPersona(paginado, idTramitante);
@@ -306,12 +310,12 @@ public class FrmTramitesPersona extends JFrame {
 
     private void retrocederPagina() {
         this.paginado.retrocederPag();
-//        this.cargarTablaPersonas();
+        this.cargarTablaTramitesPersona();
     }
 
     private void avanzarPagina() {
         this.paginado.avanzarPag();
-//        this.cargarTablaPersonas();
+        this.cargarTablaTramitesPersona();
     }
 
 }
