@@ -509,23 +509,22 @@ public class FrmReportesTramites extends JFrame {
 
     private void crearPdf() {
         List<Tramite> listaTramites = this.obtenerTodosTramites();
-        System.out.println(listaTramites.size());
 
         if (listaTramites == null || listaTramites.isEmpty()) {
             Dialogs.mostrarMensajeError(this, "La tabla está vacía.");
-        }
+        } else {
+            List<ReporteTramiteDTO> reporteTramites = new ArrayList<>();
 
-        List<ReporteTramiteDTO> reporteTramites = new ArrayList<>();
+            for (Tramite tramite : listaTramites) {
+                ReporteTramiteDTO reporte = this.generarReporte(tramite);
+                reporteTramites.add(reporte);
+            }
 
-        for (Tramite tramite : listaTramites) {
-            ReporteTramiteDTO reporte = this.generarReporte(tramite);
-            reporteTramites.add(reporte);
-        }
-
-        try {
-            JasperByCollectionBeanData.crearPDF(reporteTramites);
-        } catch (JRException ex) {
-            LOG.log(Level.SEVERE, null, ex);
+            try {
+                JasperByCollectionBeanData.crearPDF(reporteTramites);
+            } catch (JRException ex) {
+                LOG.log(Level.SEVERE, null, ex);
+            }
         }
 
     }
