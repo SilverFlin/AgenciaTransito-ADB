@@ -4,14 +4,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.itson.excepciones.PersistenciaException;
 import org.itson.presentacion.FrmMenuPrincipal;
-import org.itson.temptest.GeneradorRegistrosFalsos;
 import static org.itson.temptest.TestPersonasDAO.probarPersonasDAO;
 import static org.itson.temptest.TestTramitesDAO.probarTramitesDAO;
 import static org.itson.temptest.TestVehiculosDAO.probarVehiculosDAO;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 final class Main {
 
