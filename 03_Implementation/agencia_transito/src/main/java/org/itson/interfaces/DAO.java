@@ -7,8 +7,7 @@ import org.itson.utils.ConfiguracionPaginado;
 
 /**
  *
- * @author Toled
- * @param <T>
+ * @author Luis Toledo & Misael Marchena
  */
 public interface DAO<T> {
 

@@ -5,7 +5,7 @@ import org.itson.dominio.Vehiculo;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public interface VehiculosDAO extends DAO<Vehiculo> {
 

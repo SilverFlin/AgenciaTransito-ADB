@@ -4,7 +4,7 @@ import org.itson.dominio.Placa;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public interface PlacasDAO extends DAO<Placa> {
 

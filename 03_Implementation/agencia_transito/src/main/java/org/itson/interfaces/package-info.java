@@ -1,7 +1,7 @@
 /**
 * Este módulo contiene interfaces para los DAO.
 *
-* @author Toled
+* @author Luis Toledo & Misael Marchena
 */
 
 package org.itson.interfaces;

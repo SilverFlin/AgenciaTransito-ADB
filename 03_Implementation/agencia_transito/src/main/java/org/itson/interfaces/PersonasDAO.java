@@ -6,7 +6,7 @@ import org.itson.dominio.Persona;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public interface PersonasDAO extends DAO<Persona> {
 

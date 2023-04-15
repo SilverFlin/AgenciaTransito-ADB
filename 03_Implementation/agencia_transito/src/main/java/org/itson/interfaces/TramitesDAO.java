@@ -7,7 +7,7 @@ import org.itson.utils.ConfiguracionPaginado;
 
 /**
  *
- * @author Toled
+ * @author Luis Toledo & Misael Marchena
  */
 public interface TramitesDAO extends DAO<Tramite> {
 
