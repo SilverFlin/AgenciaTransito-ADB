@@ -97,7 +97,7 @@ public class ParametrosTramitesDTO<T extends Tramite> {
      *
      * @return Nombre parcial del tramitante, si lo hay.
      */
-    private String getNombreTramitante() {
+    public String getNombreTramitante() {
         return nombreTramitante;
     }
 
@@ -121,11 +121,10 @@ public class ParametrosTramitesDTO<T extends Tramite> {
     ) {
         List<Predicate> predicados = new LinkedList<>();
 
-        if (this.isNombreTramitante()) {
-            Predicate predicadoNombre = getPredicadoNombre(root, builder);
-            predicados.add(predicadoNombre);
-        }
-
+//        if (this.isNombreTramitante()) {
+//            Predicate predicadoNombre = getPredicadoNombre(root, builder);
+//            predicados.add(predicadoNombre);
+//        }
         if (this.isPeriodo()) {
             Predicate predicadoPeriodo = getPredicadoPeriodo(root, builder);
             predicados.add(predicadoPeriodo);
@@ -152,23 +151,27 @@ public class ParametrosTramitesDTO<T extends Tramite> {
         return criteria.from(this.tipoTramite);
     }
 
-    private boolean isNombreTramitante() {
+    /**
+     * Checa si se contiene nombre en los parámetros.
+     *
+     * @return true si hay nombre presente en el filtro.
+     */
+    public boolean isNombreTramitante() {
         return this.getNombreTramitante() != null
                 && !this.getNombreTramitante().isBlank();
     }
 
-    private Predicate getPredicadoNombre(
-            final Root<T> root,
-            final CriteriaBuilder builder
-    ) {
-        Expression<String> nombresTramitante
-                = root.get("tramitante").get("nombres");
-
-        String nombreConWildcards = "%" + this.getNombreTramitante() + "%";
-
-        return builder.like(nombresTramitante, nombreConWildcards);
-    }
-
+//    private Predicate getPredicadoNombre(
+//            final Root<T> root,
+//            final CriteriaBuilder builder
+//    ) {
+//        Expression<String> nombresTramitante
+//                = root.get("tramitante").get("nombres");
+//
+//        String nombreConWildcards = "%" + this.getNombreTramitante() + "%";
+//
+//        return builder.like(nombresTramitante, nombreConWildcards);
+//    }
     private boolean isPeriodo() {
         return this.getPeriodo() != null;
     }

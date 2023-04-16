@@ -1,0 +1,43 @@
+package org.itson.utils;
+
+import java.util.LinkedList;
+import java.util.List;
+import org.itson.dominio.Persona;
+import org.itson.dominio.Tramite;
+
+/**
+ *
+ * @author Toled
+ */
+public final class Filtrador {
+
+    private Filtrador() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * Agarra una lista de trámites y los filtra según el nombre del tramitante.
+     *
+     * @param tramites Los tramites a filtra.
+     * @param nombre El nombre con el que se va a comparar.
+     * @return La lista de tramites filtrados.
+     */
+    public static List<Tramite> filtrarTramitesPorNombreTramitante(
+            final List<Tramite> tramites,
+            final String nombre
+    ) {
+        List<Tramite> tramitesFiltrados = new LinkedList<>();
+
+        for (Tramite tramite : tramites) {
+            Persona tramitante = tramite.getTramitante();
+            String nombreTramitante = tramitante.getNombres();
+
+            if (nombreTramitante.contains(nombre)) {
+                tramitesFiltrados.add(tramite);
+            }
+        }
+
+        return tramitesFiltrados;
+    }
+
+}

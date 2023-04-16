@@ -16,6 +16,7 @@ import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.TramitesDAO;
 import org.itson.utils.ConfiguracionPaginado;
 import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
+import static org.itson.utils.Filtrador.filtrarTramitesPorNombreTramitante;
 
 /**
  *
@@ -73,9 +74,16 @@ public final class TramitesDAOImpl implements TramitesDAO {
         Predicate[] predicados = filtros.getPredicados(builder, root);
 
         criteria = criteria.select(root).where(predicados);
-        TypedQuery<Tramite> query = entityManager.createQuery(criteria);
+        TypedQuery<Tramite> typedQuery = entityManager.createQuery(criteria);
 
-        return query.getResultList();
+        List<Tramite> tramites = typedQuery.getResultList();
+
+        if (filtros.isNombreTramitante()) {
+            String nombre = filtros.getNombreTramitante();
+            tramites = filtrarTramitesPorNombreTramitante(tramites, nombre);
+        }
+
+        return tramites;
     }
 
     @Override
@@ -95,7 +103,14 @@ public final class TramitesDAOImpl implements TramitesDAO {
         typedQuery.setFirstResult(paginado.getOffset());
         typedQuery.setMaxResults(paginado.getLimite());
 
-        return typedQuery.getResultList();
+        List<Tramite> tramites = typedQuery.getResultList();
+
+        if (filtros.isNombreTramitante()) {
+            String nombre = filtros.getNombreTramitante();
+            tramites = filtrarTramitesPorNombreTramitante(tramites, nombre);
+        }
+
+        return tramites;
     }
 
     @Override
