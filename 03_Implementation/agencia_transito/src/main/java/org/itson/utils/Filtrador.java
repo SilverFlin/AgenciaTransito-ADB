@@ -40,4 +40,28 @@ public final class Filtrador {
         return tramitesFiltrados;
     }
 
+    /**
+     * Agarra una lista de Personas y los filtra según el nombre.
+     *
+     * @param personas Los tramites a filtra.
+     * @param nombre El nombre con el que se va a comparar.
+     * @return La lista de tramites filtrados.
+     */
+    public static List<Persona> filtrarPersonaNombre(
+            final List<Persona> personas,
+            final String nombre
+    ) {
+        List<Persona> personasFiltradas = new LinkedList<>();
+
+        for (Persona persona : personas) {
+            String nombrePersona = persona.getNombres();
+
+            if (nombrePersona.contains(nombre)) {
+                personasFiltradas.add(persona);
+            }
+        }
+
+        return personasFiltradas;
+    }
+
 }

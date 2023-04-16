@@ -13,6 +13,7 @@ import org.itson.excepciones.PersistenciaException;
 import org.itson.interfaces.PersonasDAO;
 import org.itson.utils.ConfiguracionPaginado;
 import static org.itson.utils.Constantes.PERSISTENCE_UNIT;
+import org.itson.utils.Filtrador;
 
 /**
  *
@@ -58,31 +59,36 @@ public final class PersonasDAOImpl implements PersonasDAO {
     }
 
     @Override
-    public List<Persona> getByNombre(final String nombre, final ConfiguracionPaginado paginado) {
+    public List<Persona> getByNombre(
+            final String nombre,
+            final ConfiguracionPaginado paginado
+    ) {
+        String queryJpql = "SELECT p FROM Persona p";
+
         TypedQuery<Persona> query
-                = entityManager.createNamedQuery(
-                        "personasPorNombre",
-                        Persona.class);
-        query.setParameter("nombre", "%" + nombre + "%");
-        
+                = entityManager.createQuery(queryJpql, Persona.class);
+
         query.setFirstResult(paginado.getOffset());
         query.setMaxResults(paginado.getLimite());
-        
-        return query.getResultList();
+
+        return Filtrador.filtrarPersonaNombre(query.getResultList(), nombre);
 
     }
 
     @Override
-    public List<Persona> getByAnho(final int anho, final ConfiguracionPaginado paginado) {
+    public List<Persona> getByAnho(
+            final int anho,
+            final ConfiguracionPaginado paginado
+    ) {
         TypedQuery<Persona> query
                 = entityManager.createNamedQuery(
                         "personasPorAnho",
                         Persona.class);
         query.setParameter("anho", anho);
-        
+
         query.setFirstResult(paginado.getOffset());
         query.setMaxResults(paginado.getLimite());
-        
+
         return query.getResultList();
     }
 
