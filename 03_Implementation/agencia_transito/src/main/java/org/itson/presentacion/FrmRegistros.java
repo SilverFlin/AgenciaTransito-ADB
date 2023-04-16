@@ -173,7 +173,7 @@ public class FrmRegistros extends javax.swing.JFrame {
             Dialogs.mostrarMensajeExito(rootPane, "Se han registrado 20 personas exitosamente.");
         } catch (PersistenciaException ex) {
             Logger.getLogger(FrmRegistros.class.getName()).log(Level.SEVERE, null, ex);
-            Dialogs.mostrarMensajeExito(rootPane, "No se han podido registrar las 20 personas.");
+            Dialogs.mostrarMensajeError(rootPane, "No se han podido registrar las 20 personas.");
         }
         
     }//GEN-LAST:event_btnRegistrarPersonasActionPerformed

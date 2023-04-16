@@ -112,7 +112,7 @@ public class FrmTramitePlacas extends javax.swing.JFrame {
         Background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 120, 10));
         Background.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 120, 10));
 
-        cbxVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Automovil" }));
+        cbxVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Automóvil" }));
         Background.add(cbxVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 120, -1));
 
         cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nuevo", "Usado" }));
@@ -156,7 +156,7 @@ public class FrmTramitePlacas extends javax.swing.JFrame {
         String seleccionEstado = getItemComboBox(this.cbxEstado);
 
         // TODO(Luis): Mover a enum
-        String tipoVehiculoAutomovil = "automovil";
+        String tipoVehiculoAutomovil = "automóvil";
 
         boolean isAutomovil
                 = seleccionVehiculo.equalsIgnoreCase(tipoVehiculoAutomovil);
