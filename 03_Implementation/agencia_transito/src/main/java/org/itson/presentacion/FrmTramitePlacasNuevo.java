@@ -1,5 +1,7 @@
 package org.itson.presentacion;
 
+import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -8,6 +10,7 @@ import org.itson.dominio.Automovil;
 import org.itson.dominio.Licencia;
 import org.itson.dominio.Persona;
 import org.itson.dominio.TipoPlaca;
+import org.itson.dominio.Tramite;
 import static org.itson.utils.Dialogs.mostrarMensajeError;
 import org.itson.utils.FormUtils;
 import static org.itson.utils.FormUtils.cargarForm;
@@ -437,9 +440,23 @@ public class FrmTramitePlacasNuevo extends javax.swing.JFrame {
     }
 
     private boolean validarLicencia() {
-        Optional<Licencia> optLic
-                = unitOfWork.licenciasDAO().get(this.persona.getId());
-        return optLic.isPresent();
+        List<Tramite> tramites = this.persona.getTramites();
+        Licencia licencia = null;
+        for (int i = tramites.size() - 1; i >= 0; i--) {
+            if (tramites.get(i) instanceof Licencia licenciaEncontrada) {
+                licencia = licenciaEncontrada;
+                break;
+            }
+        }
+        if (licencia == null) {
+            return false;
+        }
+
+        if (licencia.getFechaCaducidad().before(new GregorianCalendar())) {
+            return false;
+        }
+
+        return true;
 
     }
 
